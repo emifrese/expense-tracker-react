@@ -1,6 +1,4 @@
-import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
-import { auth, firestore } from "../../firebase";
 import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
