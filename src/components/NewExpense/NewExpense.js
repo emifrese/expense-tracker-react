@@ -18,7 +18,7 @@ const NewExpense = (props) => {
   const resetNewExpense = () => {setState(buttonExpense)}
 
   function addNewExpense() {
-    setState(<ExpenseForm onSaveExpenseData={onSaveExpenseDataHandler} cancelButton={resetNewExpense}/>);
+    setState(<ExpenseForm onSaveExpenseData={onSaveExpenseDataHandler} cancelButton={resetNewExpense} categories={props.categories}/>);
   }
 
   return (

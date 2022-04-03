@@ -43,6 +43,9 @@ function App() {
   const [user, setUser] = useState(null);
   const [expenses, setExpenses] = useState(null);
 
+  //Poner opcion para cargar categorias y despues guardarlas en firebase
+  const categories = ["All", "Carniceria", "Verduleria"];
+
   const signOut = () => auth.signOut();
 
   useEffect(() => {
@@ -94,9 +97,9 @@ function App() {
   return user && expenses !== null ? (
     <Fragment>
       <div>
-        <NewExpense onAddExpense={addExpenseHandler} />
+        <NewExpense onAddExpense={addExpenseHandler} categories={categories} />
 
-        <Expenses items={expenses} onDeleteExpense={deleteExpenseHandler} />
+        <Expenses items={expenses} onDeleteExpense={deleteExpenseHandler} categories={categories} />
       </div>
       <footer>
         <button onClick={signOut}>Sign Out</button>

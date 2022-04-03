@@ -6,11 +6,22 @@ const ExpenseForm = (props) => {
   const [enteredTile, setEnteredTile] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
+  const [enteredCategory, setEnteredCategory] = useState("");
   //   const [userInput, setUserInput] = useState({
   //     enteredTitle: "",
   //     enteredAmount: "",
   //     enteredDate: "",
   //   }); Usamos 1 useState para todos
+
+  let categoriesList = [];
+
+  props.categories.forEach(category => {
+    if(category === "All"){
+      return
+    }
+    categoriesList.push(<option value={category}>{category}</option>)
+  });
+
 
   const titleChangeHandler = (e) => {
     //Forma individualizada
@@ -38,6 +49,10 @@ const ExpenseForm = (props) => {
     //     enteredDate: e.target.value,
     // })
   };
+  const categoryChangeHandler = (e) => {
+    setEnteredCategory(e.target.value)
+    console.log(e.target.value)
+  }
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -51,6 +66,7 @@ const ExpenseForm = (props) => {
       day: date.getDate(),
       month: date.getMonth(),
       year: date.getFullYear(),
+      category: enteredCategory
     };
 
     // const expenseRef = collection(
@@ -97,6 +113,17 @@ const ExpenseForm = (props) => {
             value={enteredDate}
             onChange={dateChangeHandler}
           />
+        </div>
+        <div className="new-expense__control">
+          <label>Category</label>
+          <select onChange={categoryChangeHandler}>
+            <option value="">
+              Select a category
+            </option>
+            {categoriesList}
+            {/* <option value='carniceria'>Carnicería</option>
+            <option value='verduleria'>Verdulería</option> */}
+          </select>
         </div>
       </div>
       <div className="new-expense__actions">

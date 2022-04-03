@@ -9,16 +9,35 @@
     align-items: center;
     justify-content: space-between;
     margin: 1rem 0;
+    text-align:center;
   }
   
   .expenses-filter label {
     font-weight: bold;
-    margin-bottom: 0.5rem;
   }
   
   .expenses-filter select {
     font: inherit;
+    margin-top: 1rem;
     padding: 0.5rem 3rem;
     font-weight: bold;
     border-radius: 6px;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .expenses-filter__control {
+      flex-wrap: wrap;
+    }
+
+    .expenses-filter label {
+      display: none
+    }
+
+    .expenses-filter__dateList {
+      width: 50%
+    }
+
+    .expenses-filter__categoryList {
+      width: 100%
+    }
   }
