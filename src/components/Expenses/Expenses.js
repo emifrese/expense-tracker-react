@@ -30,7 +30,6 @@ function Expenses(props) {
   })
 
   const filteredExpenses = props.items.filter((expense) => {
-    // return expense.date.getFullYear().toString() === filteredYear;
     return expense.year.toString() === filteredYear && expense.month.toString() === filteredMonth;
   });
 
@@ -47,19 +46,7 @@ function Expenses(props) {
   // Sorting expenses based on the date
   categoryExpenses.sort((a, b) => {
     return a.day - b.day;
-});
-
-  // useEffect(() => {
-  //   return onSnapshot(
-  //     collection(firestore, `users/${auth.currentUser.uid}/expense`),
-  //     (snapshot) => {
-  //       let expensesArray = snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))
-  //       console.log(expensesArray)
-  //     }
-  //   )
-  // })
-
-  
+}); 
 
   return (
     <div>
@@ -76,7 +63,6 @@ function Expenses(props) {
         />
         <ExpensesChart expenses={chartExpenses} />
         <ExpensesList 
-          // items = {filteredExpenses}
           items = {categoryExpenses}
           onDeleteExpense2 = {props.onDeleteExpense}
         />

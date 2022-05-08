@@ -1,10 +1,9 @@
 import { auth } from "../../firebase";
-import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { GoogleAuthProvider,signInWithPopup } from "firebase/auth";
 
 const SignIn = () => {
   const signInWithGoogle = () =>
-    // signInWithPopup(auth, new GoogleAuthProvider());
-    signInWithRedirect(auth, new GoogleAuthProvider());
+    signInWithPopup(auth, new GoogleAuthProvider());
 
   return (
     <main>

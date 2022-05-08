@@ -23,7 +23,6 @@ const NewExpense = (props) => {
 
   return (
     <div className="new-expense">
-      {/* Tarea 4 Seccion 5, yo trabaje con estados en los que lo que se va a renderizar lo manejaba dentro del mismo, el trabajo con true false y condicional dentro del return */}
       {state}
     </div>
   );

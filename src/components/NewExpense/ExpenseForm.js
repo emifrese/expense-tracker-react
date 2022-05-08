@@ -2,16 +2,10 @@ import { useState } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
-  //Forma individualizada
-  const [enteredTile, setEnteredTile] = useState("");
+  const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
   const [enteredCategory, setEnteredCategory] = useState("");
-  //   const [userInput, setUserInput] = useState({
-  //     enteredTitle: "",
-  //     enteredAmount: "",
-  //     enteredDate: "",
-  //   }); Usamos 1 useState para todos
 
   let categoriesList = [];
 
@@ -24,30 +18,13 @@ const ExpenseForm = (props) => {
 
 
   const titleChangeHandler = (e) => {
-    //Forma individualizada
-    setEnteredTile(e.target.value);
-    // setUserInput({
-    //     ...userInput,
-    //     enteredTitle: e.target.value,
-    // });
-    // Esto para hacer con un useState de esta forma para asegurarse que usamos la ultima actualizacion del estado
-    // setUserInput( (prevState) => {
-    //     return { ...prevState, enteredTitle: e.target.value};
-    // });
+    setEnteredTitle(e.target.value);
   };
   const amountChangeHandler = (e) => {
     setEnteredAmount(e.target.value);
-    // setUserInput({
-    //     ...userInput,
-    //     enteredAmount: e.target.value,
-    // })
   };
   const dateChangeHandler = (e) => {
     setEnteredDate(e.target.value);
-    // setUserInput({
-    //     ...userInput,
-    //     enteredDate: e.target.value,
-    // })
   };
   const categoryChangeHandler = (e) => {
     setEnteredCategory(e.target.value)
@@ -60,7 +37,7 @@ const ExpenseForm = (props) => {
     date.setDate(date.getDate() + 1)
     
     const expenseData = {
-      title: enteredTile,
+      title: enteredTitle,
       amount: +enteredAmount,
       date: date,
       day: date.getDate(),
@@ -69,14 +46,8 @@ const ExpenseForm = (props) => {
       category: enteredCategory
     };
 
-    // const expenseRef = collection(
-    //   firestore,
-    //   `users/${auth.currentUser.uid}/expense`
-    // );
-    // await addDoc(expenseRef, expenseData);
-
     props.onSaveExpenseData(expenseData);
-    setEnteredTile("");
+    setEnteredTitle("");
     setEnteredAmount("");
     setEnteredDate("");
 
@@ -90,7 +61,7 @@ const ExpenseForm = (props) => {
           <label>Title</label>
           <input
             type="text"
-            value={enteredTile}
+            value={enteredTitle}
             onChange={titleChangeHandler}
           />
         </div>
@@ -121,8 +92,6 @@ const ExpenseForm = (props) => {
               Select a category
             </option>
             {categoriesList}
-            {/* <option value='carniceria'>Carnicería</option>
-            <option value='verduleria'>Verdulería</option> */}
           </select>
         </div>
       </div>

@@ -1,7 +1,3 @@
-//import ExpenseItem from "./components/ExpenseItem";
-// import React from 'react'; Old form of using JSX
-
-// fix the first of the month
 import { auth, firestore } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -16,32 +12,12 @@ import {
   doc,
   onSnapshot,
 } from "firebase/firestore";
-
-// const DUMMY_EXPENSES = [
-//   {
-//     id: "e1",
-//     title: "Toilet Paper",
-//     amount: 94.12,
-//     date: new Date(2020, 7, 14),
-//   },
-//   { id: "e2", title: "New TV", amount: 799.49, date: new Date(2021, 2, 12) },
-//   {
-//     id: "e3",
-//     title: "Car Insurance",
-//     amount: 294.67,
-//     date: new Date(2021, 2, 28),
-//   },
-//   {
-//     id: "e4",
-//     title: "New Desk (Wooden)",
-//     amount: 450,
-//     date: new Date(2021, 5, 12),
-//   },
-// ];
+import Incomes from "./components/Incomes/Incomes";
 
 function App() {
   const [user, setUser] = useState(null);
   const [expenses, setExpenses] = useState(null);
+  const [incomes, setIncomes] = useState(null);
 
   //Poner opcion para cargar categorias y despues guardarlas en firebase
   const categories = ["All", "Carniceria", "Verduleria"];
@@ -52,6 +28,27 @@ function App() {
     onAuthStateChanged(auth, setUser);
 
     if (user !== null) {
+      const objectsEqual = (o1, o2) => {
+        Object.keys(o1).length === Object.keys(o2).length &&
+          Object.keys(o1).every((p) => o1[p] === o2[p]);
+      };
+
+      const arraysEqual = (a1, a2) => {
+        if (a1.length === 0) {
+          if (a2 === null) {
+            return true;
+          }
+        } else if (a2 === null) {
+          return false;
+        } else {
+          console.log(a1, a2);
+          return (
+            a1.length === a2.length &&
+            a1.every((o, idx) => objectsEqual(o, a2[idx]))
+          );
+        }
+      };
+
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/expense`),
         (snapshot) => {
@@ -59,24 +56,54 @@ function App() {
             ...doc.data(),
             id: doc.id,
           }));
-          console.log(expensesArray);
-          setExpenses(expensesArray);
+
+          if (expenses === null) {
+            setExpenses(expensesArray);
+            return;
+          } else if(expensesArray.length > expenses.length) {
+            console.log('render exp')
+            setExpenses(expensesArray)
+          }
+        }
+      );
+      onSnapshot(
+        collection(firestore, `users/${auth.currentUser.uid}/income`),
+        (snapshot) => {
+          if (snapshot.docs.length > 0) {
+            let incomesArray = snapshot.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }));
+
+            console.log(incomesArray);
+            console.log(incomes);
+            if (incomes === null) {
+              setIncomes(incomesArray);
+              return;
+            } else if (incomesArray.length > incomes.length) {
+              console.log('render inc')
+              setIncomes(incomesArray)
+            }
+          }
         }
       );
     }
-  }, [user]);
+  }, [user, expenses, incomes]);
 
   const addExpenseHandler = async (expense) => {
-    // console.log('In App.js');
-    // // console.log(expense);
-    // setExpenses((prevExpenses) => {
-    //   return [expense, ...prevExpenses];
-    // });
     const expenseRef = collection(
       firestore,
       `users/${auth.currentUser.uid}/expense`
     );
     await addDoc(expenseRef, expense);
+  };
+
+  const addIncomeHandler = async (income) => {
+    const incomeRef = collection(
+      firestore,
+      `users/${auth.currentUser.uid}/income`
+    );
+    await addDoc(incomeRef, income);
   };
 
   const deleteExpenseHandler = (expenseId) => {
@@ -91,15 +118,27 @@ function App() {
       return updatedExpenses;
     });
   };
-  // return React.createElement('div', {}, React.createElement('h2', {}, 'Lets get Started!'), React.createElement(Expenses, {items: expenses})
-  // ); Old form of using JSX
 
-  return user && expenses !== null ? (
+  // console.log(window.screen.width)
+
+  return user ? (
     <Fragment>
+      {incomes !== null ? <p>Hay incomes</p> : ""}
+      <div>
+        <Incomes incomes={incomes} onAddIncome={addIncomeHandler} />
+      </div>
       <div>
         <NewExpense onAddExpense={addExpenseHandler} categories={categories} />
 
-        <Expenses items={expenses} onDeleteExpense={deleteExpenseHandler} categories={categories} />
+        {expenses !== null ? (
+          <Expenses
+            items={expenses}
+            onDeleteExpense={deleteExpenseHandler}
+            categories={categories}
+          />
+        ) : (
+          ""
+        )}
       </div>
       <footer>
         <button onClick={signOut}>Sign Out</button>
