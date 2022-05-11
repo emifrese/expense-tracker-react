@@ -9,11 +9,11 @@ const ExpenseForm = (props) => {
 
   let categoriesList = [];
 
-  props.categories.forEach(category => {
+  props.categories.forEach((category, i) => {
     if(category === "All"){
       return
     }
-    categoriesList.push(<option value={category}>{category}</option>)
+    categoriesList.push(<option value={category} key={i}>{category}</option>)
   });
 
 
@@ -28,7 +28,6 @@ const ExpenseForm = (props) => {
   };
   const categoryChangeHandler = (e) => {
     setEnteredCategory(e.target.value)
-    console.log(e.target.value)
   }
 
   const submitHandler = async (e) => {
@@ -39,7 +38,6 @@ const ExpenseForm = (props) => {
     const expenseData = {
       title: enteredTitle,
       amount: +enteredAmount,
-      date: date,
       day: date.getDate(),
       month: date.getMonth(),
       year: date.getFullYear(),

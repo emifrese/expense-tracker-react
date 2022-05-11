@@ -1,7 +1,10 @@
 import { auth, firestore } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
-
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, Fragment } from "react";
+
+import { expenseActions } from "./store/expenses";
+
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
 import SignIn from "./components/UI/SignIn";
@@ -13,11 +16,14 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import Incomes from "./components/Incomes/Incomes";
+import { incomesActions } from "./store/incomes";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [expenses, setExpenses] = useState(null);
-  const [incomes, setIncomes] = useState(null);
+ 
+  const dispatch = useDispatch();
+  const expense = useSelector((state) => state.expense.expenses);
+  const income = useSelector((state) => state.incomes.incomes);
 
   //Poner opcion para cargar categorias y despues guardarlas en firebase
   const categories = ["All", "Carniceria", "Verduleria"];
@@ -28,74 +34,43 @@ function App() {
     onAuthStateChanged(auth, setUser);
 
     if (user !== null) {
-      const objectsEqual = (o1, o2) => {
-        Object.keys(o1).length === Object.keys(o2).length &&
-          Object.keys(o1).every((p) => o1[p] === o2[p]);
-      };
-
-      const arraysEqual = (a1, a2) => {
-        if (a1.length === 0) {
-          if (a2 === null) {
-            return true;
-          }
-        } else if (a2 === null) {
-          return false;
-        } else {
-          console.log(a1, a2);
-          return (
-            a1.length === a2.length &&
-            a1.every((o, idx) => objectsEqual(o, a2[idx]))
-          );
-        }
-      };
-
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/expense`),
         (snapshot) => {
+          dispatch(expenseActions.reset());
           let expensesArray = snapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,
           }));
-
-          if (expenses === null) {
-            setExpenses(expensesArray);
-            return;
-          } else if(expensesArray.length > expenses.length) {
-            console.log('render exp')
-            setExpenses(expensesArray)
-          }
+          dispatch(expenseActions.increment(expensesArray));
         }
       );
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/income`),
         (snapshot) => {
-          if (snapshot.docs.length > 0) {
+          dispatch(incomesActions.reset());
             let incomesArray = snapshot.docs.map((doc) => ({
               ...doc.data(),
               id: doc.id,
             }));
-
-            console.log(incomesArray);
-            console.log(incomes);
-            if (incomes === null) {
-              setIncomes(incomesArray);
-              return;
-            } else if (incomesArray.length > incomes.length) {
-              console.log('render inc')
-              setIncomes(incomesArray)
-            }
+            dispatch(incomesActions.addIncome(incomesArray))
           }
-        }
       );
     }
-  }, [user, expenses, incomes]);
+  }, [user, dispatch]);
+
+  console.log(income)
+  console.log('APP')
 
   const addExpenseHandler = async (expense) => {
+    dispatch(expenseActions.increment(expense));
+
     const expenseRef = collection(
       firestore,
       `users/${auth.currentUser.uid}/expense`
     );
     await addDoc(expenseRef, expense);
+
   };
 
   const addIncomeHandler = async (income) => {
@@ -110,29 +85,21 @@ function App() {
     deleteDoc(
       doc(firestore, `users/${auth.currentUser.uid}/expense/${expenseId}`)
     );
-
-    setExpenses((prevExpenses) => {
-      const updatedExpenses = prevExpenses.filter(
-        (expense) => expense.id !== expenseId
-      );
-      return updatedExpenses;
-    });
+    dispatch(expenseActions.delete(expenseId));
   };
-
-  // console.log(window.screen.width)
 
   return user ? (
     <Fragment>
-      {incomes !== null ? <p>Hay incomes</p> : ""}
+      {income.length > 0 ? <div>Hay ingresos</div> : ''}
       <div>
-        <Incomes incomes={incomes} onAddIncome={addIncomeHandler} />
+        <Incomes onAddIncome={addIncomeHandler} />
       </div>
       <div>
         <NewExpense onAddExpense={addExpenseHandler} categories={categories} />
 
-        {expenses !== null ? (
+        {expense !== null ? (
           <Expenses
-            items={expenses}
+            items={expense}
             onDeleteExpense={deleteExpenseHandler}
             categories={categories}
           />

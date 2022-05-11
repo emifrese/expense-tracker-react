@@ -1,5 +1,9 @@
 import { useState } from "react";
-import './IncomesForm.css'
+import { useDispatch } from "react-redux";
+import { auth, firestore } from "../../firebase";
+import { collection, addDoc } from "firebase/firestore";
+import { incomesActions } from "../../store/incomes";
+import "./IncomesForm.css";
 
 const IncomesForm = (props) => {
   const [enteredPerson, setEnteredPerson] = useState("");
@@ -7,22 +11,43 @@ const IncomesForm = (props) => {
   const [enteredType, setEnteredType] = useState("");
   const [enteredWork, setEnteredWork] = useState("");
 
+  const selectPerson = [
+    <option value="Emiliano" id={0} key={0}>
+      Emiliano
+    </option>,
+    <option value="Wanda" id={1} key={1}>
+      Wanda
+    </option>,
+  ];
+
+  const dispatch = useDispatch();
+
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    let personId = 1;
+    if (enteredPerson === "Emiliano") {
+      personId = 0;
+    }
     const incomeData = {
-      person: enteredPerson,
+      person: enteredPerson[0],
+      personId,
       amount: enteredAmount,
       type: enteredType,
       work: enteredWork,
     };
+    dispatch(incomesActions.addIncome(incomeData));
 
-    props.onSaveIncomeData(incomeData);
+    const incomeRef = collection(
+      firestore,
+      `users/${auth.currentUser.uid}/income`
+    );
+    await addDoc(incomeRef, incomeData);
+
+    // props.onSaveIncomeData(incomeData);
     setEnteredPerson("");
     setEnteredAmount("");
     setEnteredWork("");
-
-    props.cancelButton();
+    setEnteredType("");
   };
 
   return (
@@ -30,11 +55,10 @@ const IncomesForm = (props) => {
       <div className="incomes__controls">
         <div className="incomes__control">
           <label>Person</label>
-          <input
-            type="text"
-            value={enteredPerson}
-            onChange={e => setEnteredPerson(e.target.value)}
-          />
+          <select onChange={(e) => setEnteredPerson(e.target.value)}>
+            <option value="">Select person</option>
+            {selectPerson}
+          </select>
         </div>
         <div className="incomes__control">
           <label>Amount</label>
@@ -43,7 +67,7 @@ const IncomesForm = (props) => {
             min="0.01"
             step="0.01"
             value={enteredAmount}
-            onChange={e => setEnteredAmount(e.target.value)}
+            onChange={(e) => setEnteredAmount(e.target.value)}
           />
         </div>
         <div className="incomes__control">
@@ -51,7 +75,7 @@ const IncomesForm = (props) => {
           <input
             type="text"
             value={enteredType}
-            onChange={e => setEnteredType(e.target.value)}
+            onChange={(e) => setEnteredType(e.target.value)}
           />
         </div>
         <div className="incomes__control">
@@ -59,14 +83,12 @@ const IncomesForm = (props) => {
           <input
             type="text"
             value={enteredWork}
-            onChange={e => setEnteredWork(e.target.value)}
+            onChange={(e) => setEnteredWork(e.target.value)}
           />
         </div>
       </div>
       <div className="incomes__actions">
-        <button type="button" onClick={props.cancelButton}>
-          Cancel
-        </button>
+        <button type="button">Cancel</button>
         <button type="submit">Add Income</button>
       </div>
     </form>

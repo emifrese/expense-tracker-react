@@ -3,20 +3,9 @@ import Card from "../UI/Card";
 import "./ExpenseItem.css";
 
 function ExpenseItem(props) {
-  /*const expenseDate = new Date(2021, 2, 28);
-    const expenseTitle = 'Car Insurance';
-    const expenseAmount = 294.67;*/
-
-  /*function eraseItem() {
-    props.onErasedExpense(props.date.getTime());
-    console.log(typeof props.date.getTime());
-  }*/
-
   const deleteHandler = () => {
     props.onDeleteExpense3(props.id);
   };
-
-  //console.log("ExpenseItem evaluated by React"); // Esto demuestra que cada useState es independiente
 
   return (
     <li>

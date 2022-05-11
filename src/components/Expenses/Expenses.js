@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import Card from "../UI/Card";
 import "./Expenses.css";
 import ExpensesFilter from "./ExpensesFilter";
@@ -28,6 +29,8 @@ function Expenses(props) {
   const chartExpenses = props.items.filter(expense => {
     return expense.year.toString() === filteredYear
   })
+
+  console.log(chartExpenses)
 
   const filteredExpenses = props.items.filter((expense) => {
     return expense.year.toString() === filteredYear && expense.month.toString() === filteredMonth;

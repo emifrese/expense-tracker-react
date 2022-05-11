@@ -2,6 +2,8 @@ import { useState } from "react";
 import Chart from "../Charts/Chart";
 import Card from "../UI/Card";
 import "./Incomes.css";
+import IncomesChart from "./IncomesChart";
+import IncomesCharte from "./IncomesChart";
 import IncomesForm from "./IncomesForm";
 
 const Incomes = (props) => {
@@ -12,37 +14,19 @@ const Incomes = (props) => {
     props.onAddIncome(incomeData);
   };
 
-  let buttonIncome = <button>Add Incomes</button>;
+  //     setState(<Chart dataPoints={incomesExample} type='incomes'/>);
+  //   }
 
-  // Hay un error con re renders en este component
-  
-//   const [state, setState] = useState(buttonIncome);
+  return (
+    <Card className="incomes">
+      <IncomesChart />
+      <IncomesForm
+        onSaveIncomeData={onSaveIncomeDataHandler}
+        // cancelButton={resetNewIncome}
+      />
 
-//   const resetNewIncome = () => {
-//     setState(buttonIncome);
-//   };
-
-//   if (props.incomes !== null) {
-//     const incomesExample = [
-//         {label: 'Work', value: 1500, person: 'Emi'},
-//         {label: 'Work', value: 2000, person: 'Wan'},
-//         {label: 'Saving', value: 500, person: null},
-//         {label: 'Gift', value: 250, person: 'Hugo'},
-//     ]; 
-
-//     setState(<Chart dataPoints={incomesExample} type='incomes'/>);
-//   }
-
-//   function addNewIncome() {
-//     setState(
-//       <IncomesForm
-//         onSaveIncomeData={onSaveIncomeDataHandler}
-//         cancelButton={resetNewIncome}
-//       />
-//     );
-//   }
-
-  return <Card className="incomes">{buttonIncome}</Card>;
+    </Card>
+  );
 };
 
 export default Incomes;

@@ -20,7 +20,18 @@ const Chart = (props) => {
         </div>
       );
     case "incomes":
-      return <div>Here goes the incomes</div>;
+      return (
+        <div className="chart">
+          {props.dataPoints.map((dataPoint) => (
+            <ChartBar
+              key={dataPoint.label}
+              value={dataPoint.value}
+              maxValue={totalMaximum}
+              label={dataPoint.label}
+            />
+          ))}
+        </div>
+      );
     default:
       return <div>None</div>;
   }

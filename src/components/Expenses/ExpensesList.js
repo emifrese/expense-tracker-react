@@ -30,7 +30,6 @@ const ExpensesList = (props) => {
           month={expense.month}
           year={expense.year}
           day={expense.day}
-          date={expense.date}
           onDeleteExpense3={props.onDeleteExpense2}
         />
       ))}
