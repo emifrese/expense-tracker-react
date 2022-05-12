@@ -50,16 +50,6 @@ const IncomesChart = (props) => {
       {
         type: "doughnut",
         dataPoints: finalChartDataPoints,
-        // [
-        //   {
-        //     y: chartDataPoints[0].value,
-        //     indexLabel: chartDataPoints[0].label,
-        //   },
-        //   {
-        //     y: chartDataPoints[1].value,
-        //     indexLabel: chartDataPoints[1].label,
-        //   },
-        // ],
       },
     ],
   };
