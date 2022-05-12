@@ -1,6 +1,8 @@
 import "./ExpensesFilter.css";
 
 const ExpensesFilter = (props) => {
+  const actualDate = new Date();
+
   const changeYearHandler = (e) => {
     props.onSaveFilterYear(e.target.value);
   };
@@ -16,11 +18,11 @@ const ExpensesFilter = (props) => {
   let monthList = [];
 
   props.months.forEach((month, i) => {
-    monthList.push(
-      <option key={i} value={i}>
-        {month.slice(0,3)}
-      </option>
-    );
+      monthList.push(
+        <option key={i} value={i}>
+          {month.slice(0, 3)}
+        </option>
+      );
   });
 
   let categoryList = [];
@@ -47,7 +49,9 @@ const ExpensesFilter = (props) => {
         </div>
         <div className="expenses-filter__dateList">
           <label>Filter by month</label>
-          <select onChange={changeMonthHandler}>{monthList}</select>
+          <select onChange={changeMonthHandler} defaultValue={actualDate.getMonth()}>
+            {monthList}
+          </select>
         </div>
         <div className="expenses-filter__categoryList">
           <label>Filter by category</label>

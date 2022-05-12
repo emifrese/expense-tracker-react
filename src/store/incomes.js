@@ -17,7 +17,6 @@ const incomesSlice = createSlice({
         },
         reset(state) {
             state.incomes = [];
-            console.log('reseteando state')
         }
     }
 })

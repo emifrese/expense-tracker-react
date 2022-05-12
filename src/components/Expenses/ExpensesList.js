@@ -3,16 +3,6 @@ import "./ExpensesList.css";
 import ExpenseItem from "./ExpenseItem";
 
 const ExpensesList = (props) => {
-  // const [notErasedExpenses, setNotErasedExpenses] = useState("");
-
-  // const erasedExpenseHandler = (erasedExpense) => {
-  //   setNotErasedExpenses(erasedExpense);
-  //   console.log(erasedExpense);
-  // };
-
-  // const newExpenseFiltered = props.items.filter((expense) => {
-  //   return expense.date.getTime() !== notErasedExpenses;
-  // });
 
   if (props.items.length === 0) {
     return <h2 className="expenses-list__fallback">Found no expenses.</h2>;

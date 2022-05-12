@@ -5,6 +5,8 @@ import { collection, addDoc } from "firebase/firestore";
 import { incomesActions } from "../../store/incomes";
 import "./IncomesForm.css";
 
+const actualDate = new Date();
+
 const IncomesForm = (props) => {
   const [enteredPerson, setEnteredPerson] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
@@ -34,6 +36,8 @@ const IncomesForm = (props) => {
       amount: enteredAmount,
       type: enteredType,
       work: enteredWork,
+      month: actualDate.getMonth(),
+      year: actualDate.getFullYear(),
     };
     dispatch(incomesActions.addIncome(incomeData));
 

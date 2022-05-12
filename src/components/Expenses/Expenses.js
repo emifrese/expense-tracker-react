@@ -13,7 +13,6 @@ function Expenses(props) {
   const [filteredYear, setFilteredYear] = useState(actualDate.getFullYear().toString());
   const [filteredMonth, setFilteredMonth] = useState(months[actualDate.getMonth()]);
   const [filteredCategory, setFilterCategory] = useState(props.categories[0])
-
   const saveFilterYearHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
   };
@@ -29,8 +28,6 @@ function Expenses(props) {
   const chartExpenses = props.items.filter(expense => {
     return expense.year.toString() === filteredYear
   })
-
-  console.log(chartExpenses)
 
   const filteredExpenses = props.items.filter((expense) => {
     return expense.year.toString() === filteredYear && expense.month.toString() === filteredMonth;

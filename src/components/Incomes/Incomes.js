@@ -3,7 +3,6 @@ import Chart from "../Charts/Chart";
 import Card from "../UI/Card";
 import "./Incomes.css";
 import IncomesChart from "./IncomesChart";
-import IncomesCharte from "./IncomesChart";
 import IncomesForm from "./IncomesForm";
 
 const Incomes = (props) => {

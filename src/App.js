@@ -17,10 +17,13 @@ import {
 } from "firebase/firestore";
 import Incomes from "./components/Incomes/Incomes";
 import { incomesActions } from "./store/incomes";
+import Card from "./components/UI/Card";
+import Test from "./components/Test/Test";
+import CurrentMoney from "./components/CurrentMoney/CurrentMoney";
 
 function App() {
   const [user, setUser] = useState(null);
- 
+
   const dispatch = useDispatch();
   const expense = useSelector((state) => state.expense.expenses);
   const income = useSelector((state) => state.incomes.incomes);
@@ -49,18 +52,15 @@ function App() {
         collection(firestore, `users/${auth.currentUser.uid}/income`),
         (snapshot) => {
           dispatch(incomesActions.reset());
-            let incomesArray = snapshot.docs.map((doc) => ({
-              ...doc.data(),
-              id: doc.id,
-            }));
-            dispatch(incomesActions.addIncome(incomesArray))
-          }
+          let incomesArray = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+          dispatch(incomesActions.addIncome(incomesArray));
+        }
       );
     }
   }, [user, dispatch]);
-
-  console.log(income)
-  console.log('APP')
 
   const addExpenseHandler = async (expense) => {
     dispatch(expenseActions.increment(expense));
@@ -70,7 +70,6 @@ function App() {
       `users/${auth.currentUser.uid}/expense`
     );
     await addDoc(expenseRef, expense);
-
   };
 
   const addIncomeHandler = async (income) => {
@@ -90,9 +89,12 @@ function App() {
 
   return user ? (
     <Fragment>
-      {income.length > 0 ? <div>Hay ingresos</div> : ''}
+      {income.length > 0 ? <div>Hay ingresos</div> : ""}
       <div>
         <Incomes onAddIncome={addIncomeHandler} />
+      </div>
+      <div>
+        {/* <CurrentMoney /> */}
       </div>
       <div>
         <NewExpense onAddExpense={addExpenseHandler} categories={categories} />
