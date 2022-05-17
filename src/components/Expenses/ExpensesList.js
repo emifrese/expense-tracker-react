@@ -1,11 +1,10 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import "./ExpensesList.css";
 import ExpenseItem from "./ExpenseItem";
 
-const ExpensesList = (props) => {
+const ExpensesList = () => {
   const filterExp = useSelector((state) => state.expense.filterExp);
-  const dispatch = useDispatch();
   
   let list = [];
   let content;
@@ -19,7 +18,6 @@ const ExpensesList = (props) => {
         month={expense.month}
         year={expense.year}
         day={expense.day}
-        onDeleteExpense3={props.onDeleteExpense2}
       />
     );
     list.push(expElement);

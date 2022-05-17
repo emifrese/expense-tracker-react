@@ -8,16 +8,20 @@ const ExpenseForm = (props) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
   const [enteredCategory, setEnteredCategory] = useState("");
+  const [fixedExp, setFixedExp] = useState(false);
 
   let categoriesList = [];
 
   props.categories.forEach((category, i) => {
-    if(category === "All"){
-      return
+    if (category === "All") {
+      return;
     }
-    categoriesList.push(<option value={category} key={i}>{category}</option>)
+    categoriesList.push(
+      <option value={category} key={i}>
+        {category}
+      </option>
+    );
   });
-
 
   const titleChangeHandler = (e) => {
     setEnteredTitle(e.target.value);
@@ -29,21 +33,22 @@ const ExpenseForm = (props) => {
     setEnteredDate(e.target.value);
   };
   const categoryChangeHandler = (e) => {
-    setEnteredCategory(e.target.value)
-  }
+    setEnteredCategory(e.target.value);
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const date = new Date(enteredDate);
-    date.setDate(date.getDate() + 1)
-    
+    date.setDate(date.getDate() + 1);
+
     const expenseData = {
       title: enteredTitle,
       amount: +enteredAmount,
       day: date.getDate(),
       month: date.getMonth(),
       year: date.getFullYear(),
-      category: enteredCategory
+      fixedExp,
+      category: enteredCategory,
     };
 
     const expenseRef = collection(
@@ -51,6 +56,24 @@ const ExpenseForm = (props) => {
       `users/${auth.currentUser.uid}/expense`
     );
     await addDoc(expenseRef, expenseData);
+    
+    if (fixedExp) {
+      const expenseFixedData = {
+        title: enteredTitle,
+        amount: +enteredAmount,
+        day: null,
+        month: date.getMonth(),
+        year: date.getFullYear(),
+        category: enteredCategory,
+        fixedExp,
+      };
+
+      const expenseFixedRef = collection(
+        firestore,
+        `users/${auth.currentUser.uid}/fixed-exp`
+      );
+      await addDoc(expenseFixedRef, expenseFixedData);
+    }
 
     setEnteredTitle("");
     setEnteredAmount("");
@@ -58,6 +81,7 @@ const ExpenseForm = (props) => {
 
     props.cancelButton();
   };
+
 
   return (
     <form onSubmit={submitHandler}>
@@ -93,11 +117,20 @@ const ExpenseForm = (props) => {
         <div className="new-expense__control">
           <label>Category</label>
           <select onChange={categoryChangeHandler}>
-            <option value="">
-              Select a category
-            </option>
+            <option value="">Select a category</option>
             {categoriesList}
           </select>
+        </div>
+        <div className="new-expense__current">
+          <label className="switch">
+            Fixed Expenses
+            <input
+              type="checkbox"
+              defaultChecked={fixedExp}
+              onChange={(e) => setFixedExp(e.target.checked)}
+            />
+            <span className="slider"></span>
+          </label>
         </div>
       </div>
       <div className="new-expense__actions">

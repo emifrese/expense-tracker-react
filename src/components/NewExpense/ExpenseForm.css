@@ -33,3 +33,62 @@
   .new-expense__actions {
     text-align: right;
   }
+
+  .new-expense__current {
+    width:80%;
+  }
+
+  .new-expense__current .switch {
+    position: relative;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    width: 100%;
+    height: 34px;
+  }
+  
+  .new-expense__current input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  
+  .new-expense__current .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 2rem;
+    left: 0;
+    right: 0;
+    bottom: -2rem;
+    max-width: 60px;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .new-expense__current .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .new-expense__current input:checked + .slider {
+    background-color: #2196F3;
+  }
+
+  .new-expense__current input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  .new-expense__current input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }

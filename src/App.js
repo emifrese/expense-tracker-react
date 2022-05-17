@@ -20,14 +20,12 @@ import { incomesActions } from "./store/incomes";
 import Card from "./components/UI/Card";
 import Test from "./components/Test/Test";
 import CurrentMoney from "./components/CurrentMoney/CurrentMoney";
+import Modal from "./components/UI/Modal";
 
 function App() {
   const [user, setUser] = useState(null);
 
   const dispatch = useDispatch();
-  const expense = useSelector((state) => state.expense.expenses);
-  const income = useSelector((state) => state.incomes.incomes);
-  console.log(expense);
   //Poner opcion para cargar categorias y despues guardarlas en firebase
   const categories = ["All", "Carniceria", "Verduleria"];
 
@@ -37,6 +35,7 @@ function App() {
     onAuthStateChanged(auth, setUser);
 
     if (user !== null) {
+      console.log('carga unica')
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/expense`),
         (snapshot) => {
@@ -59,37 +58,34 @@ function App() {
           dispatch(incomesActions.addIncome(incomesArray));
         }
       );
+      onSnapshot(
+        collection(firestore, `users/${auth.currentUser.uid}/fixed-exp`),
+        (snapshot) => {
+          let fixedExpensesArray = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+          dispatch(expenseActions.increment(fixedExpensesArray));
+        }
+      );
     }
   }, [user, dispatch]);
 
-  const deleteExpenseHandler = async (expenseId) => {
-    await deleteDoc(
-      doc(firestore, `users/${auth.currentUser.uid}/expense/${expenseId}`)
-    );
-    dispatch(expenseActions.delete(expenseId));
-  };
-
   return user ? (
     <Fragment>
+      <Modal>
+        <Card>
+          <div>Hola</div>
+        </Card>
+      </Modal>
       {/* {income.length > 0 ? <div>Hay ingresos</div> : ""} */}
       <div>
         <Incomes />
       </div>
-      <div>
-        
-      </div>
+      <div></div>
       <div>
         <NewExpense categories={categories} />
-
-        {expense !== null ? (
-          <Expenses
-            items={expense}
-            onDeleteExpense={deleteExpenseHandler}
-            categories={categories}
-          />
-        ) : (
-          ""
-        )}
+        <Expenses categories={categories} />
       </div>
       <footer>
         <button onClick={signOut}>Sign Out</button>

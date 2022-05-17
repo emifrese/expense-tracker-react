@@ -25,7 +25,7 @@ function Expenses(props) {
       <Card className="expenses">
         <ExpensesFilter months={months} categories={props.categories} />
         <ExpensesChart />
-        <ExpensesList onDeleteExpense2={props.onDeleteExpense} />
+        <ExpensesList />
       </Card>
     </div>
   );

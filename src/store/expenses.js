@@ -17,10 +17,26 @@ const expenseSlice = createSlice({
   initialState: initialExpenseState,
   reducers: {
     increment(state, action) {
+      console.log('agrego a redux')
       state.totalAmount = 0;
       if (action.payload.length !== undefined) {
         action.payload.forEach((exp) => {
-          state.expenses.push(exp);
+          if(exp.day === null && exp.fixedExp) {
+            if(exp.month < actualDate.getMonth() && exp.year === actualDate.getFullYear()){
+              exp.day = 1;
+              exp.month = actualDate.getMonth()
+              state.expenses.push(exp);
+            } else if (exp.year < actualDate.getFullYear()) {
+              exp.day = 1;
+              exp.month = actualDate.getMonth();
+              exp.year = actualDate.getFullYear();
+              state.expenses.push(exp);
+            }
+          } else if (!exp.fixedExp) {
+            state.expenses.push(exp);
+          } else if (exp.day !== null && exp.fixedExp){
+            state.expenses.push(exp);
+          }
         });
       } else {
         state.expenses.push(action.payload);
@@ -35,6 +51,7 @@ const expenseSlice = createSlice({
         (expense) => expense.id !== action.payload
       );
       state.expenses = updatedExpenses;
+      
     },
     setYear(state, action) {
       state.year = action.payload;
@@ -53,7 +70,7 @@ const expenseSlice = createSlice({
       }
     },
     filteredExp(state) {
-      if (state.expenses.length > 1) {
+      if (state.expenses.length > 0) {
         for (const expense of state.expenses) {
           if (
             expense.month.toString() === state.month &&

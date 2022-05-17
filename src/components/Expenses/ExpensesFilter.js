@@ -7,39 +7,40 @@ import { useEffect } from "react";
 
 const ExpensesFilter = (props) => {
   const dispatch = useDispatch();
-  const expense = useSelector(state => state.expense.expenses)
-  const year = useSelector(state => state.expense.year)
-  const month = useSelector(state => state.expense.month)
-  const category = useSelector(state => state.expense.category)
-  
+  const expense = useSelector((state) => state.expense.expenses);
+  const year = useSelector((state) => state.expense.year);
+  const month = useSelector((state) => state.expense.month);
+  const category = useSelector((state) => state.expense.category);
+  const filterExp = useSelector((state) => state.expense.filterExp);
+  console.log(filterExp);
+
   useEffect(() => {
-    dispatch(expenseActions.reset("filterExp"))
-    dispatch(expenseActions.reset('chartExp'))
-    dispatch(expenseActions.filteredExp())
-    dispatch(expenseActions.chartExp())
-  }, [expense,year, month, category, dispatch])
+    dispatch(expenseActions.reset("filterExp"));
+    dispatch(expenseActions.reset("chartExp"));
+    dispatch(expenseActions.filteredExp());
+    dispatch(expenseActions.chartExp());
+  }, [expense, year, month, category, dispatch]);
 
   const changeYearHandler = (e) => {
-    dispatch(expenseActions.setYear(e.target.value))
+    dispatch(expenseActions.setYear(e.target.value));
   };
 
-
   const changeMonthHandler = (e) => {
-    dispatch(expenseActions.setMonth(e.target.value))
+    dispatch(expenseActions.setMonth(e.target.value));
   };
 
   const changeCategoryHandler = (e) => {
-    dispatch(expenseActions.setCategory(e.target.value))
+    dispatch(expenseActions.setCategory(e.target.value));
   };
 
   let monthList = [];
 
   props.months.forEach((month, i) => {
-      monthList.push(
-        <option key={i} value={i}>
-          {month.slice(0, 3)}
-        </option>
-      );
+    monthList.push(
+      <option key={i} value={i}>
+        {month.slice(0, 3)}
+      </option>
+    );
   });
 
   let categoryList = [];
@@ -51,7 +52,6 @@ const ExpensesFilter = (props) => {
       </option>
     );
   });
-
 
   return (
     <div className="expenses-filter">
