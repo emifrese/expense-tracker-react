@@ -27,7 +27,7 @@ function App() {
   const dispatch = useDispatch();
   const expense = useSelector((state) => state.expense.expenses);
   const income = useSelector((state) => state.incomes.incomes);
-
+  console.log(expense);
   //Poner opcion para cargar categorias y despues guardarlas en firebase
   const categories = ["All", "Carniceria", "Verduleria"];
 
@@ -40,7 +40,7 @@ function App() {
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/expense`),
         (snapshot) => {
-          dispatch(expenseActions.reset());
+          dispatch(expenseActions.reset("expenses"));
           let expensesArray = snapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,
@@ -62,26 +62,8 @@ function App() {
     }
   }, [user, dispatch]);
 
-  const addExpenseHandler = async (expense) => {
-    dispatch(expenseActions.increment(expense));
-
-    const expenseRef = collection(
-      firestore,
-      `users/${auth.currentUser.uid}/expense`
-    );
-    await addDoc(expenseRef, expense);
-  };
-
-  const addIncomeHandler = async (income) => {
-    const incomeRef = collection(
-      firestore,
-      `users/${auth.currentUser.uid}/income`
-    );
-    await addDoc(incomeRef, income);
-  };
-
-  const deleteExpenseHandler = (expenseId) => {
-    deleteDoc(
+  const deleteExpenseHandler = async (expenseId) => {
+    await deleteDoc(
       doc(firestore, `users/${auth.currentUser.uid}/expense/${expenseId}`)
     );
     dispatch(expenseActions.delete(expenseId));
@@ -89,15 +71,15 @@ function App() {
 
   return user ? (
     <Fragment>
-      {income.length > 0 ? <div>Hay ingresos</div> : ""}
+      {/* {income.length > 0 ? <div>Hay ingresos</div> : ""} */}
       <div>
-        <Incomes onAddIncome={addIncomeHandler} />
+        <Incomes />
       </div>
       <div>
-        {/* <CurrentMoney /> */}
+        <CurrentMoney />
       </div>
       <div>
-        <NewExpense onAddExpense={addExpenseHandler} categories={categories} />
+        <NewExpense categories={categories} />
 
         {expense !== null ? (
           <Expenses

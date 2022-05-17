@@ -38,11 +38,18 @@
   .expense-item__erase{
     font-size: 1rem;
     font-weight: bold;
-    color: rgb(226, 10, 10);
+    color: #40005d;
     background-color: #ffffff;
-    border: 1px solid rgb(250, 4, 4);
+    border: 1px solid #40005d;
     padding: 0.5rem;
     border-radius: 12px;
+  }
+
+  .expense-item__erase:hover {
+    background-color: #ccc;
+    border-color: #7003a1;
+    color: #7003a1;
+    cursor: pointer;
   }
   
   @media (min-width: 580px) {

@@ -1,18 +1,35 @@
 import "./ExpensesFilter.css";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { expenseActions } from "../../store/expenses";
+import { useEffect } from "react";
+
 const ExpensesFilter = (props) => {
-  const actualDate = new Date();
+  const dispatch = useDispatch();
+  const expense = useSelector(state => state.expense.expenses)
+  const year = useSelector(state => state.expense.year)
+  const month = useSelector(state => state.expense.month)
+  const category = useSelector(state => state.expense.category)
+  
+  useEffect(() => {
+    dispatch(expenseActions.reset("filterExp"))
+    dispatch(expenseActions.reset('chartExp'))
+    dispatch(expenseActions.filteredExp())
+    dispatch(expenseActions.chartExp())
+  }, [expense,year, month, category, dispatch])
 
   const changeYearHandler = (e) => {
-    props.onSaveFilterYear(e.target.value);
+    dispatch(expenseActions.setYear(e.target.value))
   };
 
+
   const changeMonthHandler = (e) => {
-    props.onSaveFilterMonth(e.target.value);
+    dispatch(expenseActions.setMonth(e.target.value))
   };
 
   const changeCategoryHandler = (e) => {
-    props.onSaveFilterCategory(e.target.value);
+    dispatch(expenseActions.setCategory(e.target.value))
   };
 
   let monthList = [];
@@ -35,12 +52,13 @@ const ExpensesFilter = (props) => {
     );
   });
 
+
   return (
     <div className="expenses-filter">
       <div className="expenses-filter__control">
         <div className="expenses-filter__dateList">
           <label>Filter by year</label>
-          <select onChange={changeYearHandler} value={props.filteredYear}>
+          <select onChange={changeYearHandler} value={year}>
             <option value="2022">2022</option>
             <option value="2021">2021</option>
             <option value="2020">2020</option>
@@ -49,7 +67,7 @@ const ExpensesFilter = (props) => {
         </div>
         <div className="expenses-filter__dateList">
           <label>Filter by month</label>
-          <select onChange={changeMonthHandler} defaultValue={actualDate.getMonth()}>
+          <select onChange={changeMonthHandler} value={month}>
             {monthList}
           </select>
         </div>

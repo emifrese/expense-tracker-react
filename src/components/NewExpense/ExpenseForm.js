@@ -1,4 +1,6 @@
+import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
+import { auth, firestore } from "../../firebase";
 import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
@@ -44,7 +46,12 @@ const ExpenseForm = (props) => {
       category: enteredCategory
     };
 
-    props.onSaveExpenseData(expenseData);
+    const expenseRef = collection(
+      firestore,
+      `users/${auth.currentUser.uid}/expense`
+    );
+    await addDoc(expenseRef, expenseData);
+
     setEnteredTitle("");
     setEnteredAmount("");
     setEnteredDate("");

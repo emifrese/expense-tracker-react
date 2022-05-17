@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { auth, firestore } from "../../firebase";
 import { collection, addDoc } from "firebase/firestore";
-import { incomesActions } from "../../store/incomes";
 import "./IncomesForm.css";
 
 const actualDate = new Date();
@@ -22,8 +20,6 @@ const IncomesForm = (props) => {
     </option>,
   ];
 
-  const dispatch = useDispatch();
-
   const submitHandler = async (e) => {
     e.preventDefault();
     let personId = 1;
@@ -33,13 +29,12 @@ const IncomesForm = (props) => {
     const incomeData = {
       person: enteredPerson[0],
       personId,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       type: enteredType,
       work: enteredWork,
       month: actualDate.getMonth(),
       year: actualDate.getFullYear(),
     };
-    dispatch(incomesActions.addIncome(incomeData));
 
     const incomeRef = collection(
       firestore,
@@ -47,7 +42,6 @@ const IncomesForm = (props) => {
     );
     await addDoc(incomeRef, incomeData);
 
-    // props.onSaveIncomeData(incomeData);
     setEnteredPerson("");
     setEnteredAmount("");
     setEnteredWork("");
@@ -59,8 +53,8 @@ const IncomesForm = (props) => {
       <div className="incomes__controls">
         <div className="incomes__control">
           <label>Person</label>
-          <select onChange={(e) => setEnteredPerson(e.target.value)}>
-            <option value="">Select person</option>
+          <select onChange={(e) => setEnteredPerson(e.target.value)} value={enteredPerson}>
+            <option value ="">Select person</option>
             {selectPerson}
           </select>
         </div>

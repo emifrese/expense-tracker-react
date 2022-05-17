@@ -1,7 +1,8 @@
 import React from "react";
 import CanvasJSReact from "../../assets/canvasjs.react";
-
+import './IncomesChart.css'
 import { useSelector } from "react-redux";
+import Card from "../UI/Card";
 
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -27,22 +28,24 @@ const IncomesChart = (props) => {
     chartDataPoints[personId].value += parseFloat(income.amount);
   }
 
-  const filteredChartDataPoints = chartDataPoints.filter(inc => {return inc.value !== 0});
-  
-  let finalChartDataPoints =[]; 
+  const filteredChartDataPoints = chartDataPoints.filter((inc) => {
+    return inc.value !== 0;
+  });
 
-  for(let i =0; i<filteredChartDataPoints.length; i++){
+  let finalChartDataPoints = [];
+
+  for (let i = 0; i < filteredChartDataPoints.length; i++) {
     let charObj = {
       y: 0,
-      indexLabel: ''
-    }
+      indexLabel: "",
+    };
     charObj.y = filteredChartDataPoints[i].value;
     charObj.indexLabel = filteredChartDataPoints[i].label;
-    finalChartDataPoints.push(charObj)
-
+    finalChartDataPoints.push(charObj);
   }
 
   const options = {
+    animationEnabled: true,
     title: {
       text: "",
     },
@@ -55,9 +58,15 @@ const IncomesChart = (props) => {
   };
 
   return (
-    <div className="incomes-chart">
-      <CanvasJSChart options={options} />
-    </div>
+    <>
+      {finalChartDataPoints.length < 1 ? (
+        <p>No hay incomes</p>
+      ) : (
+        <Card className="incomes-chart">
+          <CanvasJSChart options={options} />
+        </Card>
+      )}
+    </>
   );
 };
 
