@@ -76,7 +76,7 @@ function App() {
         <Incomes />
       </div>
       <div>
-        <CurrentMoney />
+        
       </div>
       <div>
         <NewExpense categories={categories} />
