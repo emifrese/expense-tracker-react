@@ -12,7 +12,6 @@ const ExpensesFilter = (props) => {
   const month = useSelector((state) => state.expense.month);
   const category = useSelector((state) => state.expense.category);
   const filterExp = useSelector((state) => state.expense.filterExp);
-  console.log(filterExp);
 
   useEffect(() => {
     dispatch(expenseActions.reset("filterExp"));
@@ -23,6 +22,7 @@ const ExpensesFilter = (props) => {
 
   const changeYearHandler = (e) => {
     dispatch(expenseActions.setYear(e.target.value));
+    console.log(e.target.value)
   };
 
   const changeMonthHandler = (e) => {

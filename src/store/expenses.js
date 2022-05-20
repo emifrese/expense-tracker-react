@@ -5,6 +5,7 @@ const actualDate = new Date();
 const initialExpenseState = {
   expenses: [],
   totalAmount: 0,
+  fixedExp: [],
   filterExp: [],
   chartExp: [],
   month: actualDate.getMonth().toString(),
@@ -17,26 +18,25 @@ const expenseSlice = createSlice({
   initialState: initialExpenseState,
   reducers: {
     increment(state, action) {
-      console.log('agrego a redux')
+      console.log("agrego a redux");
       state.totalAmount = 0;
       if (action.payload.length !== undefined) {
         action.payload.forEach((exp) => {
-          if(exp.day === null && exp.fixedExp) {
-            if(exp.month < actualDate.getMonth() && exp.year === actualDate.getFullYear()){
-              exp.day = 1;
-              exp.month = actualDate.getMonth()
-              state.expenses.push(exp);
-            } else if (exp.year < actualDate.getFullYear()) {
-              exp.day = 1;
-              exp.month = actualDate.getMonth();
-              exp.year = actualDate.getFullYear();
-              state.expenses.push(exp);
-            }
-          } else if (!exp.fixedExp) {
-            state.expenses.push(exp);
-          } else if (exp.day !== null && exp.fixedExp){
-            state.expenses.push(exp);
-          }
+          // if(exp.day === null && exp.fixedExp) {
+          //   if(exp.month < actualDate.getMonth() && exp.year === actualDate.getFullYear()){
+          //     exp.day = 1;
+          //     exp.month = actualDate.getMonth()
+          //     state.expenses.push(exp);
+          //   } else if (exp.year < actualDate.getFullYear()) {
+          //     exp.day = 1;
+          //     exp.month = actualDate.getMonth();
+          //     exp.year = actualDate.getFullYear();
+          //     state.expenses.push(exp);
+          //   }
+          // } else if (!exp.fixedExp) {
+          //   state.expenses.push(exp);
+          // } else if (exp.day !== null && exp.fixedExp){
+          state.expenses.push(exp);
         });
       } else {
         state.expenses.push(action.payload);
@@ -51,7 +51,6 @@ const expenseSlice = createSlice({
         (expense) => expense.id !== action.payload
       );
       state.expenses = updatedExpenses;
-      
     },
     setYear(state, action) {
       state.year = action.payload;
@@ -63,9 +62,9 @@ const expenseSlice = createSlice({
       state.category = action.payload;
     },
     chartExp(state) {
-      for(const expense of state.expenses){
-        if(expense.year.toString() === state.year){
-          state.chartExp.push(expense)
+      for (const expense of state.expenses) {
+        if (expense.year.toString() === state.year) {
+          state.chartExp.push(expense);
         }
       }
     },
@@ -93,6 +92,21 @@ const expenseSlice = createSlice({
         console.log("no expenses to filter");
       }
     },
+    fixedExp(state, action){
+      action.payload.forEach((expF) => {
+        for(const exp of state.expenses){
+          if(exp.title === expF.title && exp.month === expF.month && exp.month === parseInt(state.month) && exp.year === parseInt(state.year)){
+            return
+          } else if(expF.month > parseInt(state.month) && expF.year === parseInt(state.year)) {
+            return
+          } 
+        }
+        state.fixedExp.push(expF);
+      })
+      state.fixedExp.sort((a, b) => {
+        return a.month - b.month;
+      });
+    }
   },
 });
 

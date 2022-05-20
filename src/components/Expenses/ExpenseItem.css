@@ -35,14 +35,17 @@
     border-radius: 12px;
   }
 
-  .expense-item__erase{
+  .expense-item button{
     font-size: 1rem;
     font-weight: bold;
+    padding: 0.5rem;
+    border-radius: 12px;
+  }
+
+  .expense-item__erase{
     color: #40005d;
     background-color: #ffffff;
     border: 1px solid #40005d;
-    padding: 0.5rem;
-    border-radius: 12px;
   }
 
   .expense-item__erase:hover {

@@ -1,14 +1,33 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./ExpensesList.css";
 import ExpenseItem from "./ExpenseItem";
+import { expenseActions } from "../../store/expenses";
 
-const ExpensesList = () => {
-  const filterExp = useSelector((state) => state.expense.filterExp);
+const ExpensesList = (props) => {
   
+  const filterExp = useSelector((state) => state.expense.filterExp);
+  const fixedExp = useSelector((state) => state.expense.fixedExp);
+  const dispatch = useDispatch();
+
   let list = [];
   let content;
-  for (const expense of filterExp) {
+  let iteration = props.fixed ? fixedExp : filterExp;
+  
+  const submitHandler = e => {
+    e.preventDefault();
+    const actualDate = new Date();
+    const fixedExp = iteration.map(expF => {
+      const temp = Object.assign({}, expF)
+      temp.day = 1;
+      return temp
+    })
+    // dispatch(expenseActions.increment())
+    console.log(fixedExp)
+    
+  }
+
+  for (const expense of iteration) {
     const expElement = (
       <ExpenseItem
         key={expense.id}
@@ -29,7 +48,12 @@ const ExpensesList = () => {
     content = "No expenses";
   }
 
-  return <ul className="expenses-list">{content}</ul>;
+  let finalRender = props.fixed ? (<form className="expenses-fixed__container" onSubmit={submitHandler}>
+    <ul className="expenses-list">{content}</ul>
+    <button type="submit" className="expenses-list__actions">Submit</button>
+  </form>) : (<ul className="expenses-list">{content}</ul>);
+
+  return finalRender;
 };
 
 export default ExpensesList;

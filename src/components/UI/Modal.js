@@ -1,5 +1,7 @@
 import ReactDOM from "react-dom";
 
+import './Modal.css'
+
 const Backdrop = (props) => {
   return (
     <div
@@ -11,9 +13,9 @@ const Backdrop = (props) => {
 
 const ModalOverlay = (props) => {
   return (
-    <div className="flex justify-center items-center">
+    <div className="modal__container">
       <div className="modal">
-        <div>{props.children}</div>
+        <>{props.children}</>
       </div>
     </div>
   );

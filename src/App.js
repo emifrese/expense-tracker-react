@@ -17,10 +17,10 @@ import {
 } from "firebase/firestore";
 import Incomes from "./components/Incomes/Incomes";
 import { incomesActions } from "./store/incomes";
-import Card from "./components/UI/Card";
 import Test from "./components/Test/Test";
 import CurrentMoney from "./components/CurrentMoney/CurrentMoney";
 import Modal from "./components/UI/Modal";
+import ExpensesList from "./components/Expenses/ExpensesList";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -35,7 +35,6 @@ function App() {
     onAuthStateChanged(auth, setUser);
 
     if (user !== null) {
-      console.log('carga unica')
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/expense`),
         (snapshot) => {
@@ -61,11 +60,12 @@ function App() {
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/fixed-exp`),
         (snapshot) => {
+          dispatch(expenseActions.reset("fixedExp"));
           let fixedExpensesArray = snapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,
           }));
-          dispatch(expenseActions.increment(fixedExpensesArray));
+          dispatch(expenseActions.fixedExp(fixedExpensesArray));
         }
       );
     }
@@ -74,9 +74,7 @@ function App() {
   return user ? (
     <Fragment>
       <Modal>
-        <Card>
-          <div>Hola</div>
-        </Card>
+          <ExpensesList fixed={true} />
       </Modal>
       {/* {income.length > 0 ? <div>Hay ingresos</div> : ""} */}
       <div>
