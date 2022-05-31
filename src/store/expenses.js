@@ -83,7 +83,9 @@ const expenseSlice = createSlice({
             expense.category === state.category
           ) {
             state.filterExp.push(expense);
-          }
+          } else (
+            console.log('other year/month and/or other category')
+            )
         }
         state.filterExp.sort((a, b) => {
           return a.day - b.day;
@@ -94,13 +96,18 @@ const expenseSlice = createSlice({
     },
     fixedExp(state, action){
       action.payload.forEach((expF) => {
-        for(const exp of state.expenses){
+        for(const exp of state.filterExp){
           if(exp.title === expF.title && exp.month === expF.month && exp.month === parseInt(state.month) && exp.year === parseInt(state.year)){
+            // console.log('here 1')
             return
           } else if(expF.month > parseInt(state.month) && expF.year === parseInt(state.year)) {
+            // console.log('here')
             return
-          } 
+          } else if(exp.title === expF.title && exp.fixedExp === expF.fixedExp) {
+            return
+          }
         }
+        console.log('load')
         state.fixedExp.push(expF);
       })
       state.fixedExp.sort((a, b) => {

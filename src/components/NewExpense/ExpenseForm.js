@@ -8,9 +8,12 @@ const ExpenseForm = (props) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
   const [enteredCategory, setEnteredCategory] = useState("");
+  const [enteredCuotas, setEnteredCuotas] = useState("");
   const [fixedExp, setFixedExp] = useState(false);
+  const [cuotas, setCuotas] = useState(false);
 
   let categoriesList = [];
+  let cuotasList = [];
 
   props.categories.forEach((category, i) => {
     if (category === "All") {
@@ -22,6 +25,16 @@ const ExpenseForm = (props) => {
       </option>
     );
   });
+
+  const cuotasValues = [ 3, 6, 9, 12, 18];
+
+  cuotasValues.forEach((cuota, i) => {
+    cuotasList.push(
+      <option value={cuota} key={i}>
+        {cuota}
+      </option>
+    )
+  })
 
   const titleChangeHandler = (e) => {
     setEnteredTitle(e.target.value);
@@ -35,6 +48,9 @@ const ExpenseForm = (props) => {
   const categoryChangeHandler = (e) => {
     setEnteredCategory(e.target.value);
   };
+  const cuotasChangeHandler = (e) => {
+    setEnteredCuotas(parseInt(e.target.value));
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -47,16 +63,38 @@ const ExpenseForm = (props) => {
       day: date.getDate(),
       month: date.getMonth(),
       year: date.getFullYear(),
-      fixedExp,
       category: enteredCategory,
+      fixedExp,
+      cuotas,
+      amountCuotas: enteredCuotas,
+      payed: true,
     };
-
     const expenseRef = collection(
       firestore,
       `users/${auth.currentUser.uid}/expense`
     );
-    await addDoc(expenseRef, expenseData);
+
+    if(!cuotas) {  
+      await addDoc(expenseRef, expenseData);
+    } else {
+      if(typeof enteredCuotas !== 'number') {
+        console.log('selecciona las cuotas')
+        return
+      }
+      const temp = Object.assign({}, expenseData);
+      temp.amount = parseFloat((temp.amount/temp.amountCuotas).toFixed(2));
+      for(let i = 0; i < temp.amountCuotas; i++){
+        temp.month += 1;
+        temp.payed = false;
+        if(temp.month > 12) {
+          temp.month = 0;
+          temp.year += 1;
+        }
+        await addDoc(expenseRef, temp)
+      }
+    }
     
+
     if (fixedExp) {
       const expenseFixedData = {
         title: enteredTitle,
@@ -66,6 +104,8 @@ const ExpenseForm = (props) => {
         year: date.getFullYear(),
         category: enteredCategory,
         fixedExp,
+        cuotas,
+        amountCuotas: enteredCuotas,
       };
 
       const expenseFixedRef = collection(
@@ -81,7 +121,6 @@ const ExpenseForm = (props) => {
 
     props.cancelButton();
   };
-
 
   return (
     <form onSubmit={submitHandler}>
@@ -121,17 +160,41 @@ const ExpenseForm = (props) => {
             {categoriesList}
           </select>
         </div>
-        <div className="new-expense__current">
-          <label className="switch">
-            Fixed Expenses
-            <input
-              type="checkbox"
-              defaultChecked={fixedExp}
-              onChange={(e) => setFixedExp(e.target.checked)}
-            />
-            <span className="slider"></span>
-          </label>
-        </div>
+        {cuotas && (
+          <div className="new-expense__control">
+            <label>Cuotas</label>
+            <select onChange={cuotasChangeHandler}>
+              <option value="">Select amount of cuotas</option>
+              {cuotasList}
+            </select>
+          </div>
+        )}
+        {!cuotas && (
+          <div className="new-expense__current">
+            <label className="switch">
+              Fixed Expenses
+              <input
+                type="checkbox"
+                defaultChecked={fixedExp}
+                onChange={(e) => setFixedExp(e.target.checked)}
+              />
+              <span className="slider"></span>
+            </label>
+          </div>
+        )}
+        {!fixedExp && (
+          <div className="new-expense__current">
+            <label className="switch">
+              Pago en cuotas
+              <input
+                type="checkbox"
+                defaultChecked={cuotas}
+                onChange={(e) => setCuotas(e.target.checked)}
+              />
+              <span className="slider"></span>
+            </label>
+          </div>
+        )}
       </div>
       <div className="new-expense__actions">
         <button type="button" onClick={props.cancelButton}>

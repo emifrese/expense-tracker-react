@@ -24,12 +24,17 @@ import ExpensesList from "./components/Expenses/ExpensesList";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [fixedCart, setFixedCart] = useState(false);
 
   const dispatch = useDispatch();
   //Poner opcion para cargar categorias y despues guardarlas en firebase
   const categories = ["All", "Carniceria", "Verduleria"];
 
   const signOut = () => auth.signOut();
+  const toggleFixedCartHandler = () => {
+    setFixedCart((state) => !state);
+  };
+  
 
   useEffect(() => {
     onAuthStateChanged(auth, setUser);
@@ -68,19 +73,22 @@ function App() {
           dispatch(expenseActions.fixedExp(fixedExpensesArray));
         }
       );
+      toggleFixedCartHandler();
     }
   }, [user, dispatch]);
 
   return user ? (
     <Fragment>
-      <Modal>
-          <ExpensesList fixed={true} />
-      </Modal>
+      {fixedCart && (
+        <Modal Toggle={toggleFixedCartHandler}>
+          <ExpensesList fixed={true} Toggle={toggleFixedCartHandler}/>
+        </Modal>
+      )}
       {/* {income.length > 0 ? <div>Hay ingresos</div> : ""} */}
       <div>
         <Incomes />
       </div>
-      <div></div>
+      <div><Test /></div>
       <div>
         <NewExpense categories={categories} />
         <Expenses categories={categories} />

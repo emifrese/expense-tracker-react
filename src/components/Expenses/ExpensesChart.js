@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 
 const ExpensesChart = () => {
     const chartExp = useSelector(state => state.expense.chartExp)
-    
+    console.log(chartExp)
+
     const chartDataPoints = [
         {label: 'Jan', value: 0},
         {label: 'Feb', value: 0},
@@ -23,6 +24,8 @@ const ExpensesChart = () => {
         const expenseMonth = expense.month;
         chartDataPoints[expenseMonth].value += expense.amount;
     }
+
+    console.log(chartDataPoints)
 
     return <Chart dataPoints={chartDataPoints} type='expenses'/>
 };

@@ -8,10 +8,12 @@ import { useEffect } from "react";
 const ExpensesFilter = (props) => {
   const dispatch = useDispatch();
   const expense = useSelector((state) => state.expense.expenses);
+  console.log(expense)
   const year = useSelector((state) => state.expense.year);
   const month = useSelector((state) => state.expense.month);
   const category = useSelector((state) => state.expense.category);
   const filterExp = useSelector((state) => state.expense.filterExp);
+  console.log(expense)
 
   useEffect(() => {
     dispatch(expenseActions.reset("filterExp"));

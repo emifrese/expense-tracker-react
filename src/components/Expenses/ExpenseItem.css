@@ -16,6 +16,16 @@
     justify-content: flex-start;
     flex: 1;
   }
+
+  .expense-item__description input {
+    max-width: 8rem;
+    text-align: center;
+  }
+
+  .expense-item__description input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
   
   .expense-item h2 {
     color: #3a3a3a;
@@ -40,6 +50,10 @@
     font-weight: bold;
     padding: 0.5rem;
     border-radius: 12px;
+  }
+
+  .expense-item button:hover {
+    
   }
 
   .expense-item__erase{

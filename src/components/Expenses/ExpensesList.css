@@ -1,7 +1,8 @@
 .expenses-fixed__container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
+    justify-content: end;
     gap: 1rem;
     margin-bottom: 1rem;
     text-align: left;
@@ -9,6 +10,7 @@
 
 .expenses-list {
     list-style: none;
+    width: 100%;
     padding: 0;
   }
   

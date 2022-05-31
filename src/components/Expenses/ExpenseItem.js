@@ -5,12 +5,19 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { auth, firestore } from "../../firebase";
 import { expenseActions } from "../../store/expenses";
 import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 
 function ExpenseItem(props) {
   const dispatch = useDispatch();
-
+  const [itemAmount, setItemAmount] = useState(props.amount);
+  
+  useEffect(() => {
+    if(props.day === null) {
+      props.onChange(itemAmount, props.id)
+    }
+  },[itemAmount, props])
+  
   const deleteExpenseHandler = async (expenseId) => {
-    console.log(expenseId);
     await deleteDoc(
       doc(firestore, `users/${auth.currentUser.uid}/expense/${expenseId}`)
     );
@@ -19,11 +26,12 @@ function ExpenseItem(props) {
 
   let amountContent = !props.day ? (
     <>
-      <button>Change Amount</button>
+      <button onClick={() => setItemAmount(props.amount)}>Reset Amount</button>
       <input
-        value={props.amount}
+        value={itemAmount}
+        onChange={(e) => setItemAmount(parseFloat(e.target.value))}
         type="number"
-        className="expense-item__price"
+        className={`expense-item__price ` + props.payed ? `payed`: `` }
       />
     </>
   ) : (
