@@ -3,32 +3,21 @@ import "./ExpensesFilter.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import { expenseActions } from "../../store/expenses";
-import { useEffect } from "react";
+import { dateActions } from "../../store/date";
 
 const ExpensesFilter = (props) => {
   const dispatch = useDispatch();
   const expense = useSelector((state) => state.expense.expenses);
-  console.log(expense)
-  const year = useSelector((state) => state.expense.year);
-  const month = useSelector((state) => state.expense.month);
+  const monthDate = useSelector((state) => state.date.month);
+  const yearDate = useSelector((state) => state.date.year);
   const category = useSelector((state) => state.expense.category);
-  const filterExp = useSelector((state) => state.expense.filterExp);
-  console.log(expense)
-
-  useEffect(() => {
-    dispatch(expenseActions.reset("filterExp"));
-    dispatch(expenseActions.reset("chartExp"));
-    dispatch(expenseActions.filteredExp());
-    dispatch(expenseActions.chartExp());
-  }, [expense, year, month, category, dispatch]);
 
   const changeYearHandler = (e) => {
-    dispatch(expenseActions.setYear(e.target.value));
-    console.log(e.target.value)
+    dispatch(dateActions.setYear(parseInt(e.target.value)));
   };
 
   const changeMonthHandler = (e) => {
-    dispatch(expenseActions.setMonth(e.target.value));
+    dispatch(dateActions.setMonth(parseInt(e.target.value)));
   };
 
   const changeCategoryHandler = (e) => {
@@ -60,16 +49,16 @@ const ExpensesFilter = (props) => {
       <div className="expenses-filter__control">
         <div className="expenses-filter__dateList">
           <label>Filter by year</label>
-          <select onChange={changeYearHandler} value={year}>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option>
-            <option value="2019">2019</option>
+          <select onChange={changeYearHandler} value={yearDate}>
+            <option value={2022}>2022</option>
+            <option value={2021}>2021</option>
+            <option value={2020}>2020</option>
+            <option value={2019}>2019</option>
           </select>
         </div>
         <div className="expenses-filter__dateList">
           <label>Filter by month</label>
-          <select onChange={changeMonthHandler} value={month}>
+          <select onChange={changeMonthHandler} value={monthDate}>
             {monthList}
           </select>
         </div>

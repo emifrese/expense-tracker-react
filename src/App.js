@@ -88,7 +88,7 @@ function App() {
       <div>
         <Incomes />
       </div>
-      <div><Test /></div>
+      {/* <div><Test /></div> */}
       <div>
         <NewExpense categories={categories} />
         <Expenses categories={categories} />

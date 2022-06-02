@@ -1,73 +1,41 @@
 import React from "react";
-import CanvasJSReact from "../../assets/canvasjs.react";
-import './IncomesChart.css'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+
 import { useSelector } from "react-redux";
-import Card from "../UI/Card";
 
-const CanvasJS = CanvasJSReact.CanvasJS;
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
-const actualDate = new Date();
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const IncomesChart = (props) => {
   const incomes = useSelector((state) => state.incomes.incomes);
+  const monthDate = useSelector((state) => state.date.month);
+  const yearDate = useSelector((state) => state.date.year);
+
   const filteredIncomes = incomes.filter((inc) => {
     return (
-      inc.year === actualDate.getFullYear() &&
-      inc.month === actualDate.getMonth()
+      inc.year === yearDate &&
+      inc.month === monthDate
     );
   });
-
-  const chartDataPoints = [
-    { label: "Emiliano", value: 0 },
-    { label: "Wanda", value: 0 },
-  ];
-
-  for (const income of filteredIncomes) {
-    const personId = income.personId;
-    chartDataPoints[personId].value += parseFloat(income.amount);
-  }
-
-  const filteredChartDataPoints = chartDataPoints.filter((inc) => {
-    return inc.value !== 0;
-  });
-
-  let finalChartDataPoints = [];
-
-  for (let i = 0; i < filteredChartDataPoints.length; i++) {
-    let charObj = {
-      y: 0,
-      indexLabel: "",
-    };
-    charObj.y = filteredChartDataPoints[i].value;
-    charObj.indexLabel = filteredChartDataPoints[i].label;
-    finalChartDataPoints.push(charObj);
-  }
-
-  const options = {
-    animationEnabled: true,
-    title: {
-      text: "",
-    },
-    data: [
+  const data = {
+    labels: ["Emiliano", "Wanda"],
+    datasets: [
       {
-        type: "doughnut",
-        dataPoints: finalChartDataPoints,
+        label: "Incomes",
+        data: [0, 0],
+        backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
+        borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+        borderWidth: 1,
       },
     ],
   };
 
-  return (
-    <>
-      {finalChartDataPoints.length < 1 ? (
-        <p>No hay incomes</p>
-      ) : (
-        <Card className="incomes-chart">
-          <CanvasJSChart options={options} />
-        </Card>
-      )}
-    </>
-  );
+  for (const income of filteredIncomes) {
+    const personId = income.personId;
+    data.datasets[0].data[personId] += parseFloat(income.amount);
+  }
+
+  return <Doughnut data={data} />;
 };
 
 export default IncomesChart;

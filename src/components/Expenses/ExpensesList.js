@@ -7,15 +7,58 @@ import { addDoc, collection } from "firebase/firestore";
 import { auth, firestore } from "../../firebase";
 
 const ExpensesList = (props) => {
-  const filterExp = useSelector((state) => state.expense.filterExp);
   const fixedExp = useSelector((state) => state.expense.fixedExp);
+  const expenses = useSelector((state) => state.expense.expenses);
+  const monthDate = useSelector((state) => state.date.month);
+  const yearDate = useSelector((state) => state.date.year);
+  const category = useSelector((state) => state.expense.category);
   const month = useSelector((state) => parseInt(state.expense.month));
   const year = useSelector((state) => parseInt(state.expense.year));
   const dispatch = useDispatch();
 
+  // let iteration = props.fixed ? (fixedExp) : filterExp;
+
+  let iteration = [];
+
+  if (props.fixed) {
+    // iteration = fixedExp
+    fixedExp.forEach((expF) => {
+      for (const expense of expenses) {
+        if (
+          expense.title === expF.title &&
+          expense.fixedExp === expF.fixedExp
+        ) {
+          if (expense.year === expF.year && expense.month >= expF.month) {
+            return;
+          } else if(expense.year >= expF.year) {
+            return
+          }
+        } else if (expF.month > monthDate && expF.year === yearDate) {
+          return;
+        }
+      }
+      iteration.push(expF)
+    });
+    iteration.sort((a, b) => {
+      return a.month -b.month
+    })
+  } else {
+    for (const expense of expenses) {
+      if (expense.month === monthDate && expense.year === yearDate) {
+        if (category === "All") {
+          iteration.push(expense);
+        } else if (expense.category === category) {
+          iteration.push(expense);
+        }
+      }
+    }
+    iteration.sort((a, b) => {
+      return a.day - b.day;
+    });
+  }
+
   let list = [];
   let content;
-  let iteration = props.fixed ? fixedExp : filterExp;
   let amountChanges = [];
 
   const changeAmountHandler = (amount, id) => {

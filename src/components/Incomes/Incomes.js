@@ -10,8 +10,6 @@ const Incomes = (props) => {
   const buttonIncome = <button onClick={addNewIncome}>Add New Income</button>;
 
   const [state, setState] = useState(buttonIncome);
-  //     setState(<Chart dataPoints={incomesExample} type='incomes'/>);
-  //   }
 
   const resetNewIncome = () => {
     setState(buttonIncome);
@@ -28,9 +26,9 @@ const Incomes = (props) => {
         {/* <IncomesForm
       // cancelButton={resetNewIncome}
     /> */}
-      <CurrentMoney />
+        <CurrentMoney />
       </div>
-    <Card className="new-income">{state}</Card>
+      <Card className="new-income">{state}</Card>
     </>
   );
 };

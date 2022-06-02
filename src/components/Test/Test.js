@@ -6,22 +6,37 @@ import { useSelector } from "react-redux";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const actualDate = new Date();
-
 const Test = () => {
   const incomes = useSelector((state) => state.incomes.incomes);
-  const filteredIncomes = incomes.filter((inc) => {
-    return (
-      inc.year === actualDate.getFullYear() &&
-      inc.month === actualDate.getMonth()
-    );
-  });
+  const expenses = useSelector((state) => state.expense.expenses);
+  const monthDate = useSelector((state) => state.date.month);
+  const yearDate = useSelector((state) => state.date.year);
+
+  let allIncomes = 0;
+  let allExpenses = 0;
+
+
+  
+  for (const income of incomes) {
+    if (income.year === yearDate && income.month === monthDate) {
+      allIncomes += income.amount
+    }
+  }
+
+  for (const expense of expenses) {
+    if(expense.year === yearDate && expense.month === monthDate) {
+      allExpenses += expense.amount;
+    }
+  }
+  
+  const remaining = allIncomes - allExpenses;
+  
   const data = {
-    labels: ["Emiliano", "Wanda"],
+    labels: ["Gastos", "Disponible"],
     datasets: [
       {
-        label: "Incomes",
-        data: [0, 0],
+        label: "Current Balance",
+        data: [allExpenses, remaining],
         backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
         borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
         borderWidth: 1,
@@ -29,10 +44,6 @@ const Test = () => {
     ],
   };
 
-  for (const income of filteredIncomes) {
-    const personId = income.personId;
-    data.datasets[0].data[personId] += parseFloat(income.amount);
-  }
 
   return <Doughnut data={data} />;
 };
