@@ -21,11 +21,17 @@ import Test from "./components/Test/Test";
 import CurrentMoney from "./components/CurrentMoney/CurrentMoney";
 import Modal from "./components/UI/Modal";
 import ExpensesList from "./components/Expenses/ExpensesList";
+import { userActions } from "./store/user";
+import Header from "./components/UI/Header";
+import Transactions from "./components/Expenses/Transactions";
 
 function App() {
   const [user, setUser] = useState(null);
   const [fixedCart, setFixedCart] = useState(false);
 
+  const displayName = useSelector((state) => state.user.displayName);
+  const email = useSelector((state) => state.user.email);
+  const photoURL = useSelector((state) => state.user.photoURL);
   const dispatch = useDispatch();
   //Poner opcion para cargar categorias y despues guardarlas en firebase
   const categories = ["All", "Carniceria", "Verduleria"];
@@ -34,12 +40,17 @@ function App() {
   const toggleFixedCartHandler = () => {
     setFixedCart((state) => !state);
   };
-  
 
   useEffect(() => {
     onAuthStateChanged(auth, setUser);
 
     if (user !== null) {
+      const [displayName, email, photoURL] = [
+        user.displayName,
+        user.email,
+        user.photoURL,
+      ];
+      dispatch(userActions.setUserInfo([displayName, email, photoURL]));
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/expense`),
         (snapshot) => {
@@ -73,7 +84,7 @@ function App() {
           dispatch(expenseActions.fixedExp(fixedExpensesArray));
         }
       );
-      toggleFixedCartHandler();
+      // toggleFixedCartHandler();
     }
   }, [user, dispatch]);
 
@@ -81,14 +92,16 @@ function App() {
     <Fragment>
       {fixedCart && (
         <Modal Toggle={toggleFixedCartHandler}>
-          <ExpensesList fixed={true} Toggle={toggleFixedCartHandler}/>
+          <ExpensesList fixed={true} Toggle={toggleFixedCartHandler} />
         </Modal>
       )}
       {/* {income.length > 0 ? <div>Hay ingresos</div> : ""} */}
+        <Header />
       <div>
         <Incomes />
       </div>
       {/* <div><Test /></div> */}
+      <Transactions />
       <div>
         <NewExpense categories={categories} />
         <Expenses categories={categories} />
