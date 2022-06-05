@@ -5,17 +5,19 @@ import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
-  const [enteredAmount, setEnteredAmount] = useState("");
+  const [enteredAmount, setEnteredAmount] = useState(0);
   const [enteredDate, setEnteredDate] = useState("");
   const [enteredCategory, setEnteredCategory] = useState("");
   const [enteredCuotas, setEnteredCuotas] = useState("");
   const [fixedExp, setFixedExp] = useState(false);
   const [cuotas, setCuotas] = useState(false);
+  const [addType, setAddType] = useState(true);
+  const categories = ["All", "Carniceria", "Verduleria"];
 
   let categoriesList = [];
   let cuotasList = [];
 
-  props.categories.forEach((category, i) => {
+  categories.forEach((category, i) => {
     if (category === "All") {
       return;
     }
@@ -26,15 +28,15 @@ const ExpenseForm = (props) => {
     );
   });
 
-  const cuotasValues = [ 3, 6, 9, 12, 18];
+  const cuotasValues = [3, 6, 9, 12, 18];
 
   cuotasValues.forEach((cuota, i) => {
     cuotasList.push(
       <option value={cuota} key={i}>
         {cuota}
       </option>
-    )
-  })
+    );
+  });
 
   const titleChangeHandler = (e) => {
     setEnteredTitle(e.target.value);
@@ -74,26 +76,25 @@ const ExpenseForm = (props) => {
       `users/${auth.currentUser.uid}/expense`
     );
 
-    if(!cuotas) {  
+    if (!cuotas) {
       await addDoc(expenseRef, expenseData);
     } else {
-      if(typeof enteredCuotas !== 'number') {
-        console.log('selecciona las cuotas')
-        return
+      if (typeof enteredCuotas !== "number") {
+        console.log("selecciona las cuotas");
+        return;
       }
       const temp = Object.assign({}, expenseData);
-      temp.amount = parseFloat((temp.amount/temp.amountCuotas).toFixed(2));
-      for(let i = 0; i < temp.amountCuotas; i++){
+      temp.amount = parseFloat((temp.amount / temp.amountCuotas).toFixed(2));
+      for (let i = 0; i < temp.amountCuotas; i++) {
         temp.month += 1;
         temp.payed = false;
-        if(temp.month > 12) {
+        if (temp.month > 12) {
           temp.month = 0;
           temp.year += 1;
         }
-        await addDoc(expenseRef, temp)
+        await addDoc(expenseRef, temp);
       }
     }
-    
 
     if (fixedExp) {
       const expenseFixedData = {
@@ -124,6 +125,25 @@ const ExpenseForm = (props) => {
 
   return (
     <form onSubmit={submitHandler}>
+      <div className="new-expense__type">
+        <label className="switch">
+          <input
+            type="checkbox"
+            defaultChecked={addType}
+            onChange={(e) => setAddType(e.target.checked)}
+          />
+          <span className="slider"></span>
+        </label>
+      </div>
+      <div className="new-expense__control_amount">
+        <input
+          type="number"
+          min="0.01"
+          step="0.01"
+          value={enteredAmount}
+          onChange={amountChangeHandler}
+        />
+      </div>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
@@ -131,16 +151,6 @@ const ExpenseForm = (props) => {
             type="text"
             value={enteredTitle}
             onChange={titleChangeHandler}
-          />
-        </div>
-        <div className="new-expense__control">
-          <label>Amount</label>
-          <input
-            type="number"
-            min="0.01"
-            step="0.01"
-            value={enteredAmount}
-            onChange={amountChangeHandler}
           />
         </div>
         <div className="new-expense__control">
@@ -197,10 +207,7 @@ const ExpenseForm = (props) => {
         )}
       </div>
       <div className="new-expense__actions">
-        <button type="button" onClick={props.cancelButton}>
-          Cancel
-        </button>
-        <button type="submit">Add Expense</button>
+        <button type="submit">Save</button>
       </div>
     </form>
   );

@@ -1,9 +1,32 @@
+form {
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+
 .new-expense__controls {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     margin-bottom: 1rem;
     text-align: left;
+  }
+
+  .new-expense__control_amount {
+    display: flex;
+    justify-content: center;
+  }
+
+  .new-expense__control_amount input {
+    appearance: none;
+    border: none;
+    width: 100%;
+    text-align: center;
+    font-size: 50px;
+    color: #999;
+    border: 0;
   }
   
   .new-expense__control label {
@@ -31,12 +54,99 @@
   }
   
   .new-expense__actions {
-    text-align: right;
+    text-align: center;
+  }
+
+  .new-expense__actions button {
+    font: inherit;
+    cursor: pointer;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 30px;
+    width: 100%;
+    background: rgb(95,205,222);
+    background: linear-gradient(138deg, rgba(95,205,222,0.74) 0%, rgba(200,21,198,0.74) 54%, rgba(255,157,0,0.74) 100%);
+    color: #fff;
+    border-radius: 12px;
+    margin-right: 1rem;
   }
 
   .new-expense__current {
     width:80%;
     margin-top: 1rem;
+  }
+
+  .new-expense__type {
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .new-expense__type .switch {
+    position: relative;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    width: 100%;
+    height: 34px;
+  }
+
+  .new-expense__type input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .new-expense__type .slider {
+    position: absolute;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    border-radius: 30px;
+    top: 2rem;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: -2rem;
+    max-width: 75%;
+    height: 50px;
+    background-color: #fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .new-expense__type .slider:before {
+    position: absolute;
+    content: "Income";
+    border-radius: inherit;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 38px;
+    height: 42px;
+    width: 50%;
+    left: 4px;
+    bottom: 2px;
+    background: linear-gradient(138deg, rgba(95,205,222,0.74) 0%, rgba(200,21,198,0.74) 54%, rgba(255,157,0,0.74) 100%);
+    color: #fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .new-expense__type input:checked + .slider:before {
+    content: "Expense"
+  }
+  
+
+  .new-expense__type input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  .new-expense__type input:checked + .slider:before {
+    -webkit-transform: translateX(94%);
+    -ms-transform: translateX(94%);
+    transform: translateX(94%);
   }
 
   .new-expense__current .switch {

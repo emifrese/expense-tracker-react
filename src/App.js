@@ -2,6 +2,7 @@ import { auth, firestore } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, Fragment } from "react";
+import { Route, Routes, Switch } from "react-router-dom";
 
 import { expenseActions } from "./store/expenses";
 
@@ -24,6 +25,9 @@ import ExpensesList from "./components/Expenses/ExpensesList";
 import { userActions } from "./store/user";
 import Header from "./components/UI/Header";
 import Transactions from "./components/Expenses/Transactions";
+import NavBar from "./components/UI/NavBar";
+import Layout from "./components/UI/Layout";
+import ExpenseForm from "./components/NewExpense/ExpenseForm";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,7 +38,7 @@ function App() {
   const photoURL = useSelector((state) => state.user.photoURL);
   const dispatch = useDispatch();
   //Poner opcion para cargar categorias y despues guardarlas en firebase
-  const categories = ["All", "Carniceria", "Verduleria"];
+  
 
   const signOut = () => auth.signOut();
   const toggleFixedCartHandler = () => {
@@ -89,27 +93,34 @@ function App() {
   }, [user, dispatch]);
 
   return user ? (
-    <Fragment>
+    <Layout>
       {fixedCart && (
         <Modal Toggle={toggleFixedCartHandler}>
           <ExpensesList fixed={true} Toggle={toggleFixedCartHandler} />
         </Modal>
       )}
-      {/* {income.length > 0 ? <div>Hay ingresos</div> : ""} */}
-        <Header />
-      <div>
-        <Incomes />
-      </div>
-      {/* <div><Test /></div> */}
-      <Transactions />
-      <div>
+      <Routes>
+        <Route
+          path="/"
+          exact
+          element={
+            <>
+              <Header />
+              <Incomes />
+              <Transactions />
+              <NavBar />
+            </>
+          }
+        />
+        <Route path="/add" exact element={<ExpenseForm/>} />
+      </Routes>
+      {/* <div>
         <NewExpense categories={categories} />
         <Expenses categories={categories} />
-      </div>
-      <footer>
-        <button onClick={signOut}>Sign Out</button>
-      </footer>
-    </Fragment>
+      </div> */}
+
+      {/* <button onClick={signOut}>Sign Out</button> */}
+    </Layout>
   ) : (
     <SignIn />
   );
