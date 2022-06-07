@@ -28,6 +28,7 @@ import Transactions from "./components/Expenses/Transactions";
 import NavBar from "./components/UI/NavBar";
 import Layout from "./components/UI/Layout";
 import ExpenseForm from "./components/NewExpense/ExpenseForm";
+import Stats from "./pages/Stats";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -113,13 +114,14 @@ function App() {
           }
         />
         <Route path="/add" exact element={<ExpenseForm/>} />
+        <Route path='/stats' exact element={<Stats/>}/>
       </Routes>
       {/* <div>
         <NewExpense categories={categories} />
         <Expenses categories={categories} />
       </div> */}
-
       {/* <button onClick={signOut}>Sign Out</button> */}
+
     </Layout>
   ) : (
     <SignIn />

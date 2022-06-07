@@ -2,10 +2,16 @@ import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 import { auth, firestore } from "../../firebase";
 import "./ExpenseForm.css";
+import titleImg from "../../assets/informacion.svg";
+import dateImg from "../../assets/tiempo-trimestrepasado.svg";
+import categoryImg from "../../assets/marcador.svg";
+import cardImg from "../../assets/tarjeta-de-credito.svg";
+import { Link } from "react-router-dom";
+import TransactionToggle from "../UI/TransactionToggle";
 
 const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
-  const [enteredAmount, setEnteredAmount] = useState(0);
+  const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
   const [enteredCategory, setEnteredCategory] = useState("");
   const [enteredCuotas, setEnteredCuotas] = useState("");
@@ -37,6 +43,10 @@ const ExpenseForm = (props) => {
       </option>
     );
   });
+
+  const typeChangeHandler = (e) => {
+    setAddType(e)
+  }
 
   const titleChangeHandler = (e) => {
     setEnteredTitle(e.target.value);
@@ -124,92 +134,102 @@ const ExpenseForm = (props) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <div className="new-expense__type">
-        <label className="switch">
+    <>
+    <div className="back-link-container">
+      <Link to='/'>
+        X
+      </Link>
+    </div>
+      <form onSubmit={submitHandler}>
+        {/* <div className="new-expense__type">
+          <label className="switch">
+            <input
+              type="checkbox"
+              defaultChecked={addType}
+              onChange={(e) => setAddType(e.target.checked)}
+            />
+            <span className="slider"></span>
+          </label>
+        </div> */}
+        <TransactionToggle onChangeType={typeChangeHandler} addType={addType}/>
+        <div className="new-expense__control_amount">
           <input
-            type="checkbox"
-            defaultChecked={addType}
-            onChange={(e) => setAddType(e.target.checked)}
-          />
-          <span className="slider"></span>
-        </label>
-      </div>
-      <div className="new-expense__control_amount">
-        <input
-          type="number"
-          min="0.01"
-          step="0.01"
-          value={enteredAmount}
-          onChange={amountChangeHandler}
-        />
-      </div>
-      <div className="new-expense__controls">
-        <div className="new-expense__control">
-          <label>Title</label>
-          <input
-            type="text"
-            value={enteredTitle}
-            onChange={titleChangeHandler}
-          />
-        </div>
-        <div className="new-expense__control">
-          <label>Date</label>
-          <input
-            type="date"
-            min="2019-01-01"
-            max="2022-12-31"
-            value={enteredDate}
-            onChange={dateChangeHandler}
+            type="number"
+            min="0.01"
+            step="0.01"
+            placeholder={0}
+            value={enteredAmount}
+            onChange={amountChangeHandler}
           />
         </div>
-        <div className="new-expense__control">
-          <label>Category</label>
-          <select onChange={categoryChangeHandler}>
-            <option value="">Select a category</option>
-            {categoriesList}
-          </select>
-        </div>
-        {cuotas && (
+        <div className="new-expense__controls">
           <div className="new-expense__control">
-            <label>Cuotas</label>
-            <select onChange={cuotasChangeHandler}>
-              <option value="">Select amount of cuotas</option>
-              {cuotasList}
+            <img src={titleImg} alt="title" />
+            <input
+              type="text"
+              placeholder="Title"
+              value={enteredTitle}
+              onChange={titleChangeHandler}
+            />
+          </div>
+          <div className="new-expense__control">
+            <img src={dateImg} alt="date" />
+            <input
+              type="date"
+              min="2019-01-01"
+              max="2022-12-31"
+              value={enteredDate}
+              onChange={dateChangeHandler}
+            />
+          </div>
+          <div className="new-expense__control">
+            <img src={categoryImg} alt="category" />
+            <select onChange={categoryChangeHandler}>
+              <option value="">Select a category</option>
+              {categoriesList}
             </select>
           </div>
-        )}
-        {!cuotas && (
-          <div className="new-expense__current">
-            <label className="switch">
-              Fixed Expenses
-              <input
-                type="checkbox"
-                defaultChecked={fixedExp}
-                onChange={(e) => setFixedExp(e.target.checked)}
-              />
-              <span className="slider"></span>
-            </label>
-          </div>
-        )}
-        {!fixedExp && (
-          <div className="new-expense__current">
-            <label className="switch">
-              Pago en cuotas
-              <input
-                type="checkbox"
-                defaultChecked={cuotas}
-                onChange={(e) => setCuotas(e.target.checked)}
-              />
-              <span className="slider"></span>
-            </label>
-          </div>
-        )}
-      </div>
-      <div className="new-expense__actions">
-        <button type="submit">Save</button>
-      </div>
-    </form>
+          {cuotas && (
+            <div className="new-expense__control">
+              <img src={cardImg} alt="credit-card" />
+              <select onChange={cuotasChangeHandler}>
+                <option value="">Select amount of cuotas</option>
+                {cuotasList}
+              </select>
+            </div>
+          )}
+          {!cuotas && (
+            <div className="new-expense__current">
+              <label className="switch">
+                Fixed Expenses
+                <input
+                  type="checkbox"
+                  defaultChecked={fixedExp}
+                  onChange={(e) => setFixedExp(e.target.checked)}
+                />
+                <span className="slider"></span>
+              </label>
+            </div>
+          )}
+          {!fixedExp && (
+            <div className="new-expense__current">
+              <label className="switch">
+                Pago en cuotas
+                <input
+                  type="checkbox"
+                  defaultChecked={cuotas}
+                  onChange={(e) => setCuotas(e.target.checked)}
+                />
+                <span className="slider"></span>
+              </label>
+            </div>
+          )}
+        </div>
+        <div className="new-expense__actions">
+          <button type="submit">Save</button>
+        </div>
+      </form>
+    </>
   );
 };
 

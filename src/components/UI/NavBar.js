@@ -15,7 +15,7 @@ const NavBar = () => {
       </div>
       <div className="navbar__buttons">
         <img src={config} alt="config" />
-        <img src={stats} alt="stats" />
+        <Link to='/stats'><img src={stats} alt="stats" /></Link>
       </div>
     </footer>
   );
