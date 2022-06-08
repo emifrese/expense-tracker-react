@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const actualDate = new Date();
 
 const initialDateState = {
+    day: actualDate.getDay(),
     month: actualDate.getMonth(),
     year: actualDate.getFullYear()
 }

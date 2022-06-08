@@ -1,17 +1,22 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import "./Header.css";
 
-const Header = () => {
-  const displayName = useSelector((state) => state.user.displayName);
-  const photoURL = useSelector((state) => state.user.photoURL);
-  return (
-    <figure className="user-info">
-      <img src={photoURL} alt="user-profile" />
-      <figcaption>{displayName}</figcaption>
-    </figure>
-  );
+const Header = (props) => {
+
+  console.log(props.photoURL)
+
+  const content =
+    props.type === "main" ? (
+      <figure className="user-info">
+        <img src={props.photoURL} alt="user-profile" />
+        <figcaption>{props.name}</figcaption>
+      </figure>
+    ) : (
+      <p>Empty</p>
+    );
+
+  return content;
 };
 
 export default Header;

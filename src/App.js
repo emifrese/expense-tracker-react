@@ -1,8 +1,8 @@
 import { auth, firestore } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect, Fragment } from "react";
-import { Route, Routes, Switch } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 
 import { expenseActions } from "./store/expenses";
 
@@ -16,30 +16,22 @@ import {
   doc,
   onSnapshot,
 } from "firebase/firestore";
-import Incomes from "./components/Incomes/Incomes";
 import { incomesActions } from "./store/incomes";
 import Test from "./components/Test/Test";
-import CurrentMoney from "./components/CurrentMoney/CurrentMoney";
 import Modal from "./components/UI/Modal";
 import ExpensesList from "./components/Expenses/ExpensesList";
 import { userActions } from "./store/user";
-import Header from "./components/UI/Header";
-import Transactions from "./components/Expenses/Transactions";
-import NavBar from "./components/UI/NavBar";
 import Layout from "./components/UI/Layout";
 import ExpenseForm from "./components/NewExpense/ExpenseForm";
 import Stats from "./pages/Stats";
+import MainPage from "./pages/MainPage";
 
 function App() {
   const [user, setUser] = useState(null);
   const [fixedCart, setFixedCart] = useState(false);
 
-  const displayName = useSelector((state) => state.user.displayName);
-  const email = useSelector((state) => state.user.email);
-  const photoURL = useSelector((state) => state.user.photoURL);
   const dispatch = useDispatch();
   //Poner opcion para cargar categorias y despues guardarlas en firebase
-  
 
   const signOut = () => auth.signOut();
   const toggleFixedCartHandler = () => {
@@ -101,27 +93,15 @@ function App() {
         </Modal>
       )}
       <Routes>
-        <Route
-          path="/"
-          exact
-          element={
-            <>
-              <Header />
-              <Incomes />
-              <Transactions />
-              <NavBar />
-            </>
-          }
-        />
-        <Route path="/add" exact element={<ExpenseForm/>} />
-        <Route path='/stats' exact element={<Stats/>}/>
+        <Route path="/" exact element={<MainPage />} />
+        <Route path="/add" exact element={<ExpenseForm />} />
+        <Route path="/stats" exact element={<Stats />} />
       </Routes>
       {/* <div>
         <NewExpense categories={categories} />
         <Expenses categories={categories} />
       </div> */}
       {/* <button onClick={signOut}>Sign Out</button> */}
-
     </Layout>
   ) : (
     <SignIn />

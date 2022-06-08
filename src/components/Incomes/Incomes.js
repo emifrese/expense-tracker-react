@@ -1,6 +1,4 @@
 import { useState } from "react";
-import Chart from "../Charts/Chart";
-import Balance from "../CurrentMoney/Balance";
 import CurrentMoney from "../CurrentMoney/CurrentMoney";
 import Card from "../UI/Card";
 import "./Incomes.css";
@@ -22,15 +20,14 @@ const Incomes = (props) => {
 
   return (
     <>
-      <Balance />
-      {/* <div className="incomes">
+      <div className="incomes">
         <IncomesChart />
         <IncomesForm
-      // cancelButton={resetNewIncome}
+        cancelButton={resetNewIncome}
     />
         <CurrentMoney />
       </div>
-      <Card className="new-income">{state}</Card> */}
+      <Card className="new-income">{state}</Card>
     </>
   );
 };

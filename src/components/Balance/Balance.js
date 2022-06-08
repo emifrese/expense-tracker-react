@@ -1,9 +1,6 @@
 import React from "react";
-
-import "./Balance.css";
-import arrowDown from "../../assets/arrow-down.png";
-import arrowUp from "../../assets/arrow-up.png";
 import { useSelector } from "react-redux";
+import BalanceCard from "./BalanceCard";
 
 const Balance = () => {
   const incomesArray = useSelector((state) => state.incomes.incomes);
@@ -29,22 +26,7 @@ const Balance = () => {
   const remaining = incomes - expenses;
 
   return (
-    <div className="balance-card">
-      <div className="balance-card__title">
-        <h2>Total Balance</h2>
-        <p>$ {remaining}</p>
-      </div>
-      <div className="balance-card__info">
-        <figure className="balance-card__info_inc">
-          <img src={arrowDown} alt="arrow-down" />
-          <figcaption>Income {incomes}</figcaption>
-        </figure>
-        <figure className="balance-card__info_exp">
-          <img src={arrowUp} alt="arrow-up" />
-          <figcaption>Expenses {expenses}</figcaption>
-        </figure>
-      </div>
-    </div>
+    <BalanceCard incomes={incomes} expenses={expenses} remaining={remaining} />
   );
 };
 

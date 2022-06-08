@@ -1,20 +1,30 @@
 {
   "files": {
-    "main.css": "/static/css/main.60c90e03.chunk.css",
-    "main.js": "/static/js/main.4afc7bf3.chunk.js",
-    "main.js.map": "/static/js/main.4afc7bf3.chunk.js.map",
+    "main.css": "/static/css/main.3e9c35b8.chunk.css",
+    "main.js": "/static/js/main.70e2ffd1.chunk.js",
+    "main.js.map": "/static/js/main.70e2ffd1.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.d935bac7.js",
     "runtime-main.js.map": "/static/js/runtime-main.d935bac7.js.map",
-    "static/js/2.27ea4057.chunk.js": "/static/js/2.27ea4057.chunk.js",
-    "static/js/2.27ea4057.chunk.js.map": "/static/js/2.27ea4057.chunk.js.map",
+    "static/js/2.64908c4f.chunk.js": "/static/js/2.64908c4f.chunk.js",
+    "static/js/2.64908c4f.chunk.js.map": "/static/js/2.64908c4f.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.60c90e03.chunk.css.map": "/static/css/main.60c90e03.chunk.css.map",
-    "static/js/2.27ea4057.chunk.js.LICENSE.txt": "/static/js/2.27ea4057.chunk.js.LICENSE.txt"
+    "static/css/main.3e9c35b8.chunk.css.map": "/static/css/main.3e9c35b8.chunk.css.map",
+    "static/js/2.64908c4f.chunk.js.LICENSE.txt": "/static/js/2.64908c4f.chunk.js.LICENSE.txt",
+    "static/media/ajustes-deslizadores.219d3c4c.svg": "/static/media/ajustes-deslizadores.219d3c4c.svg",
+    "static/media/aplicaciones.352c06af.svg": "/static/media/aplicaciones.352c06af.svg",
+    "static/media/caret-cuadrado-izquierda.0a6fd4ac.svg": "/static/media/caret-cuadrado-izquierda.0a6fd4ac.svg",
+    "static/media/estadisticas.ddedd9a9.svg": "/static/media/estadisticas.ddedd9a9.svg",
+    "static/media/informacion.635e87dd.svg": "/static/media/informacion.635e87dd.svg",
+    "static/media/marcador.f49d26f2.svg": "/static/media/marcador.f49d26f2.svg",
+    "static/media/meat.4438da74.png": "/static/media/meat.4438da74.png",
+    "static/media/tarjeta-de-credito.16e33930.svg": "/static/media/tarjeta-de-credito.16e33930.svg",
+    "static/media/tiempo-trimestrepasado.7f8c0826.svg": "/static/media/tiempo-trimestrepasado.7f8c0826.svg",
+    "static/media/vegetable.ab250de4.png": "/static/media/vegetable.ab250de4.png"
   },
   "entrypoints": [
     "static/js/runtime-main.d935bac7.js",
-    "static/js/2.27ea4057.chunk.js",
-    "static/css/main.60c90e03.chunk.css",
-    "static/js/main.4afc7bf3.chunk.js"
+    "static/js/2.64908c4f.chunk.js",
+    "static/css/main.3e9c35b8.chunk.css",
+    "static/js/main.70e2ffd1.chunk.js"
   ]
 }
