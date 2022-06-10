@@ -12,6 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 100%;
 }
 
 .modal {
@@ -20,12 +21,11 @@
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
     border-radius: 14px;
-    background-color: rgb(31,31,31);
+    background-color: #fff;
     padding: 1rem;
-    position: fixed;
-    top: 3rem;
     z-index: 30;
-    width: 90%;
+    text-align: center;
+    max-width: inherit;
 }
 
     @keyframes slideDown {

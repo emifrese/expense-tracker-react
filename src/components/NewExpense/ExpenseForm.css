@@ -1,19 +1,7 @@
-.back-link-container {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.back-link-container a {
-  color: #aaa;
-  text-decoration: none;
-  font-size: 24px;
-}
-
 form {
-  height:100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding-bottom: 30px;
 }
 
@@ -28,6 +16,9 @@ form {
   .new-expense__control_amount {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
   }
 
   .new-expense__control_amount input {
@@ -83,24 +74,7 @@ form {
     appearance: none;
     color: #aaa
   }
-  
-  .new-expense__actions {
-    text-align: center;
-  }
 
-  .new-expense__actions button {
-    font: inherit;
-    cursor: pointer;
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 30px;
-    width: 100%;
-    background: rgb(95,205,222);
-    background: linear-gradient(138deg, rgba(95,205,222,0.74) 0%, rgba(200,21,198,0.74) 54%, rgba(255,157,0,0.74) 100%);
-    color: #fff;
-    border-radius: 12px;
-    margin-right: 1rem;
-  }
 
   .new-expense__current {
     width:80%;

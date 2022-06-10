@@ -25,6 +25,7 @@ import Layout from "./components/UI/Layout";
 import ExpenseForm from "./components/NewExpense/ExpenseForm";
 import Stats from "./pages/Stats";
 import MainPage from "./pages/MainPage";
+import AddTransaction from "./pages/AddTransaction";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -48,6 +49,7 @@ function App() {
         user.photoURL,
       ];
       dispatch(userActions.setUserInfo([displayName, email, photoURL]));
+
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/expense`),
         (snapshot) => {
@@ -59,6 +61,7 @@ function App() {
           dispatch(expenseActions.increment(expensesArray));
         }
       );
+
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/income`),
         (snapshot) => {
@@ -70,6 +73,7 @@ function App() {
           dispatch(incomesActions.addIncome(incomesArray));
         }
       );
+
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/fixed-exp`),
         (snapshot) => {
@@ -81,6 +85,19 @@ function App() {
           dispatch(expenseActions.fixedExp(fixedExpensesArray));
         }
       );
+
+      onSnapshot(
+        collection(firestore, `users/${auth.currentUser.uid}/homemates`),
+        (snapshot) => {
+          dispatch(userActions.resetHomemates());
+          let homematesArray = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id
+          }))
+          console.log(homematesArray)
+          dispatch(userActions.setHomematesInfo(homematesArray))
+        }
+      )
       // toggleFixedCartHandler();
     }
   }, [user, dispatch]);
@@ -94,7 +111,7 @@ function App() {
       )}
       <Routes>
         <Route path="/" exact element={<MainPage />} />
-        <Route path="/add" exact element={<ExpenseForm />} />
+        <Route path="/add" exact element={<AddTransaction />} />
         <Route path="/stats" exact element={<Stats />} />
       </Routes>
       {/* <div>

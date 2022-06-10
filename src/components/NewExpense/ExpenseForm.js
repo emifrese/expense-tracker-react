@@ -8,6 +8,7 @@ import categoryImg from "../../assets/marcador.svg";
 import cardImg from "../../assets/tarjeta-de-credito.svg";
 import { Link } from "react-router-dom";
 import TransactionToggle from "../UI/TransactionToggle";
+import SaveButton from "../UI/SaveButton";
 
 const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -17,9 +18,10 @@ const ExpenseForm = (props) => {
   const [enteredCuotas, setEnteredCuotas] = useState("");
   const [fixedExp, setFixedExp] = useState(false);
   const [cuotas, setCuotas] = useState(false);
-  const [addType, setAddType] = useState(true);
+  const [transactionType, setTransactionType] = useState(true);
   const categories = ["All", "Carniceria", "Verduleria"];
 
+  console.log(enteredAmount)
   let categoriesList = [];
   let cuotasList = [];
 
@@ -45,14 +47,14 @@ const ExpenseForm = (props) => {
   });
 
   const typeChangeHandler = (e) => {
-    setAddType(e)
+    setTransactionType(e)
   }
 
   const titleChangeHandler = (e) => {
     setEnteredTitle(e.target.value);
   };
   const amountChangeHandler = (e) => {
-    setEnteredAmount(e.target.value);
+    setEnteredAmount(parseFloat(e.target.value));
   };
   const dateChangeHandler = (e) => {
     setEnteredDate(e.target.value);
@@ -71,7 +73,7 @@ const ExpenseForm = (props) => {
 
     const expenseData = {
       title: enteredTitle,
-      amount: +enteredAmount,
+      amount: enteredAmount,
       day: date.getDate(),
       month: date.getMonth(),
       year: date.getFullYear(),
@@ -109,7 +111,7 @@ const ExpenseForm = (props) => {
     if (fixedExp) {
       const expenseFixedData = {
         title: enteredTitle,
-        amount: +enteredAmount,
+        amount: enteredAmount,
         day: null,
         month: date.getMonth(),
         year: date.getFullYear(),
@@ -135,23 +137,7 @@ const ExpenseForm = (props) => {
 
   return (
     <>
-    <div className="back-link-container">
-      <Link to='/'>
-        X
-      </Link>
-    </div>
       <form onSubmit={submitHandler}>
-        {/* <div className="new-expense__type">
-          <label className="switch">
-            <input
-              type="checkbox"
-              defaultChecked={addType}
-              onChange={(e) => setAddType(e.target.checked)}
-            />
-            <span className="slider"></span>
-          </label>
-        </div> */}
-        <TransactionToggle onChangeType={typeChangeHandler} addType={addType}/>
         <div className="new-expense__control_amount">
           <input
             type="number"
@@ -225,9 +211,7 @@ const ExpenseForm = (props) => {
             </div>
           )}
         </div>
-        <div className="new-expense__actions">
-          <button type="submit">Save</button>
-        </div>
+        <SaveButton />
       </form>
     </>
   );

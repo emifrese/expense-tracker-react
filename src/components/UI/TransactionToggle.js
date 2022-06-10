@@ -2,14 +2,14 @@ import React from "react";
 
 import './TransactionToggle.css'
 
-const TransactionToggle = ({onChangeType, addType}) => {
+const TransactionToggle = ({onChangeType, transactionType}) => {
 
   return (
     <div className="transaction-toggle">
       <label className="switch">
         <input
           type="checkbox"
-          defaultChecked={addType}
+          defaultChecked={transactionType}
           onChange={(e) => onChangeType(e.target.checked)}
         />
         <span className="slider"></span>

@@ -1,27 +1,12 @@
 .incomes__controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  text-align: left;
 }
 
-.incomes__controls label {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    display: block;
-  }
-
-  .incomes__controls input {
-    font: inherit;
-    padding: 0.5rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    width: 20rem;
-    max-width: 100%;
-  }
-
-  .incomes__control select {
+.incomes__control select {
     font: inherit;
     padding: 0.5rem;
     border-radius: 6px;
@@ -39,7 +24,65 @@
     border-color: #888;
   }
 
-  .incomes__controls select:hover {
-    cursor: pointer
+  .incomes__control_amount {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+  }
+
+  .incomes__control_amount input {
+    appearance: none;
+    border: none;
+    width: 100%;
+    text-align: center;
+    font-size: 50px;
+    color: #999;
+    border: 0;
+  }
+  
+  .incomes__control {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .incomes__control {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .incomes__control label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .incomes__control img {
+    width: 10%;
+    padding: 5px;
+    filter: invert(74%) sepia(4%) saturate(33%) hue-rotate(66deg) brightness(91%) contrast(94%);
+  }
+  
+  .incomes__control input {
+    font: inherit;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 0;
+    width: 20rem;
+    max-width: 100%;
+    color: #aaa;
+  }
+
+
+  .incomes__control select {
+    font: inherit;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 0;
+    width: 20rem;
+    max-width: 100%;
+    appearance: none;
+    color: #aaa
   }
 

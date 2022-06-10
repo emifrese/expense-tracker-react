@@ -2,7 +2,6 @@ import React from "react";
 import TransactionsList from "../components/Expenses/TransactionsList";
 import Header from "../components/UI/Header";
 import NavBar from "../components/UI/NavBar";
-import Incomes from "../components/Incomes/Incomes";
 import { useSelector } from "react-redux";
 import Balance from "../components/Balance/Balance";
 

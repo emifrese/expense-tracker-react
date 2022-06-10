@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import IncomesForm from "../components/Incomes/IncomesForm";
+import ExpenseForm from "../components/NewExpense/ExpenseForm";
+import TransactionHeader from "../components/Transaction/TransactionHeader";
+import TransactionToggle from "../components/UI/TransactionToggle";
 
 const AddTransaction = () => {
-  return (
-    <div>AddTransaction</div>
-  )
-}
+  const [transactionType, setTransactionType] = useState(false);
 
-export default AddTransaction
+  const typeChangeHandler = (e) => {
+    setTransactionType(e);
+  };
+
+  return (
+    <>
+      <TransactionHeader
+        typeChangeHandler={typeChangeHandler}
+        transactionType={transactionType}
+      />
+      {transactionType ? <ExpenseForm /> : <IncomesForm />}
+    </>
+  );
+};
+
+export default AddTransaction;
