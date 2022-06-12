@@ -11,6 +11,8 @@ const Balance = () => {
   let incomes = 0;
   let expenses = 0;
 
+  console.log(expensesArray)
+
   for (const income of incomesArray) {
     if (income.year === yearDate && income.month === monthDate) {
       incomes += income.amount;

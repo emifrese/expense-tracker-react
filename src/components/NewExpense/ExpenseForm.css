@@ -78,7 +78,8 @@ form {
 
   .new-expense__current {
     width:80%;
-    margin-top: 1rem;
+    margin-bottom: 1rem;
+    
   }
 
   .new-expense__current .switch {

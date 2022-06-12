@@ -8,7 +8,6 @@ import SaveButton from "../UI/SaveButton";
 import "./Person.css";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, firestore } from "../../firebase";
-import { useDispatch } from "react-redux";
 
 const Person = ({onClose}) => {
   const [enteredName, setEnteredName] = useState("");
@@ -46,7 +45,6 @@ const Person = ({onClose}) => {
 
     const personData = {
         person: enteredName,
-        personId: Math.random().toString(16).slice(2),
         jobs: addedJob
     }
 

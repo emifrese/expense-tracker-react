@@ -94,7 +94,6 @@ function App() {
             ...doc.data(),
             id: doc.id
           }))
-          console.log(homematesArray)
           dispatch(userActions.setHomematesInfo(homematesArray))
         }
       )

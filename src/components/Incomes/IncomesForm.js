@@ -4,7 +4,10 @@ import { collection, addDoc } from "firebase/firestore";
 import "./IncomesForm.css";
 import SaveButton from "../UI/SaveButton";
 
-import titleImg from "../../assets/informacion.svg";
+import typeImge from "../../assets/informacion.svg";
+import addImg from "../../assets/add.svg";
+import userImg from "../../assets/usuario.svg";
+import jobImg from "../../assets/maletin.svg";
 import Modal from "../UI/Modal";
 import Person from "../Person/Person";
 import { useSelector } from "react-redux";
@@ -16,33 +19,45 @@ const IncomesForm = (props) => {
   const [enteredPerson, setEnteredPerson] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredType, setEnteredType] = useState("");
-  const [enteredWork, setEnteredWork] = useState("");
+  const [enteredJob, setEnteredJob] = useState("");
   const [homemates] = useSelector((state) => state.user.homemates);
 
   const toggleFixedCartHandler = () => {
     setFixedCart((state) => !state);
   };
 
-  console.log(homemates)
-
   let selectPerson = [];
   let jobOptions = [];
+  let typeOptions = [];
 
-  homemates.forEach( mate => {
-    selectPerson.push(
-      <option value={mate.person} id={mate.id} key={mate.id}>
-        {mate.person}
+  const types = ["Job", "Gift/Present", "Debt"];
+
+  for (const [i, type] of types.entries()) {
+    typeOptions.push(
+      <option value={type} id={i} key={i}>
+        {type}
       </option>
     );
-    if(enteredPerson.id === mate.id)
-    mate.jobs.forEach(job =>
-        jobOptions.push(
-          <option value={job.value} id={job.id} key={job.id}>
-        {job.value}
-      </option>
-        )
-      )
-  }) 
+  }
+
+  if (homemates?.length !== undefined) {
+    for (const mate of homemates) {
+      selectPerson.push(
+        <option value={mate.person} id={mate.id} key={mate.id}>
+          {mate.person}
+        </option>
+      );
+      if (enteredPerson === mate.person) {
+        mate.jobs.forEach((job) =>
+          jobOptions.push(
+            <option value={job.value} id={job.id} key={job.id}>
+              {job.value}
+            </option>
+          )
+        );
+      }
+    }
+  }
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -51,11 +66,11 @@ const IncomesForm = (props) => {
       personId = 0;
     }
     const incomeData = {
-      person: enteredPerson[0],
+      person: enteredPerson,
       personId,
-      amount: +enteredAmount,
+      amount: enteredAmount,
       type: enteredType,
-      work: enteredWork,
+      job: enteredJob,
       month: actualDate.getMonth(),
       year: actualDate.getFullYear(),
     };
@@ -68,7 +83,7 @@ const IncomesForm = (props) => {
 
     setEnteredPerson("");
     setEnteredAmount("");
-    setEnteredWork("");
+    setEnteredJob("");
     setEnteredType("");
   };
 
@@ -87,38 +102,39 @@ const IncomesForm = (props) => {
               min="0.01"
               step="0.01"
               placeholder={0}
-              // value={enteredAmount}
-              // onChange={amountChangeHandler}
+              value={enteredAmount}
+              onChange={(e) => {
+                setEnteredAmount(parseFloat(e.target.value));
+              }}
             />
           </div>
           <div className="incomes__control">
-            <img src={titleImg} alt="title" />
+            <img src={userImg} alt="user" />
             <select
-              onChange={(e) => setEnteredPerson({name: e.target.value, id: e.target.id})}
-              value={enteredPerson}
+              onChange={(e) => setEnteredPerson(e.target.value)}
+              value={enteredPerson.name}
             >
               <option value="">Select person</option>
               {selectPerson}
             </select>
             <img
-              src={titleImg}
+              src={addImg}
               alt="title"
               onClick={() => toggleFixedCartHandler()}
             />
           </div>
           <div className="incomes__control">
-            <img src={titleImg} alt="title" />
-            <input
-              type="text"
-              placeholder="Type"
-              // value={enteredTitle}
-              // onChange={titleChangeHandler}
-            />
+            <img src={typeImge} alt="type" />
+            <select onChange={(e) => setEnteredType(e.target.value)}>
+              <option value="">Select a type </option>
+              {typeOptions}
+            </select>
           </div>
           <div className="incomes__control">
-            <img src={titleImg} alt="category" />
+            <img src={jobImg} alt="job" />
             <select
-            // onChange={categoryChangeHandler}
+              onChange={(e) => setEnteredJob(e.tarteg.value)}
+              disabled={enteredType !== "Job"}
             >
               <option value="">Select a Job</option>
               {jobOptions}

@@ -9,9 +9,12 @@ import TransactionToggle from "../components/UI/TransactionToggle";
 import ChartExpenses from "../components/Charts/ChartExpenses";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Modal from "../components/UI/Modal";
+import Filter from "../components/Filter/Filter";
 
 const Stats = () => {
-  const [addType, setAddType] = useState(true);
+  const [type, settype] = useState(true);
+  const [fixedCart, setFixedCart] = useState(false);
   const incomes = useSelector((state) => state.incomes.incomes);
   const expenses = useSelector((state) => state.expense.expenses);
   const monthDate = useSelector((state) => state.date.month);
@@ -41,20 +44,17 @@ const Stats = () => {
     }
   }
 
-  const listElements = []
-  for(const expense of expenses) {
+  const listElements = [];
+  for (const expense of expenses) {
     if (
       expense.year === yearDate &&
-      expense.month === monthDate 
+      expense.month === monthDate
       // expense.day === dayDate
     ) {
-      listElements.push(expense)
+      listElements.push(expense);
     }
-
   }
 
-
-  console.log(listElements);
 
   const displayList = [];
 
@@ -83,22 +83,42 @@ const Stats = () => {
   }
 
   const typeChangeHandler = (e) => {
-    setAddType(e);
+    settype(e);
+  };
+
+  const toggleFixedCartHandler = () => {
+    setFixedCart((state) => !state);
   };
 
   return (
-    <div className="stats-container">
-      <header>
-        <Link to='/'><img src={backButton} alt="back-button" /></Link>
-        <h1>Statistics</h1>
-        <img src={settingsButton} alt="options" />
-      </header>
-      <main>
-        <TransactionToggle onChangeType={typeChangeHandler} addType={addType} />
-        <ChartExpenses data={[carniceriaExp, verduleriaExp]} />
-        <ul className="transactions__list">{displayList}</ul>
-      </main>
-    </div>
+    <>
+      {fixedCart && (
+        <Modal Toggle={toggleFixedCartHandler}>
+          <Filter />
+        </Modal>
+      )}
+      <div className="stats-container">
+        <header>
+          <Link to="/">
+            <img src={backButton} alt="back-button" />
+          </Link>
+          <h1>Statistics</h1>
+          <img
+            src={settingsButton}
+            alt="options"
+            onClick={() => toggleFixedCartHandler()}
+          />
+        </header>
+        <main>
+          <TransactionToggle
+            onChangeType={typeChangeHandler}
+            type={type}
+          />
+          <ChartExpenses data={[carniceriaExp, verduleriaExp]} />
+          <ul className="transactions__list">{displayList}</ul>
+        </main>
+      </div>
+    </>
   );
 };
 

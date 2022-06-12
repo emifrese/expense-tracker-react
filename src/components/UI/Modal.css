@@ -22,7 +22,10 @@
     animation-fill-mode: forwards;
     border-radius: 14px;
     background-color: #fff;
+    position: fixed;
+    top: 3rem;
     padding: 1rem;
+    width: 90%;
     z-index: 30;
     text-align: center;
     max-width: inherit;

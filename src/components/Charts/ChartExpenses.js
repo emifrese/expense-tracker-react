@@ -26,7 +26,7 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: "top",
+      display: false,
     },
     title: {
       display: true,
@@ -49,7 +49,7 @@ const ChartExpenses = (props) => {
         labels,
         datasets: [
             {
-                label: "Dataset 1",
+                label: "",
           data: dataValues,
           backgroundColor: "rgba(255, 99, 132, 0.5)",
         },

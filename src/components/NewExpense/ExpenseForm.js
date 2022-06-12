@@ -6,22 +6,28 @@ import titleImg from "../../assets/informacion.svg";
 import dateImg from "../../assets/tiempo-trimestrepasado.svg";
 import categoryImg from "../../assets/marcador.svg";
 import cardImg from "../../assets/tarjeta-de-credito.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TransactionToggle from "../UI/TransactionToggle";
 import SaveButton from "../UI/SaveButton";
+import date from "../../store/date";
+import { useSelector } from "react-redux";
 
-const ExpenseForm = (props) => {
+const actualDate = new Date();
+const defaultValue = actualDate.toLocaleDateString('en-CA');
+
+const ExpenseForm = () => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
-  const [enteredDate, setEnteredDate] = useState("");
+  const [enteredDate, setEnteredDate] = useState(defaultValue);
   const [enteredCategory, setEnteredCategory] = useState("");
   const [enteredCuotas, setEnteredCuotas] = useState("");
   const [fixedExp, setFixedExp] = useState(false);
   const [cuotas, setCuotas] = useState(false);
-  const [transactionType, setTransactionType] = useState(true);
+  const navigate = useNavigate();
+
   const categories = ["All", "Carniceria", "Verduleria"];
 
-  console.log(enteredAmount)
+  console.log(enteredAmount);
   let categoriesList = [];
   let cuotasList = [];
 
@@ -46,10 +52,6 @@ const ExpenseForm = (props) => {
     );
   });
 
-  const typeChangeHandler = (e) => {
-    setTransactionType(e)
-  }
-
   const titleChangeHandler = (e) => {
     setEnteredTitle(e.target.value);
   };
@@ -65,6 +67,8 @@ const ExpenseForm = (props) => {
   const cuotasChangeHandler = (e) => {
     setEnteredCuotas(parseInt(e.target.value));
   };
+
+  console.log(enteredAmount)
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -132,7 +136,7 @@ const ExpenseForm = (props) => {
     setEnteredAmount("");
     setEnteredDate("");
 
-    props.cancelButton();
+    navigate("../", { replace: true });
   };
 
   return (

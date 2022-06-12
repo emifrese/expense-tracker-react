@@ -1,10 +1,11 @@
 import React from "react";
 
 import './BalanceCard.css'
-import arrowDown from "../../assets/arrow-down.png";
-import arrowUp from "../../assets/arrow-up.png";
+import arrowUp from "../../assets/angulo-circulo-hacia-arriba.svg";
+import arrowDown from "../../assets/angulo-circulo-abajo.svg";
 
 const BalanceCard = ({ remaining, incomes, expenses }) => {
+  console.log(incomes)
   const content = (
     <div className="balance-card">
       <div className="balance-card__title">
@@ -13,11 +14,11 @@ const BalanceCard = ({ remaining, incomes, expenses }) => {
       </div>
       <div className="balance-card__info">
         <figure className="balance-card__info_inc">
-          <img src={arrowDown} alt="arrow-down" />
+          <img className="balance-card__info_up" src={arrowUp} alt="arrow-up" />
           <figcaption>Income {incomes}</figcaption>
         </figure>
         <figure className="balance-card__info_exp">
-          <img src={arrowUp} alt="arrow-up" />
+          <img className="balance-card__info_down" src={arrowDown} alt="arrow-down" />
           <figcaption>Expenses {expenses}</figcaption>
         </figure>
       </div>
