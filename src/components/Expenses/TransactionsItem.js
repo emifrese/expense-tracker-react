@@ -1,6 +1,6 @@
 import React from "react";
 
-const TransactionsItem = ({imgIcon, colorIcon, title, amount, day}) => {
+const TransactionsItem = ({imgIcon, colorIcon, title, amount, day, i}) => {
   const listItem = (
     <li>
       <figure>

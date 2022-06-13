@@ -27,7 +27,6 @@ const ExpenseForm = () => {
 
   const categories = ["All", "Carniceria", "Verduleria"];
 
-  console.log(enteredAmount);
   let categoriesList = [];
   let cuotasList = [];
 
@@ -68,7 +67,6 @@ const ExpenseForm = () => {
     setEnteredCuotas(parseInt(e.target.value));
   };
 
-  console.log(enteredAmount)
 
   const submitHandler = async (e) => {
     e.preventDefault();

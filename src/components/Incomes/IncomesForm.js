@@ -11,6 +11,7 @@ import jobImg from "../../assets/maletin.svg";
 import Modal from "../UI/Modal";
 import Person from "../Person/Person";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const actualDate = new Date();
 
@@ -21,6 +22,7 @@ const IncomesForm = (props) => {
   const [enteredType, setEnteredType] = useState("");
   const [enteredJob, setEnteredJob] = useState("");
   const [homemates] = useSelector((state) => state.user.homemates);
+  const navigate = useNavigate();
 
   const toggleFixedCartHandler = () => {
     setFixedCart((state) => !state);
@@ -85,6 +87,7 @@ const IncomesForm = (props) => {
     setEnteredAmount("");
     setEnteredJob("");
     setEnteredType("");
+    navigate("../", { replace: true });
   };
 
   return (
@@ -133,7 +136,7 @@ const IncomesForm = (props) => {
           <div className="incomes__control">
             <img src={jobImg} alt="job" />
             <select
-              onChange={(e) => setEnteredJob(e.tarteg.value)}
+              onChange={(e) => setEnteredJob(e.target.value)}
               disabled={enteredType !== "Job"}
             >
               <option value="">Select a Job</option>

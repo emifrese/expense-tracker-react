@@ -1,0 +1,32 @@
+.personcard__control {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.personcard__control ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.personcard__control li {
+    margin-top: 10px;
+}
+
+.personcard__control img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.personcard__control_homemates {
+    padding-left: 20px;
+    text-align: start;
+}
+
+.personcard__control_mateslist {
+    text-align: center;
+}

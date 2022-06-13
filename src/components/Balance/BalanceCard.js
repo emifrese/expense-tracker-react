@@ -5,7 +5,7 @@ import arrowUp from "../../assets/angulo-circulo-hacia-arriba.svg";
 import arrowDown from "../../assets/angulo-circulo-abajo.svg";
 
 const BalanceCard = ({ remaining, incomes, expenses }) => {
-  console.log(incomes)
+  
   const content = (
     <div className="balance-card">
       <div className="balance-card__title">

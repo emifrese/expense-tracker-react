@@ -39,9 +39,7 @@ export const options = {
 
 
 const ChartExpenses = (props) => {
-    console.log(props.data)
     const labels = props.data.map((element) => element.name)
-    console.log(labels)
 
     const dataValues = props.data.map(element => element.amount)
     

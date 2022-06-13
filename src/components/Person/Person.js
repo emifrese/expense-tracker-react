@@ -14,7 +14,6 @@ const Person = ({onClose}) => {
   const [enteredJob, setEnteredJob] = useState("");
   const [addedJob, setAddedJob] = useState([]);
   
-  console.log(addedJob);
   let jobsPending = [];
 
   if (addedJob.length >= 1) {
@@ -38,7 +37,6 @@ const Person = ({onClose}) => {
     setAddedJob((state) => state.filter((job) => job.id !== jobToRemove));
   };
 
-  console.log(jobsPending);
 
   const submitHandler = async (e) => {
     e.preventDefault();

@@ -18,11 +18,6 @@ const Filter = () => {
   const yearDate = useSelector((state) => state.date.year);
   const dispatch = useDispatch();
   const [monthYear, setMonthYear] = useState(defaultValue);
-  console.log(monthYear.slice(0, 4));
-  console.log(monthYear.substring(5));
-
-  console.log(yearDate);
-  console.log(monthDate);
 
   let monthOptions = [];
 
@@ -37,9 +32,9 @@ const Filter = () => {
   return (
     <>
       <h2>Filter Stats</h2>
-      <div className="person__controls">
-        <div className="person__control">
-          <img src={userImg} alt="name" />
+      <div className="filter__controls">
+        <div className="filter__control">
+          {/* <img src={userImg} alt="name" /> */}
           <input
             type="month"
             min="2015-01"

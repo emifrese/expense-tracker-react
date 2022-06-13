@@ -1,6 +1,6 @@
 import { auth, firestore } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
@@ -30,6 +30,8 @@ import AddTransaction from "./pages/AddTransaction";
 function App() {
   const [user, setUser] = useState(null);
   const [fixedCart, setFixedCart] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [homemates] = useSelector((state) => state.user.homemates);
 
   const dispatch = useDispatch();
   //Poner opcion para cargar categorias y despues guardarlas en firebase
@@ -43,6 +45,7 @@ function App() {
     onAuthStateChanged(auth, setUser);
 
     if (user !== null) {
+      console.log(user);
       const [displayName, email, photoURL] = [
         user.displayName,
         user.email,
@@ -92,14 +95,16 @@ function App() {
           dispatch(userActions.resetHomemates());
           let homematesArray = snapshot.docs.map((doc) => ({
             ...doc.data(),
-            id: doc.id
-          }))
-          dispatch(userActions.setHomematesInfo(homematesArray))
+            id: doc.id,
+          }));
+          dispatch(userActions.setHomematesInfo(homematesArray));
         }
-      )
-      // toggleFixedCartHandler();
+      );
+        console.log('useEffect')
+
     }
-  }, [user, dispatch]);
+    }, [user, dispatch]);
+
 
   return user ? (
     <Layout>
@@ -108,15 +113,11 @@ function App() {
           <ExpensesList fixed={true} Toggle={toggleFixedCartHandler} />
         </Modal>
       )}
-      <Routes>
-        <Route path="/" exact element={<MainPage />} />
-        <Route path="/add" exact element={<AddTransaction />} />
-        <Route path="/stats" exact element={<Stats />} />
-      </Routes>
-      {/* <div>
-        <NewExpense categories={categories} />
-        <Expenses categories={categories} />
-      </div> */}
+        <Routes>
+          <Route path="/" exact element={<MainPage />} />
+          <Route path="/add" exact element={<AddTransaction />} />
+          <Route path="/stats" exact element={<Stats />} />
+        </Routes>
       {/* <button onClick={signOut}>Sign Out</button> */}
     </Layout>
   ) : (

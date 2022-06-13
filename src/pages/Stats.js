@@ -3,8 +3,8 @@ import "./Stats.css";
 
 import meat from "../assets/meat.png";
 import vegetable from "../assets/vegetable.png";
-import backButton from "../assets/caret-cuadrado-izquierda.svg";
-import settingsButton from "../assets/ajustes-deslizadores.svg";
+import backButton from "../assets/angulo-izquierdo.svg";
+import filterButton from "../assets/filtrar.svg";
 import TransactionToggle from "../components/UI/TransactionToggle";
 import ChartExpenses from "../components/Charts/ChartExpenses";
 import { useSelector } from "react-redux";
@@ -58,12 +58,12 @@ const Stats = () => {
 
   const displayList = [];
 
-  for (const exp of listElements) {
+  for (const [i, exp] of listElements.entries()) {
     const imgIcon = exp.category === "Carniceria" ? meat : vegetable;
     const colorIcon = exp.category === "Carniceria" ? "#FA8072" : "#28B463";
 
     const item = (
-      <li>
+      <li key={i}>
         <figure>
           <img
             src={imgIcon}
@@ -104,7 +104,7 @@ const Stats = () => {
           </Link>
           <h1>Statistics</h1>
           <img
-            src={settingsButton}
+            src={filterButton}
             alt="options"
             onClick={() => toggleFixedCartHandler()}
           />

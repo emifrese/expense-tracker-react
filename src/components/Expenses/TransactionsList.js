@@ -30,11 +30,11 @@ const Transactions = () => {
 
   const list = [];
 
-  for (const element of iteration) {
+  for (const [i, element] of iteration.entries()) {
     const imgIcon = element.category === "Carniceria" ? meat : vegetable;
     const colorIcon = element.category === "Carniceria" ? "#FA8072" : "#28B463";
 
-    list.push(<TransactionsItem imgIcon={imgIcon} colorIcon={colorIcon} title={element.title} amount={element.amount} day={element.day}/>);
+    list.push(<TransactionsItem imgIcon={imgIcon} colorIcon={colorIcon} title={element.title} amount={element.amount} day={element.day} key={i}/>);
   }
 
   return (
