@@ -8,9 +8,10 @@ import filterButton from "../assets/filtrar.svg";
 import TransactionToggle from "../components/UI/TransactionToggle";
 import ChartExpenses from "../components/Charts/ChartExpenses";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Modal from "../components/UI/Modal";
 import Filter from "../components/Filter/Filter";
+import Header from "../components/UI/Header";
+import TransactionsList from "../components/Transaction/TransactionsList";
 
 const Stats = () => {
   const [type, settype] = useState(true);
@@ -20,7 +21,7 @@ const Stats = () => {
   const monthDate = useSelector((state) => state.date.month);
   const yearDate = useSelector((state) => state.date.year);
   const dayDate = useSelector((state) => state.date.day);
-
+  console.log(type)
   let carniceriaExp = { name: "Carniceria", amount: 0 };
   let verduleriaExp = { name: "Verduleria", amount: 0 };
 
@@ -54,7 +55,6 @@ const Stats = () => {
       listElements.push(expense);
     }
   }
-
 
   const displayList = [];
 
@@ -98,24 +98,23 @@ const Stats = () => {
         </Modal>
       )}
       <div className="stats-container">
-        <header>
-          <Link to="/">
-            <img src={backButton} alt="back-button" />
-          </Link>
-          <h1>Statistics</h1>
-          <img
-            src={filterButton}
-            alt="options"
-            onClick={() => toggleFixedCartHandler()}
-          />
-        </header>
+        <Header
+          type="stats"
+          leftImg={backButton}
+          titleText="Statistics"
+          rightImg={filterButton}
+          Toggle={toggleFixedCartHandler}
+        />
         <main>
-          <TransactionToggle
-            onChangeType={typeChangeHandler}
-            type={type}
-          />
-          <ChartExpenses data={[carniceriaExp, verduleriaExp]} />
-          <ul className="transactions__list">{displayList}</ul>
+          <TransactionToggle onChangeType={typeChangeHandler} type={type} />
+          {expenses.length < 1 ? (
+            <p>No expenses</p>
+          ) : (
+            <>
+              <ChartExpenses data={[carniceriaExp, verduleriaExp]} />
+              <TransactionsList type={type ? "Incomes" : "Expenses"} />
+            </>
+          )}
         </main>
       </div>
     </>

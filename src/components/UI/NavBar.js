@@ -14,7 +14,7 @@ const NavBar = () => {
         </Link>
       </div>
       <div className="navbar__buttons">
-        <img src={config} alt="config" />
+        <Link to='/user'><img src={config} alt="config" /></Link>
         <Link to='/stats'><img src={stats} alt="stats" /></Link>
       </div>
     </footer>

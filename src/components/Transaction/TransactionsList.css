@@ -4,14 +4,9 @@
     flex-wrap: wrap;
 }
 .transactions__title {
-    width: 60%;
+    width: 100%;
 }
 
-.transactions__all {
-    width: 40%;
-    text-align: end;
-    color: #aaa;
-}
 
 .transactions__list {
     display: flex;
@@ -20,7 +15,7 @@
     text-align: center;
     padding: 0;
     margin: 0;
-    height: calc(100vh - 410px);
+    max-height: calc(100vh - 410px);
     overflow: scroll;
 }
 
@@ -28,6 +23,11 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    max-height: 70px;
+}
+
+.transactions__list .bottomBorder {
+    border-bottom: 2px solid #ccc;
 }
 
 .transactions__list img {
@@ -35,7 +35,7 @@
     height: 50px;
     border-radius: 50%;
     padding: 10px;
-    margin: 20px;
+    margin: 10px;
 }
 
 .transactions__list figure {
@@ -50,6 +50,7 @@
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
+    margin-right: 10px;
 }
 
 .transactions__list p {

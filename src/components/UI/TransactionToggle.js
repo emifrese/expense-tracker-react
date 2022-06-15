@@ -10,7 +10,7 @@ const TransactionToggle = ({onChangeType, transactionType}) => {
         <input
           type="checkbox"
           defaultChecked={transactionType}
-          onChange={(e) => onChangeType(e.target.checked)}
+          onChange={() => onChangeType(state => !state)}
         />
         <span className="slider"></span>
       </label>

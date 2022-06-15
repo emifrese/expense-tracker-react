@@ -26,6 +26,7 @@ import ExpenseForm from "./components/NewExpense/ExpenseForm";
 import Stats from "./pages/Stats";
 import MainPage from "./pages/MainPage";
 import AddTransaction from "./pages/AddTransaction";
+import UserManager from "./pages/UserManager";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -115,8 +116,9 @@ function App() {
       )}
         <Routes>
           <Route path="/" exact element={<MainPage />} />
-          <Route path="/add" exact element={<AddTransaction />} />
-          <Route path="/stats" exact element={<Stats />} />
+          <Route path="/add" element={<AddTransaction />} />
+          <Route path="/stats" element={<Stats />} />
+          <Route path='/user' element={<UserManager />} />
         </Routes>
       {/* <button onClick={signOut}>Sign Out</button> */}
     </Layout>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TransactionsList from "../components/Expenses/TransactionsList";
+
 import Header from "../components/UI/Header";
 import NavBar from "../components/UI/NavBar";
 import { useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import Balance from "../components/Balance/Balance";
 import cardImg from "../assets/id-insignia.svg";
 import Modal from "../components/UI/Modal";
 import PersonCard from "../components/Person/PersonCard";
+import TransactionsList from "../components/Transaction/TransactionsList";
 
 const MainPage = () => {
   const [fixedCart, setFixedCart] = useState(false);
@@ -36,13 +37,13 @@ const MainPage = () => {
       )}
       <Header
         type="main"
-        name={displayName}
-        photoURL={photoURL}
-        cardImg={cardImg}
+        titleText={displayName}
+        leftImg={photoURL}
+        rightImg={cardImg}
         Toggle={toggleFixedCartHandler}
       />
       <Balance />
-      <TransactionsList />
+      <TransactionsList section='main' />
       <NavBar />
     </>
   );
