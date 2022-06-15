@@ -9,37 +9,44 @@ import TransactionsItem from "./TransactionsItem";
 
 const actualDate = new Date();
 
-const TransactionsList = ({ section, type }) => {
-  const expenses = useSelector((state) => state.expense.expenses);
+const TransactionsList = ({ section, type, expenses, incomes }) => {
   const monthDate = useSelector((state) => state.date.month);
   const yearDate = useSelector((state) => state.date.year);
   const category = useSelector((state) => state.expense.category);
 
   let iteration = [];
-  console.log(type);
-  for (const expense of expenses) {
-    if (section !== "main") {
-      if (expense.month === monthDate && expense.year === yearDate) {
-        if (category === "All") {
-          iteration.push(expense);
-        } else if (expense.category === category) {
+  console.log(expenses);
+  if(type === 'Expenses'){
+    for (const expense of expenses) {
+      if (section !== "main") {
+        if (expense.month === monthDate && expense.year === yearDate) {
+          if (category === "All") {
+            iteration.push(expense);
+          } else if (expense.category === category) {
+            iteration.push(expense);
+          }
+        }
+      } else {
+        if (
+          expense.month === actualDate.getMonth() &&
+          expense.year === actualDate.getFullYear() &&
+          expense.day === actualDate.getDate()
+        ) {
           iteration.push(expense);
         }
       }
-    } else {
-      if (
-        expense.month === actualDate.getMonth() &&
-        expense.year === actualDate.getFullYear() &&
-        expense.day === actualDate.getDate()
-      ) {
-        iteration.push(expense);
+    }
+    iteration.sort((a, b) => {
+      return a.day - b.day;
+    });
+  } else {
+    for(const income of incomes) {
+      if(income.month === monthDate && income.year === yearDate){
+        iteration.push(income)
       }
     }
   }
-  iteration.sort((a, b) => {
-    return a.day - b.day;
-  });
-
+  
   const list = [];
 
   for (const [i, element] of iteration.entries()) {
@@ -60,11 +67,10 @@ const TransactionsList = ({ section, type }) => {
       />
     );
   }
-
   return (
     <div className="transactions">
       <p className="transactions__title">Transactions</p>
-      {type === "Expenses" || type === undefined && <ul className="transactions__list">{list}</ul>}
+      <ul className={section !== 'main' ? 'transactions__list fullList' : 'transactions__list'}>{list}</ul>
     </div>
   );
 };

@@ -15,15 +15,30 @@ import TransactionsList from "../components/Transaction/TransactionsList";
 
 const Stats = () => {
   const [type, settype] = useState(true);
-  const [fixedCart, setFixedCart] = useState(false);
+  const [filterCart, setFilterCart] = useState(false);
   const incomes = useSelector((state) => state.incomes.incomes);
   const expenses = useSelector((state) => state.expense.expenses);
+  const totalIncomes = useSelector((state) => state.incomes.incomesTotalPerMate);
   const monthDate = useSelector((state) => state.date.month);
   const yearDate = useSelector((state) => state.date.year);
   const dayDate = useSelector((state) => state.date.day);
-  console.log(type)
+  console.log(type);
   let carniceriaExp = { name: "Carniceria", amount: 0 };
   let verduleriaExp = { name: "Verduleria", amount: 0 };
+  const homematesData = [];
+  console.log(totalIncomes)
+  // console.log(homemates);
+  // for (const income of incomes) {
+  //   console.log(income.person)
+  //   if (homemates.some(el => el.person === income.person)) {
+  //     if(!homematesData.some(el => el.name === income.person)){
+  //       homematesData.push({ name: income.person, amount: income.amount})
+  //     } else (
+  //       console.log(homematesData.find(mate => mate.name === income.person))
+  //       )
+  //     }
+  // }
+  // console.log(homematesData)
 
   for (const expense of expenses) {
     if (
@@ -45,55 +60,18 @@ const Stats = () => {
     }
   }
 
-  const listElements = [];
-  for (const expense of expenses) {
-    if (
-      expense.year === yearDate &&
-      expense.month === monthDate
-      // expense.day === dayDate
-    ) {
-      listElements.push(expense);
-    }
-  }
-
-  const displayList = [];
-
-  for (const [i, exp] of listElements.entries()) {
-    const imgIcon = exp.category === "Carniceria" ? meat : vegetable;
-    const colorIcon = exp.category === "Carniceria" ? "#FA8072" : "#28B463";
-
-    const item = (
-      <li key={i}>
-        <figure>
-          <img
-            src={imgIcon}
-            alt="category-icon"
-            style={{ backgroundColor: colorIcon }}
-          />
-          <figcaption>{exp.title}</figcaption>
-        </figure>
-        <div>
-          <p className="transactions__list_price">-${exp.amount}</p>
-          <p className="transactions__list_day">{exp.day}</p>
-        </div>
-      </li>
-    );
-
-    displayList.push(item);
-  }
-
   const typeChangeHandler = (e) => {
     settype(e);
   };
 
-  const toggleFixedCartHandler = () => {
-    setFixedCart((state) => !state);
+  const toggleFilterCartHandler = () => {
+    setFilterCart((state) => !state);
   };
 
   return (
     <>
-      {fixedCart && (
-        <Modal Toggle={toggleFixedCartHandler}>
+      {filterCart && (
+        <Modal Toggle={toggleFilterCartHandler}>
           <Filter />
         </Modal>
       )}
@@ -103,7 +81,7 @@ const Stats = () => {
           leftImg={backButton}
           titleText="Statistics"
           rightImg={filterButton}
-          Toggle={toggleFixedCartHandler}
+          Toggle={toggleFilterCartHandler}
         />
         <main>
           <TransactionToggle onChangeType={typeChangeHandler} type={type} />
@@ -112,7 +90,11 @@ const Stats = () => {
           ) : (
             <>
               <ChartExpenses data={[carniceriaExp, verduleriaExp]} />
-              <TransactionsList type={type ? "Incomes" : "Expenses"} />
+              <TransactionsList
+                type={type ? "Incomes" : "Expenses"}
+                expenses={expenses}
+                incomes={incomes}
+              />
             </>
           )}
         </main>

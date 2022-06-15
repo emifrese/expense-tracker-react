@@ -12,7 +12,7 @@ import TransactionsList from "../components/Transaction/TransactionsList";
 
 const MainPage = () => {
   const [fixedCart, setFixedCart] = useState(false);
-
+  const expenses = useSelector((state) => state.expense.expenses);
   const displayName = useSelector((state) => state.user.displayName);
   const photoURL = useSelector((state) => state.user.photoURL);
   const email = useSelector((state) => state.user.email);
@@ -43,7 +43,7 @@ const MainPage = () => {
         Toggle={toggleFixedCartHandler}
       />
       <Balance />
-      <TransactionsList section='main' />
+      <TransactionsList section='main' type='Expenses' expenses={expenses}/>
       <NavBar />
     </>
   );
