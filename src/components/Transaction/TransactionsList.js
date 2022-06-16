@@ -15,18 +15,9 @@ const TransactionsList = ({ section, type, expenses, incomes }) => {
   const category = useSelector((state) => state.expense.category);
 
   let iteration = [];
-  console.log(expenses);
-  if(type === 'Expenses'){
+  if (type === "Expenses") {
     for (const expense of expenses) {
-      if (section !== "main") {
-        if (expense.month === monthDate && expense.year === yearDate) {
-          if (category === "All") {
-            iteration.push(expense);
-          } else if (expense.category === category) {
-            iteration.push(expense);
-          }
-        }
-      } else {
+      if (section === "main") {
         if (
           expense.month === actualDate.getMonth() &&
           expense.year === actualDate.getFullYear() &&
@@ -34,19 +25,14 @@ const TransactionsList = ({ section, type, expenses, incomes }) => {
         ) {
           iteration.push(expense);
         }
+      } else {
+        iteration = expenses;
       }
     }
-    iteration.sort((a, b) => {
-      return a.day - b.day;
-    });
   } else {
-    for(const income of incomes) {
-      if(income.month === monthDate && income.year === yearDate){
-        iteration.push(income)
-      }
-    }
+    iteration = incomes;
   }
-  
+
   const list = [];
 
   for (const [i, element] of iteration.entries()) {
@@ -70,7 +56,15 @@ const TransactionsList = ({ section, type, expenses, incomes }) => {
   return (
     <div className="transactions">
       <p className="transactions__title">Transactions</p>
-      <ul className={section !== 'main' ? 'transactions__list fullList' : 'transactions__list'}>{list}</ul>
+      <ul
+        className={
+          section !== "main"
+            ? "transactions__list fullList"
+            : "transactions__list"
+        }
+      >
+        {list}
+      </ul>
     </div>
   );
 };

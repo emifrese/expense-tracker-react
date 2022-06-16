@@ -7,6 +7,7 @@ const initialExpenseState = {
   totalAmount: 0,
   fixedExp: [],
   filterExp: [],
+  expensesTotalPerCategoryDate: [],
   month: actualDate.getMonth().toString(),
   year: actualDate.getFullYear().toString(),
   category: "All",
@@ -35,6 +36,48 @@ const expenseSlice = createSlice({
         (expense) => expense.id !== action.payload
       );
       state.expenses = updatedExpenses;
+    },
+    filterExpenses(state, action) {
+      const [expenses, monthDate, yearDate] = action.payload;
+      expenses.forEach((exp) => {
+        if (
+          exp.month === monthDate &&
+          exp.year === yearDate &&
+          !state.filterExp.some((expF) => expF.id === exp.id)
+        ) {
+          state.filterExp.push(exp);
+        }
+      });
+      state.filterExp.sort((a, b) => {
+        return a.day - b.day;
+      });
+    },
+    filterAmount(state, action) {
+      const [expenses, categories] = action.payload;
+      if (state.expensesTotalPerCategoryDate.length > 0) {
+        state.expensesTotalPerCategoryDate = [];
+      }
+      categories.forEach((cat) => {
+        expenses.forEach((exp) => {
+          if (exp.category === cat) {
+            if (
+              !state.expensesTotalPerCategoryDate.some(
+                (tot) => tot.category === cat
+              )
+            ) {
+              state.expensesTotalPerCategoryDate.push({
+                category: exp.category,
+                amount: exp.amount,
+              });
+            } else {
+              const index = state.expensesTotalPerCategoryDate
+                .map((expT) => expT.category)
+                .indexOf(cat);
+              state.expensesTotalPerCategoryDate[index].amount += +exp.amount;
+            }
+          }
+        });
+      });
     },
     setYear(state, action) {
       state.year = action.payload;

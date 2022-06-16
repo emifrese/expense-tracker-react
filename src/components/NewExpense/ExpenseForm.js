@@ -11,6 +11,7 @@ import TransactionToggle from "../UI/TransactionToggle";
 import SaveButton from "../UI/SaveButton";
 import date from "../../store/date";
 import { useSelector } from "react-redux";
+import { categories } from "../../helpers/variables";
 
 const actualDate = new Date();
 const defaultValue = actualDate.toLocaleDateString('en-CA');
@@ -24,8 +25,6 @@ const ExpenseForm = () => {
   const [fixedExp, setFixedExp] = useState(false);
   const [cuotas, setCuotas] = useState(false);
   const navigate = useNavigate();
-
-  const categories = ["All", "Carniceria", "Verduleria"];
 
   let categoriesList = [];
   let cuotasList = [];
