@@ -12,6 +12,11 @@ import {
 import { Bar } from "react-chartjs-2";
 
 import "./ChartExpenses.css";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { expenseActions } from "../../store/expenses";
+
+import { categories } from "../../helpers/variables";
 
 ChartJS.register(
   CategoryScale,
@@ -22,41 +27,48 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
+const ChartExpenses = ({type}) => {
+  const filterExp = useSelector((state) => state.expense.filterExp);
+  const totalPerCat = useSelector(state => state.expense.expensesTotalPerCategoryDate)
+  const dispatch = useDispatch();
+  console.log(type)
+
+  useEffect(() => {
+    dispatch(expenseActions.filterAmount([filterExp, categories]));
+  }, [filterExp, dispatch]);
+
+  const labels = totalPerCat.map((element) => element.category);
+
+  const dataValues = totalPerCat.map((element) => element.amount);
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: 'Expenses',
+      },
     },
-    title: {
-      display: true,
-      text: "Expenses",
-    },
-  },
-  barThickness: 10,
-};
+    barThickness: 10,
+  };
 
-
-
-const ChartExpenses = (props) => {
-    const labels = props.data.map((element) => element.name)
-
-    const dataValues = props.data.map(element => element.amount)
-    
-    const data = {
-        labels,
-        datasets: [
-            {
-                label: "",
-          data: dataValues,
-          backgroundColor: "rgba(255, 99, 132, 0.5)",
-        },
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "",
+        data: dataValues,
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
     ],
-    };
+  };
 
   return (
     <div>
-      <Bar options={options} data={data} />
+      {totalPerCat.length > 0 && <Bar options={options} data={data} />}
     </div>
   );
 };

@@ -38,6 +38,7 @@ const expenseSlice = createSlice({
       state.expenses = updatedExpenses;
     },
     filterExpenses(state, action) {
+      state.filterExp = []
       const [expenses, monthDate, yearDate] = action.payload;
       expenses.forEach((exp) => {
         if (

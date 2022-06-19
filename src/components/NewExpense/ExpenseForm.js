@@ -89,12 +89,24 @@ const ExpenseForm = () => {
       `users/${auth.currentUser.uid}/expense`
     );
 
+    console.log(enteredCategory)
+    if(enteredAmount === "") {
+      return alert('Enter an amount')
+    }
+    if(enteredTitle.trim() === ""){
+      return alert('Enter a title')
+    }
+    if(enteredCategory === "") {
+      return alert('Select a category')
+    }
+
+    
+
     if (!cuotas) {
       await addDoc(expenseRef, expenseData);
     } else {
       if (typeof enteredCuotas !== "number") {
-        console.log("selecciona las cuotas");
-        return;
+        return alert("selecciona las cuotas");
       }
       const temp = Object.assign({}, expenseData);
       temp.amount = parseFloat((temp.amount / temp.amountCuotas).toFixed(2));

@@ -81,6 +81,21 @@ const IncomesForm = (props) => {
       firestore,
       `users/${auth.currentUser.uid}/income`
     );
+
+    if(enteredAmount === ""){
+      return alert('Enter an amount')
+    }
+    if(enteredPerson.trim() === ""){
+      return alert('Enter a valid person')
+    }
+    if(enteredType === ""){
+      return alert('Select a category')
+    } else if(enteredType === "Job" && enteredJob === ""){
+      return alert('Select a Job')
+    }
+    
+    
+
     await addDoc(incomeRef, incomeData);
 
     setEnteredPerson("");

@@ -2,22 +2,17 @@ import React, { useState } from "react";
 
 import { months } from "../../helpers/variables.js";
 
-import userImg from "../../assets/add.svg";
-import jobImg from "../../assets/add.svg";
-import addImg from "../../assets/add.svg";
-
 import "./Filter.css";
 import { useDispatch, useSelector } from "react-redux";
-import date, { dateActions } from "../../store/date.js";
-
-const actualDate = new Date();
-const defaultValue = actualDate.toLocaleDateString("en-CA").slice(0, 7);
+import { dateActions } from "../../store/date.js";
 
 const Filter = () => {
   const monthDate = useSelector((state) => state.date.month);
   const yearDate = useSelector((state) => state.date.year);
+  const stateMonth = monthDate + 1;
+  const stateDate = monthDate > 9 ? yearDate + '-' + stateMonth : yearDate + '-0' + stateMonth;
   const dispatch = useDispatch();
-  const [monthYear, setMonthYear] = useState(defaultValue);
+  const [monthYear, setMonthYear] = useState(stateDate);
 
   let monthOptions = [];
 
@@ -34,7 +29,6 @@ const Filter = () => {
       <h2>Filter Stats</h2>
       <div className="filter__controls">
         <div className="filter__control">
-          {/* <img src={userImg} alt="name" /> */}
           <input
             type="month"
             min="2015-01"

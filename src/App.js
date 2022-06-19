@@ -6,7 +6,6 @@ import { Route, Routes } from "react-router-dom";
 
 import { expenseActions } from "./store/expenses";
 
-import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
 import SignIn from "./components/UI/SignIn";
 import {
@@ -19,7 +18,6 @@ import {
 import { incomesActions } from "./store/incomes";
 import Test from "./components/Test/Test";
 import Modal from "./components/UI/Modal";
-import ExpensesList from "./components/Expenses/ExpensesList";
 import { userActions } from "./store/user";
 import Layout from "./components/UI/Layout";
 import ExpenseForm from "./components/NewExpense/ExpenseForm";
@@ -111,7 +109,7 @@ function App() {
     <Layout>
       {fixedCart && (
         <Modal Toggle={toggleFixedCartHandler}>
-          <ExpensesList fixed={true} Toggle={toggleFixedCartHandler} />
+          <p>Gika</p>
         </Modal>
       )}
         <Routes>

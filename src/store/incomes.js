@@ -25,6 +25,7 @@ const incomesSlice = createSlice({
       state.incomes = [];
     },
     incomePerMateDate(state, action) {
+      state.incomesTotalPerMate = []
       const [incomes, monthDate, yearDate] = action.payload;
       incomes.forEach((inc) => {
         if (inc.month === monthDate && inc.year === yearDate) {

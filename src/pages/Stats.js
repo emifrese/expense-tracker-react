@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Stats.css";
 
-import meat from "../assets/meat.png";
-import vegetable from "../assets/vegetable.png";
 import backButton from "../assets/angulo-izquierdo.svg";
 import filterButton from "../assets/filtrar.svg";
 import TransactionToggle from "../components/UI/TransactionToggle";
@@ -15,9 +13,10 @@ import TransactionsList from "../components/Transaction/TransactionsList";
 import { incomesActions } from "../store/incomes";
 import { expenseActions } from "../store/expenses";
 import { categories } from "../helpers/variables";
+import ChartIncomes from "../components/Charts/ChartIncomes";
 
 const Stats = () => {
-  const [type, settype] = useState(true);
+  const [type, setType] = useState(true);
   const [filterCart, setFilterCart] = useState(false);
   const dispatch = useDispatch();
   const incomes = useSelector((state) => state.incomes.incomes);
@@ -44,33 +43,10 @@ const Stats = () => {
     dispatch(incomesActions.filterIncomes([incomes, monthDate, yearDate]));
 
     dispatch(expenseActions.filterExpenses([expenses, monthDate, yearDate]));
-
-    dispatch(expenseActions.filterAmount([filterExp, categories]));
-  }, [incomes, monthDate, filterExp, yearDate, expenses, dispatch]);
-
-  console.log(expenses);
-  for (const expense of expenses) {
-    if (
-      expense.year === yearDate &&
-      expense.month === monthDate &&
-      expense.category === "Carniceria"
-    ) {
-      carniceriaExp.amount += expense.amount;
-    }
-  }
-
-  for (const expense of expenses) {
-    if (
-      expense.year === yearDate &&
-      expense.month === monthDate &&
-      expense.category === "Verduleria"
-    ) {
-      verduleriaExp.amount += expense.amount;
-    }
-  }
+  }, [incomes, monthDate, yearDate, expenses, dispatch]);
 
   const typeChangeHandler = (e) => {
-    settype(e);
+    setType(e);
   };
 
   const toggleFilterCartHandler = () => {
@@ -98,7 +74,7 @@ const Stats = () => {
             <p>No expenses</p>
           ) : (
             <>
-              <ChartExpenses data={[carniceriaExp, verduleriaExp]} />
+              {type ? <ChartIncomes /> : <ChartExpenses type={type} />}
               <TransactionsList
                 type={type ? "Incomes" : "Expenses"}
                 expenses={filterExp}

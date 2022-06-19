@@ -10,10 +10,7 @@ import TransactionsItem from "./TransactionsItem";
 const actualDate = new Date();
 
 const TransactionsList = ({ section, type, expenses, incomes }) => {
-  const monthDate = useSelector((state) => state.date.month);
-  const yearDate = useSelector((state) => state.date.year);
-  const category = useSelector((state) => state.expense.category);
-
+  console.log(incomes);
   let iteration = [];
   if (type === "Expenses") {
     for (const expense of expenses) {
@@ -44,12 +41,13 @@ const TransactionsList = ({ section, type, expenses, incomes }) => {
       <TransactionsItem
         imgIcon={imgIcon}
         colorIcon={colorIcon}
-        title={element.title}
+        title={type === "Expenses" ? element.title : element.person}
         amount={element.amount}
         day={element.day}
         month={element.month}
         key={i}
         border={border}
+        type={type}
       />
     );
   }
