@@ -15,8 +15,9 @@ const MainPage = () => {
   const expenses = useSelector((state) => state.expense.expenses);
   const displayName = useSelector((state) => state.user.displayName);
   const photoURL = useSelector((state) => state.user.photoURL);
+  const creationTime = useSelector((state) => state.user.creationTime);
   const email = useSelector((state) => state.user.email);
-  const [homemates] = useSelector(state => state.user.homemates)
+  const [homemates] = useSelector((state) => state.user.homemates);
 
   const toggleFixedCartHandler = () => {
     setFixedCart((state) => !state);
@@ -31,6 +32,7 @@ const MainPage = () => {
             name={displayName}
             photoURL={photoURL}
             email={email}
+            creationTime={creationTime}
             homemates={homemates}
           />
         </Modal>
@@ -43,7 +45,7 @@ const MainPage = () => {
         Toggle={toggleFixedCartHandler}
       />
       <Balance />
-      <TransactionsList section='main' type='Expenses' expenses={expenses}/>
+      <TransactionsList section="main" type="Expenses" expenses={expenses} />
       <NavBar />
     </>
   );

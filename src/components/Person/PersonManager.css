@@ -1,0 +1,33 @@
+.personmanager__control {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.personmanager__control ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.personmanager__control figure {
+    display: flex;
+    margin: 0;
+}
+
+.personmanager__control figure img {
+    margin-left: 10px;
+}
+
+.personmanager__control li {
+    margin-top: 10px;
+}
+
+.personmanager__control img {
+    width: 20px;
+    margin-right: 10px;
+}

@@ -45,12 +45,13 @@ function App() {
 
     if (user !== null) {
       console.log(user);
-      const [displayName, email, photoURL] = [
+      const [displayName, email, photoURL, creationTime] = [
         user.displayName,
         user.email,
         user.photoURL,
+        user.metadata.creationTime
       ];
-      dispatch(userActions.setUserInfo([displayName, email, photoURL]));
+      dispatch(userActions.setUserInfo([displayName, email, photoURL, creationTime]));
 
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/expense`),
@@ -99,11 +100,8 @@ function App() {
           dispatch(userActions.setHomematesInfo(homematesArray));
         }
       );
-        console.log('useEffect')
-
     }
-    }, [user, dispatch]);
-
+  }, [user, dispatch]);
 
   return user ? (
     <Layout>
@@ -112,12 +110,12 @@ function App() {
           <p>Gika</p>
         </Modal>
       )}
-        <Routes>
-          <Route path="/" exact element={<MainPage />} />
-          <Route path="/add" element={<AddTransaction />} />
-          <Route path="/stats" element={<Stats />} />
-          <Route path='/user' element={<UserManager />} />
-        </Routes>
+      <Routes>
+        <Route path="/" exact element={<MainPage />} />
+        <Route path="/add" element={<AddTransaction />} />
+        <Route path="/stats" element={<Stats />} />
+        <Route path="/user" element={<UserManager />} />
+      </Routes>
       {/* <button onClick={signOut}>Sign Out</button> */}
     </Layout>
   ) : (

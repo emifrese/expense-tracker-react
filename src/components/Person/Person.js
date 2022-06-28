@@ -9,7 +9,7 @@ import "./Person.css";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, firestore } from "../../firebase";
 
-const Person = ({onClose}) => {
+const Person = ({onClose, type}) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredJob, setEnteredJob] = useState("");
   const [addedJob, setAddedJob] = useState([]);
@@ -61,7 +61,7 @@ const Person = ({onClose}) => {
   };
   return (
     <>
-      <h2>New Homemate</h2>
+      <h2>{type === 'edit' ? 'Edit' : 'New'} Homemate</h2>
       <form onSubmit={submitHandler}>
         <div className="person__controls">
           <div className="person__control">
