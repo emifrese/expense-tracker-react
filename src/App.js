@@ -6,7 +6,6 @@ import { Route, Routes } from "react-router-dom";
 
 import { expenseActions } from "./store/expenses";
 
-import NewExpense from "./components/NewExpense/NewExpense";
 import SignIn from "./components/UI/SignIn";
 import {
   addDoc,

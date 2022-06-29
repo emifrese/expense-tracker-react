@@ -4,6 +4,15 @@ import "./TransactionsList.css";
 
 import meat from "../../assets/meat.png";
 import vegetable from "../../assets/vegetable.png";
+import groceriesImg from "../../assets/grocery.png";
+import foodDrinkImg from "../../assets/fork.png";
+import fuelImg from "../../assets/gasoline.png";
+import pharmacyImg from "../../assets/medicamento.png";
+import othersImg from "../../assets/bolsa-de-la-compra.png";
+import jobImg from '../../assets/maletin.svg';
+import giftImg from '../../assets/regalo.svg';
+import debtImg from '../../assets/recibo.svg';
+
 import { useSelector } from "react-redux";
 import TransactionsItem from "./TransactionsItem";
 
@@ -33,14 +42,62 @@ const TransactionsList = ({ section, type, expenses, incomes }) => {
   const list = [];
 
   for (const [i, element] of iteration.entries()) {
-    const imgIcon = element.category === "Carniceria" ? meat : vegetable;
-    const colorIcon = element.category === "Carniceria" ? "#FA8072" : "#28B463";
+    let imgIcon;
+    let colorIcon;
+    let borderColor;
+    if (type === "Expenses") {
+      switch (element.category) {
+        case "Groceries":
+          imgIcon = groceriesImg;
+          borderColor = "#1363DF";
+          colorIcon = "#47B5FF";
+          break;
+        case "Food & Drink":
+          imgIcon = foodDrinkImg;
+          borderColor = "#F76E11";
+          colorIcon = "#FFBC80";
+          break;
+        case "Fuel":
+          imgIcon = fuelImg;
+          borderColor = "#14C38E";
+          colorIcon = "#B8F1B0";
+          break;
+        case "Pharmacy":
+          imgIcon = pharmacyImg;
+          borderColor = "#FD5D5D";
+          colorIcon = "#FF8080";
+          break;
+        case "Others":
+          imgIcon = othersImg;
+          borderColor = "#810955";
+          colorIcon = "#EE81B3";
+          break;
+        default:
+      }
+    } else {
+      switch(element.type){
+        case 'Job':
+          imgIcon = jobImg;
+          break;
+        case 'Gift':
+          imgIcon = giftImg;
+          break;
+        case 'Debt':
+          imgIcon = debtImg;
+          break;
+        default:
+       }
+       borderColor = element.colors.borderColor;
+       colorIcon = element.colors.colorIcon
+    }
+
     const border = i < iteration.length - 1 ? "bottomBorder" : "";
 
     list.push(
       <TransactionsItem
         imgIcon={imgIcon}
         colorIcon={colorIcon}
+        borderColor={borderColor}
         title={type === "Expenses" ? element.title : element.person}
         amount={element.amount}
         day={element.day}
@@ -48,6 +105,7 @@ const TransactionsList = ({ section, type, expenses, incomes }) => {
         key={i}
         border={border}
         type={type}
+        job={element.job}
       />
     );
   }

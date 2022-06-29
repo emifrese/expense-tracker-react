@@ -2,9 +2,21 @@ import React from "react";
 
 import { months } from "../../helpers/variables";
 
-const TransactionsItem = ({ imgIcon, colorIcon, title, amount, day, i, month, border, type }) => {
+const TransactionsItem = ({
+  imgIcon,
+  colorIcon,
+  borderColor,
+  title,
+  amount,
+  day,
+  i,
+  month,
+  border,
+  type,
+  job,
+}) => {
   let listItem;
-  if(type === 'Expenses') {
+  if (type === "Expenses") {
     listItem = (
       <>
         <li className={border}>
@@ -12,13 +24,15 @@ const TransactionsItem = ({ imgIcon, colorIcon, title, amount, day, i, month, bo
             <img
               src={imgIcon}
               alt="category-icon"
-              style={{ backgroundColor: colorIcon }}
+              style={{ borderColor: borderColor, backgroundColor: colorIcon }}
             />
             <figcaption>{title}</figcaption>
           </figure>
           <div>
             <p className="transactions__list_price">-${amount}</p>
-            <p className="transactions__list_day">{day + ' ' + months[month].slice(0,3)}</p>
+            <p className="transactions__list_day">
+              {day + " " + months[month].slice(0, 3)}
+            </p>
           </div>
         </li>
       </>
@@ -31,12 +45,13 @@ const TransactionsItem = ({ imgIcon, colorIcon, title, amount, day, i, month, bo
             <img
               src={imgIcon}
               alt="category-icon"
-              style={{ backgroundColor: colorIcon }}
+              style={{ borderColor: borderColor, backgroundColor: colorIcon }}
             />
             <figcaption>{title}</figcaption>
           </figure>
           <div>
             <p className="transactions__list_price">+${amount}</p>
+            <p className="transactions__list_day">{job}</p>
           </div>
         </li>
       </>

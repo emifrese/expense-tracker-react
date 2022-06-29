@@ -21,8 +21,10 @@ const IncomesForm = (props) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredType, setEnteredType] = useState("");
   const [enteredJob, setEnteredJob] = useState("");
+  const [personColor, setPersonColor] = useState("");
   const [homemates] = useSelector((state) => state.user.homemates);
   const navigate = useNavigate();
+
 
   const toggleFixedCartHandler = () => {
     setFixedCart((state) => !state);
@@ -43,13 +45,13 @@ const IncomesForm = (props) => {
   }
 
   if (homemates?.length !== undefined) {
-    for (const mate of homemates) {
+    for (const [i, mate] of homemates.entries()) {
       selectPerson.push(
-        <option value={mate.person} id={mate.id} key={mate.id}>
+        <option value={i} id={mate.id} key={mate.id}>
           {mate.person}
         </option>
       );
-      if (enteredPerson === mate.person) {
+      if (enteredPerson !== '' && homemates[enteredPerson].person === mate.person) {
         mate.jobs.forEach((job) =>
           jobOptions.push(
             <option value={job.value} id={job.id} key={job.id}>
@@ -68,7 +70,8 @@ const IncomesForm = (props) => {
       personId = 0;
     }
     const incomeData = {
-      person: enteredPerson,
+      person: homemates[enteredPerson].person,
+      colors: homemates[enteredPerson].color,
       personId,
       amount: enteredAmount,
       type: enteredType,
@@ -82,19 +85,17 @@ const IncomesForm = (props) => {
       `users/${auth.currentUser.uid}/income`
     );
 
-    if(enteredAmount === ""){
-      return alert('Enter an amount')
+    if (enteredAmount === "") {
+      return alert("Enter an amount");
     }
-    if(enteredPerson.trim() === ""){
-      return alert('Enter a valid person')
+    if (enteredPerson.trim() === "") {
+      return alert("Enter a valid person");
     }
-    if(enteredType === ""){
-      return alert('Select a category')
-    } else if(enteredType === "Job" && enteredJob === ""){
-      return alert('Select a Job')
+    if (enteredType === "") {
+      return alert("Select a type");
+    } else if (enteredType === "Job" && enteredJob === "") {
+      return alert("Select a Job");
     }
-    
-    
 
     await addDoc(incomeRef, incomeData);
 

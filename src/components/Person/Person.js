@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import userImg from "../../assets/usuario.svg";
 import jobImg from "../../assets/maletin.svg";
 import addImg from "../../assets/add.svg";
+import colourImg from "../../assets/llenar.svg";
 import deleteImg from "../../assets/basura.svg";
 import SaveButton from "../UI/SaveButton";
+
+import { colors, colorStyles } from "../../helpers/variables";
 
 import "./Person.css";
 import { addDoc, collection, deleteDoc, doc, setDoc } from "firebase/firestore";
@@ -14,16 +17,26 @@ const Person = ({ onClose, type, editMate }) => {
   const [enteredName, setEnteredName] = useState(editMate?.person || "");
   const [enteredJob, setEnteredJob] = useState("");
   const [addedJob, setAddedJob] = useState(editMate?.jobs || []);
+  const [enteredColour, setEnteredColour] = useState("");
 
   let jobsPending = [];
-  console.log(editMate);
+  let coloursList = [];
+  console.log(enteredColour);
+
+  colors.forEach((colour, i) => {
+    coloursList.push(
+      <option value={i} key={i}>
+        {colour}
+      </option>
+    );
+  });
 
   if (addedJob.length >= 1) {
     for (const job of addedJob) {
       const jobItem = (
         <button
           value={job.value}
-          onClick={(e) => removeJob(job.id)}
+          onClick={() => removeJob(job.id)}
           key={job.id}
           id={job.id}
           className="person__control_job"
@@ -45,6 +58,7 @@ const Person = ({ onClose, type, editMate }) => {
     const personData = {
       person: enteredName,
       jobs: addedJob,
+      color: colorStyles[enteredColour],
     };
 
     if (type !== "edit") {
@@ -73,6 +87,13 @@ const Person = ({ onClose, type, editMate }) => {
       <h2>{type === "edit" ? "Edit" : "New"} Homemate</h2>
       <form onSubmit={submitHandler}>
         <div className="person__controls">
+          <div className="person__control">
+            <img src={colourImg} alt="color" />
+            <select onChange={(e) => setEnteredColour(+e.target.value)}>
+              <option value='select'>Select a colour</option>
+              {coloursList}
+            </select>
+          </div>
           <div className="person__control">
             <img src={userImg} alt="name" />
             <input
