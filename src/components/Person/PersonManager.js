@@ -14,12 +14,18 @@ const PersonManager = () => {
   const [fixedCart, setFixedCart] = useState(false);
   const [homemates] = useSelector((state) => state.user.homemates);
 
+  const [editMate, setEditMate] = useState("");
+
   const homematesDisplay = [];
 
   const toggleFixedCartHandler = () => {
     setFixedCart((state) => !state);
   };
-
+  console.log(typeof homemates)
+  if(typeof homemates === 'undefined'){
+    return <p>Loading</p>;
+  }
+  console.log(homemates?.length)
   for (const [i, mate] of homemates.entries()) {
     const jobsList = [];
 
@@ -40,7 +46,10 @@ const PersonManager = () => {
           <img
             src={editImg}
             alt="edit-person"
-            onClick={() => toggleFixedCartHandler()}
+            onClick={() => {
+              setEditMate(mate);
+              toggleFixedCartHandler();
+            }}
           />
         </figure>
         <li>
@@ -55,7 +64,11 @@ const PersonManager = () => {
     <>
       {fixedCart && (
         <Modal Toggle={toggleFixedCartHandler}>
-          <Person onClose={toggleFixedCartHandler} type={"edit"} />
+          <Person
+            onClose={toggleFixedCartHandler}
+            type={"edit"}
+            editMate={editMate}
+          />
         </Modal>
       )}
       <div className="personmanager__control">{homematesDisplay}</div>

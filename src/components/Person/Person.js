@@ -3,18 +3,20 @@ import React, { useState } from "react";
 import userImg from "../../assets/usuario.svg";
 import jobImg from "../../assets/maletin.svg";
 import addImg from "../../assets/add.svg";
+import deleteImg from "../../assets/basura.svg";
 import SaveButton from "../UI/SaveButton";
 
 import "./Person.css";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, setDoc } from "firebase/firestore";
 import { auth, firestore } from "../../firebase";
 
-const Person = ({onClose, type}) => {
-  const [enteredName, setEnteredName] = useState("");
+const Person = ({ onClose, type, editMate }) => {
+  const [enteredName, setEnteredName] = useState(editMate?.person || "");
   const [enteredJob, setEnteredJob] = useState("");
-  const [addedJob, setAddedJob] = useState([]);
-  
+  const [addedJob, setAddedJob] = useState(editMate?.jobs || []);
+
   let jobsPending = [];
+  console.log(editMate);
 
   if (addedJob.length >= 1) {
     for (const job of addedJob) {
@@ -37,31 +39,38 @@ const Person = ({onClose, type}) => {
     setAddedJob((state) => state.filter((job) => job.id !== jobToRemove));
   };
 
-
   const submitHandler = async (e) => {
     e.preventDefault();
 
     const personData = {
-        person: enteredName,
-        jobs: addedJob
-    }
+      person: enteredName,
+      jobs: addedJob,
+    };
 
-    const personRef = collection(
+    if (type !== "edit") {
+      const personRef = collection(
         firestore,
         `users/${auth.currentUser.uid}/homemates`
-    );
-    await addDoc(personRef, personData);
+      );
+      await addDoc(personRef, personData);
+    } else {
+      await setDoc(
+        doc(
+          firestore,
+          `users/${auth.currentUser.uid}/homemates/${editMate.id}`
+        ),
+        personData
+      );
+    }
 
-    
-
-    setEnteredName("")
-    setEnteredJob("")
-    setAddedJob([])
+    setEnteredName("");
+    setEnteredJob("");
+    setAddedJob([]);
     onClose();
   };
   return (
     <>
-      <h2>{type === 'edit' ? 'Edit' : 'New'} Homemate</h2>
+      <h2>{type === "edit" ? "Edit" : "New"} Homemate</h2>
       <form onSubmit={submitHandler}>
         <div className="person__controls">
           <div className="person__control">
@@ -70,10 +79,23 @@ const Person = ({onClose, type}) => {
               type="text"
               placeholder="Name"
               value={enteredName}
-              onChange={(e) =>
-                setEnteredName(e.target.value)
-              }
+              onChange={(e) => setEnteredName(e.target.value)}
             />
+            {type === "edit" && (
+              <img
+                src={deleteImg}
+                alt="delete-person"
+                onClick={async () => {
+                  await deleteDoc(
+                    doc(
+                      firestore,
+                      `users/${auth.currentUser.uid}/homemates/${editMate.id}`
+                    )
+                  );
+                  onClose();
+                }}
+              />
+            )}
           </div>
           <div className="person__control">
             <img src={jobImg} alt="malet" />
