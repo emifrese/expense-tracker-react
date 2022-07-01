@@ -18,10 +18,10 @@ import TransactionsItem from "./TransactionsItem";
 
 const actualDate = new Date();
 
-const TransactionsList = ({ section, type, expenses, incomes }) => {
+const TransactionsList = ({ section, type, expenses, incomes, Toggle }) => {
   console.log(incomes);
   let iteration = [];
-  if (type === "Expenses") {
+  if (type === "expense") {
     for (const expense of expenses) {
       if (section === "main") {
         if (
@@ -38,14 +38,18 @@ const TransactionsList = ({ section, type, expenses, incomes }) => {
   } else {
     iteration = incomes;
   }
+  
 
   const list = [];
-
+  if(typeof iteration === 'undefined') {
+    return <p>No {type} to show</p>
+  }
   for (const [i, element] of iteration.entries()) {
     let imgIcon;
     let colorIcon;
     let borderColor;
-    if (type === "Expenses") {
+    if (type === "expense") {
+      console.log(element)
       switch (element.category) {
         case "Groceries":
           imgIcon = groceriesImg;
@@ -79,7 +83,7 @@ const TransactionsList = ({ section, type, expenses, incomes }) => {
         case 'Job':
           imgIcon = jobImg;
           break;
-        case 'Gift':
+        case 'Gift/Present':
           imgIcon = giftImg;
           break;
         case 'Debt':
@@ -98,7 +102,7 @@ const TransactionsList = ({ section, type, expenses, incomes }) => {
         imgIcon={imgIcon}
         colorIcon={colorIcon}
         borderColor={borderColor}
-        title={type === "Expenses" ? element.title : element.person}
+        title={type === "expense" ? element.title : element.person}
         amount={element.amount}
         day={element.day}
         month={element.month}
@@ -106,6 +110,8 @@ const TransactionsList = ({ section, type, expenses, incomes }) => {
         border={border}
         type={type}
         job={element.job}
+        Toggle={Toggle}
+        id={element.id}
       />
     );
   }

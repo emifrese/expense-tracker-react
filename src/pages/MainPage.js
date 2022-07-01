@@ -45,7 +45,7 @@ const MainPage = () => {
         Toggle={toggleFixedCartHandler}
       />
       <Balance />
-      <TransactionsList section="main" type="Expenses" expenses={expenses} />
+      <TransactionsList section="main" type="expense" expenses={expenses} />
       <NavBar />
     </>
   );

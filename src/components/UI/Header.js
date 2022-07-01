@@ -30,7 +30,7 @@ const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
           className="filter-button"
           src={rightImg}
           alt="user-info"
-          onClick={() => Toggle()}
+          onClick={() => Toggle('Filter')}
         />
       );
       break;

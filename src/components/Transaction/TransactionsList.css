@@ -67,3 +67,15 @@
 .fullList {
     max-height: calc(100vh - 385px);
 }
+
+.transactions__list .deleteContainer {
+    justify-content: center;
+    width:20%;
+}
+
+.transactions__list .deleteButton {
+    width:25px;
+    height: 25px;
+    padding: 0;
+    border: none;
+}

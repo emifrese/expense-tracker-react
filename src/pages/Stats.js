@@ -14,10 +14,11 @@ import { incomesActions } from "../store/incomes";
 import { expenseActions } from "../store/expenses";
 import { categories } from "../helpers/variables";
 import ChartIncomes from "../components/Charts/ChartIncomes";
+import DeleteCard from "../components/UI/DeleteCard";
 
 const Stats = () => {
   const [type, setType] = useState(true);
-  const [filterCart, setFilterCart] = useState(false);
+  const [filterCart, setFilterCart] = useState([false, '']);
   const dispatch = useDispatch();
   const incomes = useSelector((state) => state.incomes.incomes);
   const expenses = useSelector((state) => state.expense.expenses);
@@ -49,15 +50,28 @@ const Stats = () => {
     setType(e);
   };
 
-  const toggleFilterCartHandler = () => {
-    setFilterCart((state) => !state);
-  };
+  const toggleFilterCartHandler = (element, id, type) => {
+    let modalElement;
+    console.log(element)
 
+    switch(element){
+      case 'Filter':
+        modalElement = <Filter />;
+        break;
+      case 'Delete':
+        modalElement = <DeleteCard id={id} type={type} Toggle={toggleFilterCartHandler}/>;
+        break;
+      default:
+    }
+
+    setFilterCart((state) => [!state[0], modalElement]);
+  };
+  console.log(filterCart)
   return (
     <>
-      {filterCart && (
+      {filterCart[0] && (
         <Modal Toggle={toggleFilterCartHandler}>
-          <Filter />
+          {filterCart[1]}
         </Modal>
       )}
       <div className="stats-container">
@@ -76,9 +90,10 @@ const Stats = () => {
             <>
               {type ? <ChartIncomes /> : <ChartExpenses type={type} />}
               <TransactionsList
-                type={type ? "Incomes" : "Expenses"}
+                type={type ? "income" : "expense"}
                 expenses={filterExp}
                 incomes={filterInc}
+                Toggle={toggleFilterCartHandler}
               />
             </>
           )}

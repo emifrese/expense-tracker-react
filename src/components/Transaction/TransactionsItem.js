@@ -1,6 +1,7 @@
 import React from "react";
 
 import { months } from "../../helpers/variables";
+import deleteImg from "../../assets/basura.svg";
 
 const TransactionsItem = ({
   imgIcon,
@@ -9,14 +10,15 @@ const TransactionsItem = ({
   title,
   amount,
   day,
-  i,
+  id,
   month,
   border,
   type,
   job,
+  Toggle
 }) => {
   let listItem;
-  if (type === "Expenses") {
+  if (type === "expense") {
     listItem = (
       <>
         <li className={border}>
@@ -28,6 +30,14 @@ const TransactionsItem = ({
             />
             <figcaption>{title}</figcaption>
           </figure>
+            <figure className="deleteContainer">
+              <img
+                src={deleteImg}
+                alt="delte-expense"
+                className="deleteButton"
+                onClick={() => Toggle('Delete', id, type)}
+              />
+            </figure>
           <div>
             <p className="transactions__list_price">-${amount}</p>
             <p className="transactions__list_day">
@@ -49,6 +59,14 @@ const TransactionsItem = ({
             />
             <figcaption>{title}</figcaption>
           </figure>
+          <figure className="deleteContainer">
+              <img
+                src={deleteImg}
+                alt="delte-expense"
+                className="deleteButton"
+                onClick={() => Toggle('Delete', id, type)}
+              />
+            </figure>
           <div>
             <p className="transactions__list_price">+${amount}</p>
             <p className="transactions__list_day">{job}</p>
