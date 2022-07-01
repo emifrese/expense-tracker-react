@@ -69,6 +69,7 @@ const expenseSlice = createSlice({
               state.expensesTotalPerCategoryDate.push({
                 category: exp.category,
                 amount: exp.amount,
+                colors: exp.colors
               });
             } else {
               const index = state.expensesTotalPerCategoryDate

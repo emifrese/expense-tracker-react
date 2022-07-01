@@ -7,14 +7,21 @@ import { useSelector } from "react-redux";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ChartIncomes = (props) => {
+
   const incomesPerMate = useSelector(
     (state) => state.incomes.incomesTotalPerMate
   );
-
   const labels = incomesPerMate.map((element) => element.person);
 
   const dataValues = incomesPerMate.map((element) => element.amount);
-  console.log(dataValues.length);
+
+  const backgroundColor = incomesPerMate.map(
+    (element) => element.colors.colorIcon
+  );
+
+  const borderColor = incomesPerMate.map(
+    (element) => element.colors.borderColor
+  );
 
   const data = {
     labels,
@@ -22,23 +29,23 @@ const ChartIncomes = (props) => {
       {
         label: "Incomes",
         data: dataValues,
-        backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
-        borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+        backgroundColor,
+        borderColor,
+        hoverBackgroundColor: borderColor,
         borderWidth: 1,
       },
     ],
   };
 
+
   return (
-    <>
-      {dataValues.length > 0 ? (
-        <div>
+      <div>
+        {dataValues.length > 0 ? (
           <Doughnut data={data} />
-        </div>
-      ) : (
-        <p>No incomes</p>
-      )}
-    </>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
   );
 };
 

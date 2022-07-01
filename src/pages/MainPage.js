@@ -9,9 +9,10 @@ import cardImg from "../assets/id-insignia.svg";
 import Modal from "../components/UI/Modal";
 import PersonCard from "../components/Person/PersonCard";
 import TransactionsList from "../components/Transaction/TransactionsList";
+import DeleteCard from "../components/UI/DeleteCard";
 
 const MainPage = () => {
-  const [fixedCart, setFixedCart] = useState(false);
+  const [modalCart, setModalCart] = useState([false, ""]);
   const expenses = useSelector((state) => state.expense.expenses);
   const displayName = useSelector((state) => state.user.displayName);
   const photoURL = useSelector((state) => state.user.photoURL);
@@ -19,33 +20,52 @@ const MainPage = () => {
   const email = useSelector((state) => state.user.email);
   const [homemates] = useSelector((state) => state.user.homemates);
 
-  const toggleFixedCartHandler = () => {
-    setFixedCart((state) => !state);
-  };
+  const toggleModalCartHandler = (element, id, type) => {
+    let modalElement;
 
-  return (
-    <>
-      {fixedCart && (
-        <Modal Toggle={toggleFixedCartHandler}>
+    switch (element) {
+      case "Person":
+        modalElement = (
           <PersonCard
-            onClose={toggleFixedCartHandler}
+            onClose={toggleModalCartHandler}
             name={displayName}
             photoURL={photoURL}
             email={email}
             creationTime={creationTime}
             homemates={homemates}
           />
-        </Modal>
+        );
+        break;
+      case "Delete":
+        modalElement = (
+          <DeleteCard id={id} type={type} Toggle={toggleModalCartHandler} />
+        );
+        break;
+      default:
+    }
+
+    setModalCart((state) => [!state[0], modalElement]);
+  };
+
+  return (
+    <>
+      {modalCart[0] && (
+        <Modal Toggle={toggleModalCartHandler}>{modalCart[1]}</Modal>
       )}
       <Header
         type="main"
         titleText={displayName}
         leftImg={photoURL}
         rightImg={cardImg}
-        Toggle={toggleFixedCartHandler}
+        Toggle={toggleModalCartHandler}
       />
       <Balance />
-      <TransactionsList section="main" type="expense" expenses={expenses} />
+      <TransactionsList
+        section="main"
+        type="expense"
+        expenses={expenses}
+        Toggle={toggleModalCartHandler}
+      />
       <NavBar />
     </>
   );

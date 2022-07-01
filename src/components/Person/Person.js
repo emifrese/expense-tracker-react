@@ -17,12 +17,13 @@ const Person = ({ onClose, type, editMate }) => {
   const [enteredName, setEnteredName] = useState(editMate?.person || "");
   const [enteredJob, setEnteredJob] = useState("");
   const [addedJob, setAddedJob] = useState(editMate?.jobs || []);
-  const [enteredColour, setEnteredColour] = useState("");
+  const [enteredColour, setEnteredColour] = useState(editMate?.colorId || "");
 
   let jobsPending = [];
   let coloursList = [];
-  console.log(enteredColour);
 
+  console.log(editMate)
+  console.log(enteredColour)
   colors.forEach((colour, i) => {
     coloursList.push(
       <option value={i} key={i}>
@@ -59,6 +60,7 @@ const Person = ({ onClose, type, editMate }) => {
       person: enteredName,
       jobs: addedJob,
       color: colorStyles[enteredColour],
+      colorId: enteredColour,
     };
 
     if (type !== "edit") {
@@ -89,7 +91,7 @@ const Person = ({ onClose, type, editMate }) => {
         <div className="person__controls">
           <div className="person__control">
             <img src={colourImg} alt="color" />
-            <select onChange={(e) => setEnteredColour(+e.target.value)}>
+            <select value={enteredColour} onChange={(e) => setEnteredColour(+e.target.value)}>
               <option value='select'>Select a colour</option>
               {coloursList}
             </select>

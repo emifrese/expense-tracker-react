@@ -25,7 +25,7 @@ const incomesSlice = createSlice({
       state.incomes = [];
     },
     incomePerMateDate(state, action) {
-      state.incomesTotalPerMate = []
+      state.incomesTotalPerMate = [];
       const [incomes, monthDate, yearDate] = action.payload;
       incomes.forEach((inc) => {
         if (inc.month === monthDate && inc.year === yearDate) {
@@ -37,6 +37,7 @@ const incomesSlice = createSlice({
             state.incomesTotalPerMate.push({
               person: inc.person,
               amount: inc.amount,
+              colors: inc.colors,
             });
           } else {
             const index = state.incomesTotalPerMate
@@ -48,13 +49,18 @@ const incomesSlice = createSlice({
       });
     },
     filterIncomes(state, action) {
-        const [incomes, monthDate, yearDate] = action.payload;
-        incomes.forEach(inc => {
-            if(inc.month === monthDate && inc.year === yearDate && !state.filterInc.some(incF => incF.id === inc.id)){
-                state.filterInc.push(inc)
-            }
-        })
-    }
+      state.filterInc = [];
+      const [incomes, monthDate, yearDate] = action.payload;
+      incomes.forEach((inc) => {
+        if (
+          inc.month === monthDate &&
+          inc.year === yearDate &&
+          !state.filterInc.some((incF) => incF.id === inc.id)
+        ) {
+          state.filterInc.push(inc);
+        }
+      });
+    },
   },
 });
 

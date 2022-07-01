@@ -2,8 +2,6 @@ import React from "react";
 
 import "./TransactionsList.css";
 
-import meat from "../../assets/meat.png";
-import vegetable from "../../assets/vegetable.png";
 import groceriesImg from "../../assets/grocery.png";
 import foodDrinkImg from "../../assets/fork.png";
 import fuelImg from "../../assets/gasoline.png";
@@ -13,13 +11,12 @@ import jobImg from '../../assets/maletin.svg';
 import giftImg from '../../assets/regalo.svg';
 import debtImg from '../../assets/recibo.svg';
 
-import { useSelector } from "react-redux";
 import TransactionsItem from "./TransactionsItem";
 
 const actualDate = new Date();
 
 const TransactionsList = ({ section, type, expenses, incomes, Toggle }) => {
-  console.log(incomes);
+  console.log(expenses)
   let iteration = [];
   if (type === "expense") {
     for (const expense of expenses) {
@@ -46,35 +43,22 @@ const TransactionsList = ({ section, type, expenses, incomes, Toggle }) => {
   }
   for (const [i, element] of iteration.entries()) {
     let imgIcon;
-    let colorIcon;
-    let borderColor;
     if (type === "expense") {
-      console.log(element)
       switch (element.category) {
         case "Groceries":
           imgIcon = groceriesImg;
-          borderColor = "#1363DF";
-          colorIcon = "#47B5FF";
           break;
         case "Food & Drink":
           imgIcon = foodDrinkImg;
-          borderColor = "#F76E11";
-          colorIcon = "#FFBC80";
           break;
         case "Fuel":
           imgIcon = fuelImg;
-          borderColor = "#14C38E";
-          colorIcon = "#B8F1B0";
           break;
         case "Pharmacy":
           imgIcon = pharmacyImg;
-          borderColor = "#FD5D5D";
-          colorIcon = "#FF8080";
           break;
         case "Others":
           imgIcon = othersImg;
-          borderColor = "#810955";
-          colorIcon = "#EE81B3";
           break;
         default:
       }
@@ -91,8 +75,6 @@ const TransactionsList = ({ section, type, expenses, incomes, Toggle }) => {
           break;
         default:
        }
-       borderColor = element.colors.borderColor;
-       colorIcon = element.colors.colorIcon
     }
 
     const border = i < iteration.length - 1 ? "bottomBorder" : "";
@@ -100,8 +82,8 @@ const TransactionsList = ({ section, type, expenses, incomes, Toggle }) => {
     list.push(
       <TransactionsItem
         imgIcon={imgIcon}
-        colorIcon={colorIcon}
-        borderColor={borderColor}
+        colorIcon={element.colors.colorIcon}
+        borderColor={element.colors.borderColor}
         title={type === "expense" ? element.title : element.person}
         amount={element.amount}
         day={element.day}

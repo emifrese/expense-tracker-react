@@ -16,7 +16,7 @@ const DeleteCard = ({ id, type, Toggle }) => {
     <div>
       <p>Do you really want to delete that {type}?</p>
       <button onClick={() => deleteTransaction()}>Yes</button>
-      <button>No</button>
+      <button onClick={() => Toggle()}>No</button>
     </div>
   );
 };

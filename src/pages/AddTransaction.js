@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import IncomesForm from "../components/Incomes/IncomesForm";
-import ExpenseForm from "../components/NewExpense/ExpenseForm";
+import ExpenseForm from "../components/Expense/ExpenseForm";
 import TransactionHeader from "../components/Transaction/TransactionHeader";
 
 const AddTransaction = () => {

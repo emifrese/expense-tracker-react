@@ -6,15 +6,12 @@ import titleImg from "../../assets/informacion.svg";
 import dateImg from "../../assets/tiempo-trimestrepasado.svg";
 import categoryImg from "../../assets/marcador.svg";
 import cardImg from "../../assets/tarjeta-de-credito.svg";
-import { Link, useNavigate } from "react-router-dom";
-import TransactionToggle from "../UI/TransactionToggle";
+import { useNavigate } from "react-router-dom";
 import SaveButton from "../UI/SaveButton";
-import date from "../../store/date";
-import { useSelector } from "react-redux";
 import { categories } from "../../helpers/variables";
 
 const actualDate = new Date();
-const defaultValue = actualDate.toLocaleDateString('en-CA');
+const defaultValue = actualDate.toLocaleDateString("en-CA");
 
 const ExpenseForm = () => {
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -66,11 +63,37 @@ const ExpenseForm = () => {
     setEnteredCuotas(parseInt(e.target.value));
   };
 
-
   const submitHandler = async (e) => {
     e.preventDefault();
     const date = new Date(enteredDate);
     date.setDate(date.getDate() + 1);
+
+    let colorIcon;
+    let borderColor;
+
+    switch (enteredCategory) {
+      case "Groceries":
+        borderColor = "#1363DF";
+        colorIcon = "#47B5FF";
+        break;
+      case "Food & Drink":
+        borderColor = "#F76E11";
+        colorIcon = "#FFBC80";
+        break;
+      case "Fuel":
+        borderColor = "#14C38E";
+        colorIcon = "#B8F1B0";
+        break;
+      case "Pharmacy":
+        borderColor = "#FD5D5D";
+        colorIcon = "#FF8080";
+        break;
+      case "Others":
+        borderColor = "#810955";
+        colorIcon = "#EE81B3";
+        break;
+      default:
+    }
 
     const expenseData = {
       title: enteredTitle,
@@ -79,6 +102,7 @@ const ExpenseForm = () => {
       month: date.getMonth(),
       year: date.getFullYear(),
       category: enteredCategory,
+      colors: { colorIcon, borderColor },
       fixedExp,
       cuotas,
       amountCuotas: enteredCuotas,
@@ -89,18 +113,15 @@ const ExpenseForm = () => {
       `users/${auth.currentUser.uid}/expense`
     );
 
-    console.log(enteredCategory)
-    if(enteredAmount === "") {
-      return alert('Enter an amount')
+    if (enteredAmount === "") {
+      return alert("Enter an amount");
     }
-    if(enteredTitle.trim() === ""){
-      return alert('Enter a title')
+    if (enteredTitle.trim() === "") {
+      return alert("Enter a title");
     }
-    if(enteredCategory === "") {
-      return alert('Select a category')
+    if (enteredCategory === "") {
+      return alert("Select a category");
     }
-
-    
 
     if (!cuotas) {
       await addDoc(expenseRef, expenseData);
@@ -109,8 +130,10 @@ const ExpenseForm = () => {
         return alert("selecciona las cuotas");
       }
       const temp = Object.assign({}, expenseData);
+      temp.amountCuotas = enteredCuotas;
       temp.amount = parseFloat((temp.amount / temp.amountCuotas).toFixed(2));
       for (let i = 0; i < temp.amountCuotas; i++) {
+        temp.remainingCoutas = temp.amountCuotas - 1 - i;
         temp.month += 1;
         temp.payed = false;
         if (temp.month > 12) {
@@ -124,14 +147,11 @@ const ExpenseForm = () => {
     if (fixedExp) {
       const expenseFixedData = {
         title: enteredTitle,
-        amount: enteredAmount,
         day: null,
         month: date.getMonth(),
         year: date.getFullYear(),
         category: enteredCategory,
         fixedExp,
-        cuotas,
-        amountCuotas: enteredCuotas,
       };
 
       const expenseFixedRef = collection(

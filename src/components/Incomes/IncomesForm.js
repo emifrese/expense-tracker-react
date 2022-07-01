@@ -21,10 +21,8 @@ const IncomesForm = (props) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredType, setEnteredType] = useState("");
   const [enteredJob, setEnteredJob] = useState("");
-  const [personColor, setPersonColor] = useState("");
   const [homemates] = useSelector((state) => state.user.homemates);
   const navigate = useNavigate();
-
 
   const toggleFixedCartHandler = () => {
     setFixedCart((state) => !state);

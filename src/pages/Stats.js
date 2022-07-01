@@ -12,7 +12,6 @@ import Header from "../components/UI/Header";
 import TransactionsList from "../components/Transaction/TransactionsList";
 import { incomesActions } from "../store/incomes";
 import { expenseActions } from "../store/expenses";
-import { categories } from "../helpers/variables";
 import ChartIncomes from "../components/Charts/ChartIncomes";
 import DeleteCard from "../components/UI/DeleteCard";
 
@@ -22,21 +21,14 @@ const Stats = () => {
   const dispatch = useDispatch();
   const incomes = useSelector((state) => state.incomes.incomes);
   const expenses = useSelector((state) => state.expense.expenses);
-  const totalIncomes = useSelector(
-    (state) => state.incomes.incomesTotalPerMate
-  );
+
   const filterExp = useSelector((state) => state.expense.filterExp);
   const filterInc = useSelector((state) => state.incomes.filterInc);
-  const totalPerCat = useSelector(
-    (state) => state.expense.expensesTotalPerCategoryDate
-  );
+
   const monthDate = useSelector((state) => state.date.month);
   const yearDate = useSelector((state) => state.date.year);
-  const dayDate = useSelector((state) => state.date.day);
 
-  console.log(totalPerCat);
-  let carniceriaExp = { name: "Carniceria", amount: 0 };
-  let verduleriaExp = { name: "Verduleria", amount: 0 };
+
 
   useEffect(() => {
     dispatch(incomesActions.incomePerMateDate([incomes, monthDate, yearDate]));
@@ -50,27 +42,27 @@ const Stats = () => {
     setType(e);
   };
 
-  const toggleFilterCartHandler = (element, id, type) => {
+  const toggleModalCartHandler = (element, id, type) => {
     let modalElement;
-    console.log(element)
+    
 
     switch(element){
       case 'Filter':
         modalElement = <Filter />;
         break;
       case 'Delete':
-        modalElement = <DeleteCard id={id} type={type} Toggle={toggleFilterCartHandler}/>;
+        modalElement = <DeleteCard id={id} type={type} Toggle={toggleModalCartHandler}/>;
         break;
       default:
     }
 
     setFilterCart((state) => [!state[0], modalElement]);
   };
-  console.log(filterCart)
+  
   return (
     <>
       {filterCart[0] && (
-        <Modal Toggle={toggleFilterCartHandler}>
+        <Modal Toggle={toggleModalCartHandler}>
           {filterCart[1]}
         </Modal>
       )}
@@ -80,23 +72,19 @@ const Stats = () => {
           leftImg={backButton}
           titleText="Statistics"
           rightImg={filterButton}
-          Toggle={toggleFilterCartHandler}
+          Toggle={toggleModalCartHandler}
         />
         <main>
           <TransactionToggle onChangeType={typeChangeHandler} type={type} />
-          {expenses.length < 1 ? (
-            <p>No expenses</p>
-          ) : (
             <>
               {type ? <ChartIncomes /> : <ChartExpenses type={type} />}
               <TransactionsList
                 type={type ? "income" : "expense"}
                 expenses={filterExp}
                 incomes={filterInc}
-                Toggle={toggleFilterCartHandler}
+                Toggle={toggleModalCartHandler}
               />
             </>
-          )}
         </main>
       </div>
     </>

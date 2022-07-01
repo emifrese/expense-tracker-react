@@ -12,7 +12,7 @@ const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
       className="card-tag"
       src={rightImg}
       alt="user-info"
-      onClick={() => Toggle()}
+      onClick={() => Toggle('Person')}
     />
   );
 

@@ -6,6 +6,17 @@
     text-align: left;
 }
 
+.person__controls select {
+  font: inherit;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 0;
+    width: 20rem;
+    max-width: 100%;
+    appearance: none;
+    color: #aaa
+}
+
 .person__controls select:hover, input:hover {
     outline: 0;
     border-color: #888;
