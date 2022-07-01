@@ -31,7 +31,7 @@ const ChartExpenses = ({ type }) => {
     (element) => element.colors.colorIcon
   );
 
-  const borderColor = totalPerCat.map(element => element.colors.borderColor)
+  const borderColor = totalPerCat.map((element) => element.colors.borderColor);
 
   const options = {
     responsive: true,
@@ -59,7 +59,13 @@ const ChartExpenses = ({ type }) => {
   };
 
   return (
-    <div>{totalPerCat.length > 0 ? <Doughnut options={options} data={data} /> : <p>No expenses</p>}</div>
+    <div>
+      {totalPerCat.length > 0 ? (
+        <Doughnut options={options} data={data} />
+      ) : (
+        <p>No expenses</p>
+      )}
+    </div>
   );
 };
 
