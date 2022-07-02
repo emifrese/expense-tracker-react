@@ -14,6 +14,7 @@ import { incomesActions } from "../store/incomes";
 import { expenseActions } from "../store/expenses";
 import ChartIncomes from "../components/Charts/ChartIncomes";
 import DeleteCard from "../components/UI/DeleteCard";
+import StatusCard from "../components/UI/StatusCard";
 
 const Stats = () => {
   const [type, setType] = useState(true);
@@ -23,6 +24,8 @@ const Stats = () => {
   const expenses = useSelector((state) => state.expense.expenses);
 
   const filterExp = useSelector((state) => state.expense.filterExp);
+  const fixExp = useSelector(state => state.expense.fixedExp)
+  console.log(fixExp)
   const filterInc = useSelector((state) => state.incomes.filterInc);
 
   const monthDate = useSelector((state) => state.date.month);
@@ -36,6 +39,8 @@ const Stats = () => {
     dispatch(incomesActions.filterIncomes([incomes, monthDate, yearDate]));
 
     dispatch(expenseActions.filterExpenses([expenses, monthDate, yearDate]));
+
+    dispatch(expenseActions.fixedExp([], yearDate, monthDate))
   }, [incomes, monthDate, yearDate, expenses, dispatch]);
 
   const typeChangeHandler = (e) => {
@@ -53,6 +58,9 @@ const Stats = () => {
       case 'Delete':
         modalElement = <DeleteCard id={id} type={type} Toggle={toggleModalCartHandler}/>;
         break;
+      case 'Status':
+        modalElement = <StatusCard id={id} status={type} Toggle={toggleModalCartHandler}/>
+          break;
       default:
     }
 

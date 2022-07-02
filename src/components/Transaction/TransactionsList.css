@@ -1,10 +1,27 @@
 .transactions {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-wrap: wrap;
+    align-items: center;
 }
 .transactions__title {
-    width: 100%;
+    width: 80%;
+}
+
+.transactions__fixedContainer {
+    width: 20%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.transactions__fixedImg {
+    width: 25px;
+    height: 25px;
+}
+
+.transactions__fixedImg.empty {
+    opacity: 0.5
 }
 
 
@@ -31,6 +48,10 @@
     border-bottom: 2px solid #ccc;
 }
 
+.transactions__list .pending {
+    opacity: 0.5;
+}
+
 .transactions__list img {
     width: 50px;
     height: 50px;
@@ -45,6 +66,10 @@
     width: 60%;
     display: flex;
     align-items: center;
+}
+
+.transactions__list figcaption em {
+    opacity: 0.5
 }
 
 .transactions__list div {

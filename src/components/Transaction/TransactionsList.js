@@ -7,24 +7,35 @@ import foodDrinkImg from "../../assets/fork.png";
 import fuelImg from "../../assets/gasoline.png";
 import pharmacyImg from "../../assets/medicamento.png";
 import othersImg from "../../assets/bolsa-de-la-compra.png";
-import jobImg from '../../assets/maletin.svg';
-import giftImg from '../../assets/regalo.svg';
-import debtImg from '../../assets/recibo.svg';
+import jobImg from "../../assets/maletin.svg";
+import giftImg from "../../assets/regalo.svg";
+import debtImg from "../../assets/recibo.svg";
+import fixedImg from "../../assets/exclamacion.svg";
 
 import TransactionsItem from "./TransactionsItem";
 
 const actualDate = new Date();
 
-const TransactionsList = ({ section, type, expenses, incomes, Toggle }) => {
-  console.log(expenses)
+const TransactionsList = ({
+  section,
+  type,
+  expenses,
+  incomes,
+  Toggle,
+  fixedExp,
+}) => {
   let iteration = [];
+  let fixedModal = false;
+  let fixedClass;
   if (type === "expense") {
     for (const expense of expenses) {
       if (section === "main") {
+        fixedModal = true;
+        fixedClass = fixedExp.length === 0 && "empty";
         if (
+          expense.day === actualDate.getDate() &&
           expense.month === actualDate.getMonth() &&
-          expense.year === actualDate.getFullYear() &&
-          expense.day === actualDate.getDate()
+          expense.year === actualDate.getFullYear()
         ) {
           iteration.push(expense);
         }
@@ -35,11 +46,10 @@ const TransactionsList = ({ section, type, expenses, incomes, Toggle }) => {
   } else {
     iteration = incomes;
   }
-  
 
   const list = [];
-  if(typeof iteration === 'undefined') {
-    return <p>No {type} to show</p>
+  if (typeof iteration === "undefined") {
+    return <p>No {type} to show</p>;
   }
   for (const [i, element] of iteration.entries()) {
     let imgIcon;
@@ -63,21 +73,23 @@ const TransactionsList = ({ section, type, expenses, incomes, Toggle }) => {
         default:
       }
     } else {
-      switch(element.type){
-        case 'Job':
+      switch (element.type) {
+        case "Job":
           imgIcon = jobImg;
           break;
-        case 'Gift/Present':
+        case "Gift/Present":
           imgIcon = giftImg;
           break;
-        case 'Debt':
+        case "Debt":
           imgIcon = debtImg;
           break;
         default:
-       }
+      }
     }
 
     const border = i < iteration.length - 1 ? "bottomBorder" : "";
+
+    console.log(expenses);
 
     list.push(
       <TransactionsItem
@@ -94,12 +106,28 @@ const TransactionsList = ({ section, type, expenses, incomes, Toggle }) => {
         job={element.job}
         Toggle={Toggle}
         id={element.id}
+        payed={element.payed}
       />
     );
   }
+
   return (
     <div className="transactions">
       <p className="transactions__title">Transactions</p>
+      {fixedModal && (
+        <figure className="transactions__fixedContainer">
+          <img
+            src={fixedImg}
+            alt="fixed-expenses"
+            className={"transactions__fixedImg " + fixedClass}
+            onClick={() => {
+              if (fixedExp.length > 0) {
+                Toggle("Fixed");
+              }
+            }}
+          />
+        </figure>
+      )}
       <ul
         className={
           section !== "main"

@@ -19,13 +19,8 @@ import Sign from "./components/UI/Sign";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [fixedCart, setFixedCart] = useState(false);
 
   const dispatch = useDispatch();
-
-  const toggleFixedCartHandler = () => {
-    setFixedCart((state) => !state);
-  };
 
   useEffect(() => {
     onAuthStateChanged(auth, setUser);
@@ -44,7 +39,6 @@ function App() {
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/expense`),
         (snapshot) => {
-          dispatch(expenseActions.reset("expenses"));
           let expensesArray = snapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,
@@ -68,12 +62,18 @@ function App() {
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/fixed-exp`),
         (snapshot) => {
-          dispatch(expenseActions.reset("fixedExp"));
+          const actualDate = new Date();
           let fixedExpensesArray = snapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,
           }));
-          dispatch(expenseActions.fixedExp(fixedExpensesArray));
+          dispatch(
+            expenseActions.fixedExp([
+              fixedExpensesArray,
+              actualDate.getFullYear(),
+              actualDate.getMonth(),
+            ])
+          );
         }
       );
 
@@ -95,11 +95,6 @@ function App() {
     <Layout>
       {user ? (
         <>
-          {fixedCart && (
-            <Modal Toggle={toggleFixedCartHandler}>
-              <p>Gika</p>
-            </Modal>
-          )}
           <Routes>
             <Route path="/" exact element={<MainPage />} />
             <Route path="/add" element={<AddTransaction />} />

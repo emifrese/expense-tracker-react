@@ -10,35 +10,36 @@ import Modal from "../components/UI/Modal";
 import PersonCard from "../components/Person/PersonCard";
 import TransactionsList from "../components/Transaction/TransactionsList";
 import DeleteCard from "../components/UI/DeleteCard";
+import StatusCard from "../components/UI/StatusCard";
+import FixedCard from "../components/UI/FixedCard";
 
 const MainPage = () => {
+  const fixedExp = useSelector((state) => state.expense.fixedExp);
   const [modalCart, setModalCart] = useState([false, ""]);
+  console.log(fixedExp);
   const expenses = useSelector((state) => state.expense.expenses);
   const displayName = useSelector((state) => state.user.displayName);
   const photoURL = useSelector((state) => state.user.photoURL);
-  const creationTime = useSelector((state) => state.user.creationTime);
-  const email = useSelector((state) => state.user.email);
-  const [homemates] = useSelector((state) => state.user.homemates);
-
   const toggleModalCartHandler = (element, id, type) => {
     let modalElement;
 
     switch (element) {
       case "Person":
-        modalElement = (
-          <PersonCard
-            onClose={toggleModalCartHandler}
-            name={displayName}
-            photoURL={photoURL}
-            email={email}
-            creationTime={creationTime}
-            homemates={homemates}
-          />
-        );
+        modalElement = <PersonCard onClose={toggleModalCartHandler} />;
         break;
       case "Delete":
         modalElement = (
           <DeleteCard id={id} type={type} Toggle={toggleModalCartHandler} />
+        );
+        break;
+      case "Status":
+        modalElement = (
+          <StatusCard id={id} status={type} Toggle={toggleModalCartHandler} />
+        );
+        break;
+      case "Fixed":
+        modalElement = (
+          <FixedCard fixedExp={fixedExp} Toggle={toggleModalCartHandler} />
         );
         break;
       default:
@@ -64,6 +65,7 @@ const MainPage = () => {
         section="main"
         type="expense"
         expenses={expenses}
+        fixedExp={fixedExp}
         Toggle={toggleModalCartHandler}
       />
       <NavBar />

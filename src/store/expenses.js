@@ -8,8 +8,6 @@ const initialExpenseState = {
   fixedExp: [],
   filterExp: [],
   expensesTotalPerCategoryDate: [],
-  month: actualDate.getMonth().toString(),
-  year: actualDate.getFullYear().toString(),
   category: "All",
 };
 
@@ -18,6 +16,7 @@ const expenseSlice = createSlice({
   initialState: initialExpenseState,
   reducers: {
     increment(state, action) {
+      state.expenses = [];
       state.totalAmount = 0;
       if (action.payload.length !== undefined) {
         action.payload.forEach((exp) => {
@@ -27,10 +26,6 @@ const expenseSlice = createSlice({
         state.expenses.push(action.payload);
       }
     },
-    reset(state, action) {
-      const type = action.payload;
-      state[type] = [];
-    },
     delete(state, action) {
       const updatedExpenses = state.expenses.filter(
         (expense) => expense.id !== action.payload
@@ -38,7 +33,7 @@ const expenseSlice = createSlice({
       state.expenses = updatedExpenses;
     },
     filterExpenses(state, action) {
-      state.filterExp = []
+      state.filterExp = [];
       const [expenses, monthDate, yearDate] = action.payload;
       expenses.forEach((exp) => {
         if (
@@ -69,7 +64,7 @@ const expenseSlice = createSlice({
               state.expensesTotalPerCategoryDate.push({
                 category: exp.category,
                 amount: exp.amount,
-                colors: exp.colors
+                colors: exp.colors,
               });
             } else {
               const index = state.expensesTotalPerCategoryDate
@@ -81,17 +76,35 @@ const expenseSlice = createSlice({
         });
       });
     },
-    setYear(state, action) {
-      state.year = action.payload;
-    },
-    setMonth(state, action) {
-      state.month = action.payload;
-    },
     setCategory(state, action) {
       state.category = action.payload;
     },
     fixedExp(state, action) {
-      state.fixedExp = action.payload;
+      const [fixedExp, year, month] = action.payload;
+      let iteration = fixedExp
+      if (typeof fixedExp === 'undefined') {
+        iteration = state.fixedExp;
+      }
+      state.fixedExp = []
+      iteration.forEach((fixExp) => {
+        if (
+          state.filterExp.some(
+            (expF) => expF.title === fixExp.title && expF.fixedExp
+          )
+        ) {
+          console.log('return')
+          return;
+        }
+        console.log(state.filterExp.some(
+          (expF) => expF.title === fixExp.title && expF.fixedExp
+        ))
+        if (fixExp.year === year && fixExp.month <= month) {
+          console.log("here");
+          state.fixedExp.push(fixExp);
+        } else if (fixExp.year < year) {
+          state.fixedExp.push(fixExp);
+        }
+      });
     },
   },
 });

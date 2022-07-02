@@ -15,10 +15,15 @@ const TransactionsItem = ({
   border,
   type,
   job,
-  Toggle
+  Toggle,
+  payed
 }) => {
   let listItem;
   if (type === "expense") {
+    console.log(payed)
+    const status = payed ? 'payed' : 'pending';
+    const titleStatus = !payed ? '(not payed)' : '';
+    console.log(status)
     listItem = (
       <>
         <li className={border}>
@@ -27,8 +32,10 @@ const TransactionsItem = ({
               src={imgIcon}
               alt="category-icon"
               style={{ borderColor: borderColor, backgroundColor: colorIcon }}
+              className={status}
+              onClick={() => Toggle('Status', id, payed)}
             />
-            <figcaption>{title}</figcaption>
+            <figcaption>{title}{' '}<em>{titleStatus}</em></figcaption>
           </figure>
             <figure className="deleteContainer">
               <img

@@ -18,7 +18,7 @@ const Balance = () => {
   }
 
   for (const expense of expensesArray) {
-    if (expense.year === yearDate && expense.month === monthDate) {
+    if (expense.year === yearDate && expense.month === monthDate && expense.payed) {
       expenses += expense.amount;
     }
   }
