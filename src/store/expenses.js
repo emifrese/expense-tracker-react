@@ -80,26 +80,23 @@ const expenseSlice = createSlice({
       state.category = action.payload;
     },
     fixedExp(state, action) {
-      const [fixedExp, year, month] = action.payload;
-      let iteration = fixedExp
-      if (typeof fixedExp === 'undefined') {
-        iteration = state.fixedExp;
-      }
       state.fixedExp = []
-      iteration.forEach((fixExp) => {
+      const [fixedExp, year, month] = action.payload;
+      const monthlyExp = state.expenses.map((exp) => {
+        if (exp.month === month && exp.year === year) {
+          return exp;
+        }
+          return null
+      });
+      fixedExp.forEach((fixExp) => {
         if (
-          state.filterExp.some(
-            (expF) => expF.title === fixExp.title && expF.fixedExp
+          monthlyExp.some(
+            (mExp) => mExp.title === fixExp.title && mExp.fixedExp
           )
         ) {
-          console.log('return')
           return;
         }
-        console.log(state.filterExp.some(
-          (expF) => expF.title === fixExp.title && expF.fixedExp
-        ))
         if (fixExp.year === year && fixExp.month <= month) {
-          console.log("here");
           state.fixedExp.push(fixExp);
         } else if (fixExp.year < year) {
           state.fixedExp.push(fixExp);

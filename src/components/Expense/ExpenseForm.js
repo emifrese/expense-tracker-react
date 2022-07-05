@@ -147,6 +147,7 @@ const ExpenseForm = () => {
     if (fixedExp) {
       const expenseFixedData = {
         title: enteredTitle,
+        amount: enteredAmount,
         day: null,
         month: date.getMonth(),
         year: date.getFullYear(),

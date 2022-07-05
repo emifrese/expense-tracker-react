@@ -28,12 +28,7 @@
     max-width: 100%;
   }
 
-  .person__control {
-    display: flex;
-    margin-bottom: 20px;
-  }
-
-  .person__control img {
+.person__control img {
     width: 10%;
     padding: 5px;
     filter: invert(74%) sepia(4%) saturate(33%) hue-rotate(66deg) brightness(91%) contrast(94%);

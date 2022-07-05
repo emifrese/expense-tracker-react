@@ -24,8 +24,7 @@ const Stats = () => {
   const expenses = useSelector((state) => state.expense.expenses);
 
   const filterExp = useSelector((state) => state.expense.filterExp);
-  const fixExp = useSelector(state => state.expense.fixedExp)
-  console.log(fixExp)
+
   const filterInc = useSelector((state) => state.incomes.filterInc);
 
   const monthDate = useSelector((state) => state.date.month);
@@ -40,7 +39,6 @@ const Stats = () => {
 
     dispatch(expenseActions.filterExpenses([expenses, monthDate, yearDate]));
 
-    dispatch(expenseActions.fixedExp([], yearDate, monthDate))
   }, [incomes, monthDate, yearDate, expenses, dispatch]);
 
   const typeChangeHandler = (e) => {

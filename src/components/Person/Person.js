@@ -86,7 +86,7 @@ const Person = ({ onClose, type, editMate }) => {
   };
   return (
     <>
-      <h2>{type === "edit" ? "Edit" : "New"} Homemate</h2>
+      <h2>{type === "edit" ? "Edit" : "New"}{" "}Homemate</h2>
       <form onSubmit={submitHandler}>
         <div className="person__controls">
           <div className="person__control">

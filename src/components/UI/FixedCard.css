@@ -1,0 +1,38 @@
+.fixedContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.fixedExpItem {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.fixedExpTitle {
+    width: 100%;
+    display: flex;
+    margin: 0;
+}
+
+.fixedExpItem img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.fixedExpDelInp input {
+    padding: 0;
+    width: 50%;
+    justify-self: flex-end;
+    outline: none; 
+    border: none;
+    text-align: center;
+    font-size: 20px;
+}
+
+.fixedExpDelInp {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
