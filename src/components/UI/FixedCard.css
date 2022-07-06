@@ -7,6 +7,10 @@
 .fixedExpItem {
     display: flex;
     flex-wrap: wrap;
+    border: 2px solid red;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px;
 }
 
 .fixedExpTitle {
@@ -20,6 +24,19 @@
     margin-right: 10px;
 }
 
+.fixedExpDelInp {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.fixedExpDelInp img {
+    margin: 0;
+    margin-left: 20px;
+}
+
 .fixedExpDelInp input {
     padding: 0;
     width: 50%;
@@ -28,11 +45,4 @@
     border: none;
     text-align: center;
     font-size: 20px;
-}
-
-.fixedExpDelInp {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
 }

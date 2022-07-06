@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const actualDate = new Date();
-
 const initialExpenseState = {
   expenses: [],
   totalAmount: 0,
@@ -92,7 +90,7 @@ const expenseSlice = createSlice({
         if (
           monthlyExp.some(
             (mExp) => mExp.title === fixExp.title && mExp.fixedExp
-          )
+          ) || ("skip" in fixExp && fixExp.skip.some((date) => date.month === month && date.year === year))
         ) {
           return;
         }

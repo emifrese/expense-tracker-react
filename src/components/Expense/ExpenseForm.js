@@ -153,6 +153,7 @@ const ExpenseForm = () => {
         year: date.getFullYear(),
         category: enteredCategory,
         fixedExp,
+        skip: []
       };
 
       const expenseFixedRef = collection(
