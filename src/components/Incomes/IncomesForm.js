@@ -21,6 +21,7 @@ const IncomesForm = (props) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredType, setEnteredType] = useState("");
   const [enteredJob, setEnteredJob] = useState("");
+  const [validation, setValidation] = useState([]);
   const [homemates] = useSelector((state) => state.user.homemates);
   const navigate = useNavigate();
 
@@ -49,7 +50,10 @@ const IncomesForm = (props) => {
           {mate.person}
         </option>
       );
-      if (enteredPerson !== '' && homemates[enteredPerson].person === mate.person) {
+      if (
+        enteredPerson !== "" &&
+        homemates[enteredPerson].person === mate.person
+      ) {
         mate.jobs.forEach((job) =>
           jobOptions.push(
             <option value={job.value} id={job.id} key={job.id}>
@@ -63,37 +67,62 @@ const IncomesForm = (props) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    let personId = 1;
-    if (enteredPerson === "Emiliano") {
-      personId = 0;
-    }
-    const incomeData = {
-      person: homemates[enteredPerson].person,
-      colors: homemates[enteredPerson].color,
-      personId,
-      amount: enteredAmount,
-      type: enteredType,
-      job: enteredJob,
-      month: actualDate.getMonth(),
-      year: actualDate.getFullYear(),
-    };
 
     const incomeRef = collection(
       firestore,
       `users/${auth.currentUser.uid}/income`
     );
 
+    let error = false;
+
     if (enteredAmount === "") {
-      return alert("Enter an amount");
+      setValidation((state) => {
+        if (!state.includes("amount")) {
+          return [...state, "amount"];
+        }
+        return state;
+      });
+      error = true;
     }
     if (enteredPerson.trim() === "") {
-      return alert("Enter a valid person");
+      setValidation((state) => {
+        if (!state.includes("person")) {
+          return [...state, "person"];
+        }
+        return state;
+      });
+      error = true;
     }
     if (enteredType === "") {
-      return alert("Select a type");
+      setValidation((state) => {
+        if (!state.includes("type")) {
+          return [...state, "type"];
+        }
+        return state;
+      });
+      error = true;
     } else if (enteredType === "Job" && enteredJob === "") {
-      return alert("Select a Job");
+      setValidation((state) => {
+        if (!state.includes("job")) {
+          return [...state, "job"];
+        }
+        return state;
+      });
+      error = true;
     }
+
+    if (error === true) {
+      return;
+    }
+    const incomeData = {
+      person: homemates[enteredPerson].person,
+      colors: homemates[enteredPerson].color,
+      amount: enteredAmount,
+      type: enteredType,
+      job: enteredJob,
+      month: actualDate.getMonth(),
+      year: actualDate.getFullYear(),
+    };
 
     await addDoc(incomeRef, incomeData);
 
@@ -121,7 +150,23 @@ const IncomesForm = (props) => {
               placeholder={0}
               value={enteredAmount}
               onChange={(e) => {
-                setEnteredAmount(parseFloat(e.target.value));
+                if (e.target.value === "") {
+                  setEnteredAmount("");
+                } else {
+                  setEnteredAmount(parseFloat(e.target.value));
+                }
+              }}
+              style={
+                validation.includes("amount")
+                  ? { boxShadow: "0px 0px 5px 3px rgba(255,0,0,0.75)" }
+                  : { boxShadow: "none" }
+              }
+              onBlur={() => {
+                if (enteredAmount !== "" && enteredAmount !== 0) {
+                  setValidation((state) =>
+                    state.filter((el) => el !== "amount")
+                  );
+                }
               }}
             />
           </div>
@@ -130,6 +175,18 @@ const IncomesForm = (props) => {
             <select
               onChange={(e) => setEnteredPerson(e.target.value)}
               value={enteredPerson.name}
+              style={
+                validation.includes("person")
+                  ? { boxShadow: "0px 0px 5px 3px rgba(255,0,0,0.75)" }
+                  : { boxShadow: "none" }
+              }
+              onBlur={() => {
+                if (enteredPerson !== "") {
+                  setValidation((state) =>
+                    state.filter((el) => el !== "person")
+                  );
+                }
+              }}
             >
               <option value="">Select person</option>
               {selectPerson}
@@ -142,7 +199,19 @@ const IncomesForm = (props) => {
           </div>
           <div className="incomes__control">
             <img src={typeImge} alt="type" />
-            <select onChange={(e) => setEnteredType(e.target.value)}>
+            <select
+              onChange={(e) => setEnteredType(e.target.value)}
+              style={
+                validation.includes("type")
+                  ? { boxShadow: "0px 0px 5px 3px rgba(255,0,0,0.75)" }
+                  : { boxShadow: "none" }
+              }
+              onBlur={() => {
+                if (enteredType !== "") {
+                  setValidation((state) => state.filter((el) => el !== "type"));
+                }
+              }}
+            >
               <option value="">Select a type </option>
               {typeOptions}
             </select>
@@ -152,6 +221,16 @@ const IncomesForm = (props) => {
             <select
               onChange={(e) => setEnteredJob(e.target.value)}
               disabled={enteredType !== "Job"}
+              style={
+                validation.includes("job")
+                  ? { boxShadow: "0px 0px 5px 3px rgba(255,0,0,0.75)" }
+                  : { boxShadow: "none" }
+              }
+              onBlur={() => {
+                if (enteredJob !== "") {
+                  setValidation((state) => state.filter((el) => el !== "job"));
+                }
+              }}
             >
               <option value="">Select a Job</option>
               {jobOptions}

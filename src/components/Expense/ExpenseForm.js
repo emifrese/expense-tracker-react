@@ -21,6 +21,7 @@ const ExpenseForm = () => {
   const [enteredCuotas, setEnteredCuotas] = useState("");
   const [fixedExp, setFixedExp] = useState(false);
   const [cuotas, setCuotas] = useState(false);
+  const [validation, setValidation] = useState([]);
   const navigate = useNavigate();
 
   let categoriesList = [];
@@ -51,7 +52,11 @@ const ExpenseForm = () => {
     setEnteredTitle(e.target.value);
   };
   const amountChangeHandler = (e) => {
-    setEnteredAmount(parseFloat(e.target.value));
+    if(e.target.value === ''){
+      setEnteredAmount('')
+    } else {
+      setEnteredAmount(parseFloat(e.target.value));
+    }
   };
   const dateChangeHandler = (e) => {
     setEnteredDate(e.target.value);
@@ -95,6 +100,45 @@ const ExpenseForm = () => {
       default:
     }
 
+    const expenseRef = collection(
+      firestore,
+      `users/${auth.currentUser.uid}/expense`
+    );
+
+    let error = false;
+
+    if (enteredAmount === "") {
+      setValidation((state) => {
+        if (!state.includes("amount")) {
+          return [...state, "amount"];
+        }
+        return state;
+      });
+      error = true;
+    }
+
+    if (enteredTitle.trim() === "") {
+      setValidation((state) => {
+        if (!state.includes("title")) {
+          return [...state, "title"];
+        }
+        return state;
+      });
+      error = true;
+    }
+    if (enteredCategory === "") {
+      setValidation((state) => {
+        if (!state.includes("category")) {
+          return [...state, "category"];
+        }
+        return state;
+      });
+      error = true;
+    }
+
+    if (error === true) {
+      return;
+    }
     const expenseData = {
       title: enteredTitle,
       amount: enteredAmount,
@@ -108,20 +152,6 @@ const ExpenseForm = () => {
       amountCuotas: enteredCuotas,
       payed: true,
     };
-    const expenseRef = collection(
-      firestore,
-      `users/${auth.currentUser.uid}/expense`
-    );
-
-    if (enteredAmount === "") {
-      return alert("Enter an amount");
-    }
-    if (enteredTitle.trim() === "") {
-      return alert("Enter a title");
-    }
-    if (enteredCategory === "") {
-      return alert("Select a category");
-    }
 
     if (!cuotas) {
       await addDoc(expenseRef, expenseData);
@@ -154,7 +184,7 @@ const ExpenseForm = () => {
         category: enteredCategory,
         colors: { colorIcon, borderColor },
         fixedExp,
-        skip: []
+        skip: [],
       };
 
       const expenseFixedRef = collection(
@@ -170,7 +200,7 @@ const ExpenseForm = () => {
 
     navigate("../", { replace: true });
   };
-
+  console.log(enteredAmount);
   return (
     <>
       <form onSubmit={submitHandler}>
@@ -181,7 +211,18 @@ const ExpenseForm = () => {
             step="0.01"
             placeholder={0}
             value={enteredAmount}
+            style={
+              validation.includes("amount")
+                ? { boxShadow: "0px 0px 5px 3px rgba(255,0,0,0.75)" }
+                : { boxShadow: "none" }
+            }
             onChange={amountChangeHandler}
+            onBlur={() => {
+              console.log(isNaN(enteredAmount))
+              if (enteredAmount !== "" && enteredAmount !== 0) {
+                setValidation((state) => state.filter((el) => el !== "amount"));
+              }
+            }}
           />
         </div>
         <div className="new-expense__controls">
@@ -192,6 +233,16 @@ const ExpenseForm = () => {
               placeholder="Title"
               value={enteredTitle}
               onChange={titleChangeHandler}
+              style={
+                validation.includes("title")
+                  ? { boxShadow: "0px 0px 5px 3px rgba(255,0,0,0.75)" }
+                  : { boxShadow: "none" }
+              }
+              onBlur={() => {
+                if (enteredTitle !== "") {
+                  setValidation((state) => state.filter((el) => el !== "title"));
+                }
+              }}
             />
           </div>
           <div className="new-expense__control">
@@ -206,7 +257,19 @@ const ExpenseForm = () => {
           </div>
           <div className="new-expense__control">
             <img src={categoryImg} alt="category" />
-            <select onChange={categoryChangeHandler}>
+            <select
+              onChange={categoryChangeHandler}
+              style={
+                validation.includes("category")
+                  ? { boxShadow: "0px 0px 5px 3px rgba(255,0,0,0.75)" }
+                  : { boxShadow: "none" }
+              }
+              onBlur={() => {
+                if (enteredCategory !== "") {
+                  setValidation((state) => state.filter((el) => el !== "category"));
+                }
+              }}
+            >
               <option value="">Select a category</option>
               {categoriesList}
             </select>

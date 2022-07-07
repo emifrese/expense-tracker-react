@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import jobImg from "../../assets/maletin.svg";
@@ -8,13 +8,26 @@ import "./PersonManager.css";
 import { useState } from "react";
 import Person from "./Person";
 import Modal from "../UI/Modal";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const PersonManager = () => {
   const [modalContent, setModalContent] = useState([false, ""]);
   const [homemates] = useSelector((state) => state.user.homemates);
+  const [loading, setLoading] = useState(true)
 
   const homematesDisplay = [];
-  
+
+  useEffect(() => {
+    if(loading){
+      setTimeout(() => {
+        setLoading(false)
+      }, 1500)
+    }
+  }, [loading])
+
+  if(loading) {
+    return <LoadingSpinner />
+  }
 
   const toggleFixedCartHandler = (element, editMate) => {
     let modalElement;
@@ -34,16 +47,13 @@ const PersonManager = () => {
 
     setModalContent((state) => [!state[0], modalElement]);
   };
-  
+
   if (typeof homemates === "undefined") {
-    return <p>Loading</p>;
+    return <div>No homemates</div>;
   }
-  
+
   for (const [i, mate] of homemates.entries()) {
     const jobsList = [];
-
-    
-    
 
     mate.jobs.forEach((job, i) => {
       if (i < mate.jobs.length - 1) {

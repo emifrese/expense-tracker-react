@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "./TransactionsList.css";
 
@@ -13,6 +13,7 @@ import debtImg from "../../assets/recibo.svg";
 import fixedImg from "../../assets/exclamacion.svg";
 
 import TransactionsItem from "./TransactionsItem";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const actualDate = new Date();
 
@@ -24,9 +25,23 @@ const TransactionsList = ({
   Toggle,
   fixedExp,
 }) => {
+  const [loading, setLoading] = useState(true);
   let iteration = [];
   let fixedModal = false;
   let fixedClass;
+
+  useEffect(() => {
+    if(loading){
+      setTimeout(() => {
+        setLoading(false)
+      }, 1500)
+    }
+  }, [loading])
+
+  if(loading) {
+    return <LoadingSpinner />
+  }
+
   if (type === "expense") {
     for (const expense of expenses) {
       if (section === "main") {
@@ -87,9 +102,7 @@ const TransactionsList = ({
       }
     }
 
-
-    console.log(expenses);
-
+    
     list.push(
       <TransactionsItem
         imgIcon={imgIcon}
@@ -108,10 +121,11 @@ const TransactionsList = ({
       />
     );
   }
+  
 
   return (
     <div className="transactions">
-      <p className="transactions__title">Transactions</p>
+      <p className="transactions__title" style={list.length < 1 && section !== 'main' ? {textAlign: 'center'} : {}}>Transactions</p>
       {fixedModal && (
         <figure className="transactions__fixedContainer">
           <img
@@ -133,7 +147,7 @@ const TransactionsList = ({
             : "transactions__list"
         }
       >
-        {list}
+        {list.length > 0 ? list : <li>No {type}</li>}
       </ul>
     </div>
   );

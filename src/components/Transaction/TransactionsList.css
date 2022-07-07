@@ -35,6 +35,7 @@
     width: 100%;
     max-height: calc(100vh - 410px);
     overflow: scroll;
+    justify-content: center;
 }
 
 .transactionItem {
