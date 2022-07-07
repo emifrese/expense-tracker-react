@@ -5,19 +5,27 @@
     align-items: center;
 }
 
-.personcard__control ul {
-    list-style: none;
+.personCardImage {
+    margin: 0;
+}
+
+.personcard__container {
+    display: flex;
+    flex-direction: column;
     padding: 0;
     margin: 0;
-    text-align: left;
+    width:100%;    
 }
 
-.personcard__control li {
+.personcard__container figure {
+    margin: 0;
     margin-top: 20px;
+    width: 100%;
+    overflow: auto;
 }
 
 
-.personcard__control ul img {
+.personcard__container img {
     width: 30px;
     height: 30px;
     margin-right: 10px;
@@ -34,6 +42,3 @@
     text-align: start;
 }
 
-.personcard__control_mateslist {
-    /* text-align: center; */
-}

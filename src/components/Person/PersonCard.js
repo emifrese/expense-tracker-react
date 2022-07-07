@@ -19,20 +19,20 @@ const PersonCard = (props) => {
       <figure>
         <img src={photoURL} alt="profile" className="personcardProfile" />
       </figure>
-      <ul>
-        <li>
+      <div className="personcard__container">
+        <figure>
           <img src={userImg} alt="user" />
-          {displayName}
-        </li>
-        <li>
+          <figcaption>{displayName}</figcaption>
+        </figure>
+        <figure>
           <img src={emailImg} alt="email" />
-          {email}
-        </li>
-        <li className="personcard__control_mateslist">
+          <figcaption>{email}</figcaption>
+        </figure>
+        <figure className="personcard__control_mateslist">
           <img src={creationImg} alt="creation-time" />
-          {creationTime.slice(0, 16)}
-        </li>
-      </ul>
+          <figcaption>{creationTime.slice(0, 16)}</figcaption>
+        </figure>
+      </div>
       <Sign type={"out"} />
     </div>
   );

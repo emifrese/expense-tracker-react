@@ -14,12 +14,8 @@
 .filter__control {
     display: flex;
     margin-bottom: 20px;
-    max-width: 100%;
-  }
-
-  .filter__control {
-    display: flex;
-    margin-bottom: 20px;
+    width: 100%;
+    justify-content: center;
   }
 
   .filter__control img {
@@ -33,7 +29,7 @@
     padding: 0.5rem;
     border-radius: 6px;
     border: 0;
-    width: 20rem;
+    width: 80%;
     max-width: 100%;
     color: #aaa;
   }
