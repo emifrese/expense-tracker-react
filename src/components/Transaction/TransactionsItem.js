@@ -12,7 +12,6 @@ const TransactionsItem = ({
   day,
   id,
   month,
-  border,
   type,
   job,
   Toggle,
@@ -26,7 +25,7 @@ const TransactionsItem = ({
     console.log(status)
     listItem = (
       <>
-        <li className={border}>
+        <li className='transactionItem'>
           <figure>
             <img
               src={imgIcon}
@@ -57,7 +56,7 @@ const TransactionsItem = ({
   } else {
     listItem = (
       <>
-        <li className={border}>
+        <li className='transactionItem'>
           <figure>
             <img
               src={imgIcon}

@@ -6,26 +6,44 @@ import delImg from "../../assets/basura.svg";
 import skipImg from "../../assets/angulo-doble-derecha.svg";
 import { useState } from "react";
 import SaveButton from "./SaveButton";
+import { addDoc, collection, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { auth, firestore } from "../../firebase";
 
-const FixedCard = ({ fixedExp }) => {
+const FixedCard = ({ fixedExp, Toggle }) => {
   const [expToSub, setExpToSub] = useState(fixedExp);
   const [expToDel, setExpToDel] = useState([]);
-  console.log(expToSub);
   const fixedExpList = [];
+  const actualDate = new Date();
+  console.log(expToSub);
   expToSub.forEach((fixExp, i) => {
-    const actualDate = new Date();
     const toSkip = fixExp.skip.some(
       (date) =>
         date.month === actualDate.getMonth() &&
         date.year === actualDate.getFullYear()
     );
     const toDelete = expToDel.indexOf(fixExp.id);
-    console.log(toSkip);
+
     fixedExpList.push(
-      <div key={i} className="fixedExpItem">
+      <div
+        key={i}
+        className="fixedExpItem"
+        style={
+          toSkip
+            ? { backgroundColor: "#ccc" }
+            : { backgroundColor: "transparent" }
+        }
+      >
         <figure className="fixedExpTitle">
           <img src={pinImg} alt="pin-expense" />
-          <figcaption>{fixExp.title}</figcaption>
+          <figcaption
+            style={
+              toDelete !== -1
+                ? { textDecoration: "line-through" }
+                : { textDecoration: "none" }
+            }
+          >
+            {fixExp.title}
+          </figcaption>
         </figure>
         <figure className="fixedExpDelInp">
           <img
@@ -57,6 +75,8 @@ const FixedCard = ({ fixedExp }) => {
                     newArray = expToSub.map((exp) => {
                       if (exp.id !== e.target.id) {
                         return exp;
+                      } else {
+                        return null;
                       }
                     });
                   } else {
@@ -82,6 +102,7 @@ const FixedCard = ({ fixedExp }) => {
                 });
               }
             }}
+            style={toDelete !== -1 ? { opacity: 0.5 } : { opacity: 1 }}
           />
           <input
             type="number"
@@ -118,6 +139,7 @@ const FixedCard = ({ fixedExp }) => {
                 });
               }
             }}
+            style={toSkip ? { opacity: 0.5 } : { opacity: 1 }}
           />
         </figure>
       </div>
@@ -127,7 +149,46 @@ const FixedCard = ({ fixedExp }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    expToSub.forEach((exp) => console.log(exp.amount));
+    const skipExp = expToSub.filter((exp) =>
+      exp.skip.some(
+        (date) =>
+          date.month === actualDate.getMonth() &&
+          date.year === actualDate.getFullYear()
+      )
+    );
+
+    const payedExp = expToSub.filter(
+      (exp) =>
+        !exp.skip.some(
+          (date) =>
+            date.month === actualDate.getMonth() &&
+            date.year === actualDate.getFullYear()
+        ) && expToDel.indexOf(exp.id) === -1
+    );
+
+    payedExp.forEach(async (exp) => {
+      const expenseData = { ...exp, day: actualDate.getDate(), payed: true };
+      const expenseRef = collection(
+        firestore,
+        `users/${auth.currentUser.uid}/expense`
+      );
+      await addDoc(expenseRef, expenseData);
+    });
+
+    skipExp.forEach(async (exp) => {
+      await setDoc(
+        doc(firestore, `users/${auth.currentUser.uid}/fixed-exp/${exp.id}`),
+        exp
+      );
+    });
+
+  expToDel.forEach(async (exp) => {
+    await deleteDoc(
+      doc(firestore, `users/${auth.currentUser.uid}/fixed-exp/${exp}`)
+    )
+  })    
+
+    Toggle();
   };
 
   return (

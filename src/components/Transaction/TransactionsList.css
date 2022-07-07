@@ -37,11 +37,15 @@
     overflow: scroll;
 }
 
-.transactions__list li {
+.transactionItem {
     width: 100%;
     display: flex;
     justify-content: space-between;
     max-height: 70px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    margin: 5px;
+    box-shadow: 5px 5px 10px 0px rgba(165,0,168,0.5);
 }
 
 .transactions__list .bottomBorder {

@@ -18,7 +18,7 @@ import StatusCard from "../components/UI/StatusCard";
 
 const Stats = () => {
   const [type, setType] = useState(true);
-  const [filterCart, setFilterCart] = useState([false, '']);
+  const [filterCart, setFilterCart] = useState([false, ""]);
   const dispatch = useDispatch();
   const incomes = useSelector((state) => state.incomes.incomes);
   const expenses = useSelector((state) => state.expense.expenses);
@@ -30,15 +30,12 @@ const Stats = () => {
   const monthDate = useSelector((state) => state.date.month);
   const yearDate = useSelector((state) => state.date.year);
 
-
-
   useEffect(() => {
     dispatch(incomesActions.incomePerMateDate([incomes, monthDate, yearDate]));
 
     dispatch(incomesActions.filterIncomes([incomes, monthDate, yearDate]));
 
     dispatch(expenseActions.filterExpenses([expenses, monthDate, yearDate]));
-
   }, [incomes, monthDate, yearDate, expenses, dispatch]);
 
   const typeChangeHandler = (e) => {
@@ -47,30 +44,31 @@ const Stats = () => {
 
   const toggleModalCartHandler = (element, id, type) => {
     let modalElement;
-    
 
-    switch(element){
-      case 'Filter':
+    switch (element) {
+      case "Filter":
         modalElement = <Filter />;
         break;
-      case 'Delete':
-        modalElement = <DeleteCard id={id} type={type} Toggle={toggleModalCartHandler}/>;
+      case "Delete":
+        modalElement = (
+          <DeleteCard id={id} type={type} Toggle={toggleModalCartHandler} />
+        );
         break;
-      case 'Status':
-        modalElement = <StatusCard id={id} status={type} Toggle={toggleModalCartHandler}/>
-          break;
+      case "Status":
+        modalElement = (
+          <StatusCard id={id} status={type} Toggle={toggleModalCartHandler} />
+        );
+        break;
       default:
     }
 
     setFilterCart((state) => [!state[0], modalElement]);
   };
-  
+
   return (
     <>
       {filterCart[0] && (
-        <Modal Toggle={toggleModalCartHandler}>
-          {filterCart[1]}
-        </Modal>
+        <Modal Toggle={toggleModalCartHandler}>{filterCart[1]}</Modal>
       )}
       <div className="stats-container">
         <Header
@@ -82,15 +80,19 @@ const Stats = () => {
         />
         <main>
           <TransactionToggle onChangeType={typeChangeHandler} type={type} />
-            <>
+          <>
+            <div className="chartContainer">
               {type ? <ChartIncomes /> : <ChartExpenses type={type} />}
+            </div>
+            {(filterInc.length > 0 || filterExp.length > 0) && (
               <TransactionsList
                 type={type ? "income" : "expense"}
                 expenses={filterExp}
                 incomes={filterInc}
                 Toggle={toggleModalCartHandler}
               />
-            </>
+            )}
+          </>
         </main>
       </div>
     </>

@@ -7,11 +7,14 @@
 
 .personmanager__control ul {
     list-style: none;
-    padding: 0;
+    padding: 10px;
     margin: 0;
     text-align: left;
     margin-top: 10px;
     width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px 0px rgba(165,0,168,0.5);
 }
 
 .personmanager__control figure {

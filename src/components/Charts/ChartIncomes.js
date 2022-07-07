@@ -39,13 +39,13 @@ const ChartIncomes = (props) => {
 
 
   return (
-      <div>
+      <>
         {dataValues.length > 0 ? (
           <Doughnut data={data} />
         ) : (
-          <p>Loading...</p>
+          <div>Loading...</div>
         )}
-      </div>
+      </>
   );
 };
 

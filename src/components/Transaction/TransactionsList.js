@@ -87,7 +87,6 @@ const TransactionsList = ({
       }
     }
 
-    const border = i < iteration.length - 1 ? "bottomBorder" : "";
 
     console.log(expenses);
 
@@ -101,7 +100,6 @@ const TransactionsList = ({
         day={element.day}
         month={element.month}
         key={i}
-        border={border}
         type={type}
         job={element.job}
         Toggle={Toggle}

@@ -59,13 +59,13 @@ const ChartExpenses = ({ type }) => {
   };
 
   return (
-    <div>
+    <>
       {totalPerCat.length > 0 ? (
         <Doughnut options={options} data={data} />
       ) : (
         <p>No expenses</p>
       )}
-    </div>
+    </>
   );
 };
 

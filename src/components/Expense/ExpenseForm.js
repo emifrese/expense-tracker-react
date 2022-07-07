@@ -152,6 +152,7 @@ const ExpenseForm = () => {
         month: date.getMonth(),
         year: date.getFullYear(),
         category: enteredCategory,
+        colors: { colorIcon, borderColor },
         fixedExp,
         skip: []
       };

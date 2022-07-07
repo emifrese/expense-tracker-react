@@ -2,15 +2,20 @@
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 40px;
+    height: 400px;
+    overflow: scroll;
+    align-content: flex-start;
 }
 
 .fixedExpItem {
     display: flex;
     flex-wrap: wrap;
-    border: 2px solid red;
+    border: 2px solid #ccc;
     border-radius: 20px;
     padding: 10px;
     margin: 10px;
+    max-height: 25%;
+    box-shadow: 5px 5px 10px 0px rgba(165,0,168,0.5);
 }
 
 .fixedExpTitle {
@@ -45,4 +50,5 @@
     border: none;
     text-align: center;
     font-size: 20px;
+    background-color: transparent;
 }

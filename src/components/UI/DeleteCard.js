@@ -13,10 +13,10 @@ const DeleteCard = ({ id, type, Toggle }) => {
   };
 
   return (
-    <div>
+    <div className='deleteCardContainer'>
       <p>Do you really want to delete that {type}?</p>
-      <button onClick={() => deleteTransaction()}>Yes</button>
-      <button onClick={() => Toggle()}>No</button>
+      <button className='yesButton' onClick={() => deleteTransaction()}>Yes</button>
+      <button className='cancelButton' onClick={() => Toggle()}>No</button>
     </div>
   );
 };
