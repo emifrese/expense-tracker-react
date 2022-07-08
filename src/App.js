@@ -8,7 +8,6 @@ import { expenseActions } from "./store/expenses";
 
 import { collection, onSnapshot } from "firebase/firestore";
 import { incomesActions } from "./store/incomes";
-import Modal from "./components/UI/Modal";
 import { userActions } from "./store/user";
 import Layout from "./components/UI/Layout";
 import Stats from "./pages/Stats";
@@ -17,9 +16,10 @@ import AddTransaction from "./pages/AddTransaction";
 import UserManager from "./pages/UserManager";
 import Sign from "./components/UI/Sign";
 
+const actualDate = new Date();
+
 function App() {
   const [user, setUser] = useState(null);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -44,6 +44,13 @@ function App() {
             id: doc.id,
           }));
           dispatch(expenseActions.increment(expensesArray));
+          dispatch(
+            expenseActions.filterExpenses([
+              expensesArray,
+              actualDate.getMonth(),
+              actualDate.getFullYear(),
+            ])
+          );
         }
       );
 
@@ -56,13 +63,13 @@ function App() {
             id: doc.id,
           }));
           dispatch(incomesActions.addIncome(incomesArray));
+          dispatch(incomesActions.filterIncomes([incomesArray, actualDate.getMonth(), actualDate.getFullYear()]))
         }
       );
 
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/fixed-exp`),
         (snapshot) => {
-          const actualDate = new Date();
           let fixedExpensesArray = snapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,

@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { incomesActions } from "../../store/incomes";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const ChartIncomes = (props) => {
-
+const ChartIncomes = () => {
+  const filterInc = useSelector(state => state.incomes.filterInc)
   const incomesPerMate = useSelector(
     (state) => state.incomes.incomesTotalPerMate
   );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(incomesActions.incomePerMateDate(filterInc))
+  }, [filterInc, dispatch])
+
   const labels = incomesPerMate.map((element) => element.person);
 
   const dataValues = incomesPerMate.map((element) => element.amount);

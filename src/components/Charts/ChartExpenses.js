@@ -12,7 +12,7 @@ import { categories } from "../../helpers/variables";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const ChartExpenses = ({ type }) => {
+const ChartExpenses = () => {
   const filterExp = useSelector((state) => state.expense.filterExp);
   const totalPerCat = useSelector(
     (state) => state.expense.expensesTotalPerCategoryDate
@@ -43,7 +43,6 @@ const ChartExpenses = ({ type }) => {
         display: true,
       },
     },
-    // barThickness: 10,
   };
 
   const data = {

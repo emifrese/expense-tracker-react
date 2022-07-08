@@ -4,6 +4,7 @@ import ExpenseForm from "../components/Expense/ExpenseForm";
 import TransactionHeader from "../components/Transaction/TransactionHeader";
 
 const AddTransaction = () => {
+  console.log('render add transaction')
   const [transactionType, setTransactionType] = useState(true);
 
   const typeChangeHandler = (e) => {

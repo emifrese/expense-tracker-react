@@ -1,31 +1,14 @@
-.transactions {
+.incomesContainer {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     align-items: center;
 }
-.transactions__title {
+.incomesContainerTitle {
     width: 80%;
 }
 
-.transactions__fixedContainer {
-    width: 20%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-}
-
-.transactions__fixedImg {
-    width: 25px;
-    height: 25px;
-}
-
-.transactions__fixedImg.empty {
-    opacity: 0.5
-}
-
-
-.transactions__list {
+.transactionsList {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
@@ -36,6 +19,7 @@
     max-height: calc(100vh - 410px);
     overflow: scroll;
     justify-content: center;
+    max-height: calc(100vh - 385px);
 }
 
 .transactionItem {
@@ -49,15 +33,12 @@
     box-shadow: 5px 5px 10px 0px rgba(165,0,168,0.5);
 }
 
-.transactions__list .bottomBorder {
+.transactionsList .bottomBorder {
     border-bottom: 2px solid #ccc;
 }
 
-.transactions__list .pending {
-    opacity: 0.5;
-}
 
-.transactions__list img {
+.transactionsList img {
     width: 50px;
     height: 50px;
     border-radius: 40%;
@@ -66,18 +47,18 @@
     margin: 10px;
 }
 
-.transactions__list figure {
+.transactionsList figure {
     margin: 0;
     width: 60%;
     display: flex;
     align-items: center;
 }
 
-.transactions__list figcaption em {
+.transactionsList figcaption em {
     opacity: 0.5
 }
 
-.transactions__list div {
+.transactionsList div {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -85,25 +66,21 @@
     width: 30%
 }
 
-.transactions__list p {
+.transactionsList p {
     margin: 0;
     width: 100%;
 }
 
-.transactions__list_day {
+.transactionsListDay {
     color: #aaa
 }
 
-.fullList {
-    max-height: calc(100vh - 385px);
-}
-
-.transactions__list .deleteContainer {
+.transactionsList .deleteContainer {
     justify-content: center;
     width:10%;
 }
 
-.transactions__list .deleteButton {
+.transactionsList .deleteButton {
     width:25px;
     height: 25px;
     padding: 0;

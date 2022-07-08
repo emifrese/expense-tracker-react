@@ -73,7 +73,7 @@ const TransactionsItem = ({
             </figure>
           <div>
             <p className="transactions__list_price">+${amount}</p>
-            <p className="transactions__list_day">{job}</p>
+            <p className="transactionsListDay">{job}</p>
           </div>
         </li>
       </>

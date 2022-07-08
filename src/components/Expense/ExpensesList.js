@@ -17,37 +17,38 @@ const actualDate = new Date();
 const ExpensesList = ({section, Toggle}) => {
   const [loading, setLoading] = useState(true);
   const fixedExp = useSelector((state) => state.expense.fixedExp);
-  const expenses = useSelector((state) => state.expense.expenses);
+  const filterExp = useSelector((state) => state.expense.filterExp)
 
   let iteration = [];
   let fixedModal = false;
   let fixedClass;
 
   useEffect(() => {
-    if (loading) {
-      setTimeout(() => {
-        setLoading(false);
-      }, 1500);
+    const timer1 = setTimeout(() => {
+      setLoading(false)
+    }, 1500)
+
+    return () => {
+      clearTimeout(timer1)
     }
-  }, [loading]);
+  
+  }, []);
 
   if (loading) {
     return <LoadingSpinner />;
   }
 
-  for (const expense of expenses) {
+  for (const expense of filterExp) {
     if (section === "main") {
       fixedModal = true;
       fixedClass = fixedExp.length === 0 && "empty";
       if (
-        expense.day === actualDate.getDate() &&
-        expense.month === actualDate.getMonth() &&
-        expense.year === actualDate.getFullYear()
+        expense.day === actualDate.getDate() 
       ) {
         iteration.push(expense);
       }
     } else {
-      iteration = expenses;
+      iteration = filterExp;
     }
   }
 

@@ -33,11 +33,14 @@ const expenseSlice = createSlice({
     filterExpenses(state, action) {
       state.filterExp = [];
       const [expenses, monthDate, yearDate] = action.payload;
-      expenses.forEach((exp) => {
+      let expArray = state.expenses;
+      if(expenses.length > 0){
+        expArray = expenses;
+      }
+      expArray.forEach((exp) => {
         if (
           exp.month === monthDate &&
-          exp.year === yearDate &&
-          !state.filterExp.some((expF) => expF.id === exp.id)
+          exp.year === yearDate 
         ) {
           state.filterExp.push(exp);
         }

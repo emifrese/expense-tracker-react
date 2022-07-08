@@ -18,12 +18,14 @@ const PersonManager = () => {
   const homematesDisplay = [];
 
   useEffect(() => {
-    if(loading){
-      setTimeout(() => {
-        setLoading(false)
-      }, 1500)
+    const timer1 = setTimeout(() => {
+      setLoading(false)
+    }, 1500)
+
+    return () => {
+      clearTimeout(timer1)
     }
-  }, [loading])
+  }, [])
 
   if(loading) {
     return <LoadingSpinner />

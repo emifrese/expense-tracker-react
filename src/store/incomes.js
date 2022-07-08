@@ -16,47 +16,39 @@ const incomesSlice = createSlice({
           state.incomes.push(inc);
         });
       }
-
-      // else {
-      //     state.incomes.push(action.payload)
-      // } chequear si con 1 income es necesario
     },
     reset(state) {
       state.incomes = [];
     },
     incomePerMateDate(state, action) {
       state.incomesTotalPerMate = [];
-      const [incomes, monthDate, yearDate] = action.payload;
+      const incomes = action.payload;
       incomes.forEach((inc) => {
-        if (inc.month === monthDate && inc.year === yearDate) {
-          if (
-            !state.incomesTotalPerMate.some(
-              (mate) => mate.person === inc.person
-            )
-          ) {
-            state.incomesTotalPerMate.push({
-              person: inc.person,
-              amount: inc.amount,
-              colors: inc.colors,
-            });
-          } else {
-            const index = state.incomesTotalPerMate
-              .map((mate) => mate.person)
-              .indexOf(inc.person);
-            state.incomesTotalPerMate[index].amount += inc.amount;
-          }
+        if (
+          !state.incomesTotalPerMate.some((mate) => mate.person === inc.person)
+        ) {
+          state.incomesTotalPerMate.push({
+            person: inc.person,
+            amount: inc.amount,
+            colors: inc.colors,
+          });
+        } else {
+          const index = state.incomesTotalPerMate
+            .map((mate) => mate.person)
+            .indexOf(inc.person);
+          state.incomesTotalPerMate[index].amount += inc.amount;
         }
       });
     },
     filterIncomes(state, action) {
       state.filterInc = [];
       const [incomes, monthDate, yearDate] = action.payload;
-      incomes.forEach((inc) => {
-        if (
-          inc.month === monthDate &&
-          inc.year === yearDate &&
-          !state.filterInc.some((incF) => incF.id === inc.id)
-        ) {
+      let incArray = state.incomes;
+      if(incomes.length > 0){
+        incArray = incomes;
+      }
+      incArray.forEach((inc) => {
+        if (inc.month === monthDate && inc.year === yearDate) {
           state.filterInc.push(inc);
         }
       });

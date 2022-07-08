@@ -55,7 +55,7 @@ const FixedCard = ({ Toggle }) => {
                 setExpToSub((state) => {
                   const actualDate = new Date();
                   let expEdit;
-                  let newArray;
+                  let newArray = [];
                   if (
                     !state[i].skip.some(
                       (date) =>
@@ -73,12 +73,10 @@ const FixedCard = ({ Toggle }) => {
                         },
                       ],
                     };
-                    newArray = expToSub.map((exp) => {
+                    expToSub.forEach((exp) => {
                       if (exp.id !== e.target.id) {
-                        return exp;
-                      } else {
-                        return null;
-                      }
+                        newArray.push(exp)
+                      } 
                     });
                   } else {
                     const indexDate = state[i].skip.findIndex(
@@ -88,9 +86,9 @@ const FixedCard = ({ Toggle }) => {
                     );
                     const skipObj = state[i].skip;
                     skipObj.splice(indexDate, 1);
-                    newArray = expToSub.map((exp) => {
+                    expToSub.forEach((exp) => {
                       if (exp.id !== e.target.id) {
-                        return exp;
+                        newArray.push(exp)
                       }
                     });
                     expEdit = {
@@ -112,9 +110,10 @@ const FixedCard = ({ Toggle }) => {
             onChange={(e) => {
               setExpToSub((state) => {
                 let expEdit = { ...state[i], amount: +e.target.value };
-                const newArray = expToSub.map((exp) => {
+                let newArray = [];
+                expToSub.forEach((exp) => {
                   if (exp.id !== e.target.id) {
-                    return exp;
+                    newArray.push(exp)
                   }
                 });
                 newArray[i] = expEdit;
