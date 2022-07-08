@@ -52,8 +52,8 @@ const ExpenseForm = () => {
     setEnteredTitle(e.target.value);
   };
   const amountChangeHandler = (e) => {
-    if(e.target.value === ''){
-      setEnteredAmount('')
+    if (e.target.value === "") {
+      setEnteredAmount("");
     } else {
       setEnteredAmount(parseFloat(e.target.value));
     }
@@ -200,7 +200,7 @@ const ExpenseForm = () => {
 
     navigate("../", { replace: true });
   };
-  console.log(enteredAmount);
+
   return (
     <>
       <form onSubmit={submitHandler}>
@@ -218,7 +218,7 @@ const ExpenseForm = () => {
             }
             onChange={amountChangeHandler}
             onBlur={() => {
-              console.log(isNaN(enteredAmount))
+              console.log(isNaN(enteredAmount));
               if (enteredAmount !== "" && enteredAmount !== 0) {
                 setValidation((state) => state.filter((el) => el !== "amount"));
               }
@@ -240,7 +240,9 @@ const ExpenseForm = () => {
               }
               onBlur={() => {
                 if (enteredTitle !== "") {
-                  setValidation((state) => state.filter((el) => el !== "title"));
+                  setValidation((state) =>
+                    state.filter((el) => el !== "title")
+                  );
                 }
               }}
             />
@@ -266,7 +268,9 @@ const ExpenseForm = () => {
               }
               onBlur={() => {
                 if (enteredCategory !== "") {
-                  setValidation((state) => state.filter((el) => el !== "category"));
+                  setValidation((state) =>
+                    state.filter((el) => el !== "category")
+                  );
                 }
               }}
             >

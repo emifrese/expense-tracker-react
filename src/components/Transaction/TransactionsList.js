@@ -31,15 +31,15 @@ const TransactionsList = ({
   let fixedClass;
 
   useEffect(() => {
-    if(loading){
+    if (loading) {
       setTimeout(() => {
-        setLoading(false)
-      }, 1500)
+        setLoading(false);
+      }, 1500);
     }
-  }, [loading])
+  }, [loading]);
 
-  if(loading) {
-    return <LoadingSpinner />
+  if (loading) {
+    return <LoadingSpinner />;
   }
 
   if (type === "expense") {
@@ -102,7 +102,6 @@ const TransactionsList = ({
       }
     }
 
-    
     list.push(
       <TransactionsItem
         imgIcon={imgIcon}
@@ -121,11 +120,17 @@ const TransactionsList = ({
       />
     );
   }
-  
 
   return (
     <div className="transactions">
-      <p className="transactions__title" style={list.length < 1 && section !== 'main' ? {textAlign: 'center'} : {}}>Transactions</p>
+      <p
+        className="transactions__title"
+        style={
+          list.length < 1 && section !== "main" ? { textAlign: "center" } : {}
+        }
+      >
+        Transactions
+      </p>
       {fixedModal && (
         <figure className="transactions__fixedContainer">
           <img

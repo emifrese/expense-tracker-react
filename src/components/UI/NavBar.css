@@ -20,7 +20,7 @@ footer {
     bottom: 25px;
 }
 
-.navbar__add button {
+.navbar__add .navBarAddButton {
     font-size: 50px;
     width: 75px;
     height: 75px;
