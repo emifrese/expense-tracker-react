@@ -8,13 +8,14 @@ import { useState } from "react";
 import SaveButton from "./SaveButton";
 import { addDoc, collection, deleteDoc, doc, setDoc } from "firebase/firestore";
 import { auth, firestore } from "../../firebase";
+import { useSelector } from "react-redux";
 
-const FixedCard = ({ fixedExp, Toggle }) => {
+const FixedCard = ({ Toggle }) => {
+  const fixedExp = useSelector((state) => state.expense.fixedExp);
   const [expToSub, setExpToSub] = useState(fixedExp);
   const [expToDel, setExpToDel] = useState([]);
   const fixedExpList = [];
   const actualDate = new Date();
-  console.log(expToSub);
   expToSub.forEach((fixExp, i) => {
     const toSkip = fixExp.skip.some(
       (date) =>

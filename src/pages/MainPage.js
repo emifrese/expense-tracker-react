@@ -8,21 +8,18 @@ import Balance from "../components/Balance/Balance";
 import cardImg from "../assets/id-insignia.svg";
 import Modal from "../components/UI/Modal";
 import PersonCard from "../components/Person/PersonCard";
-import TransactionsList from "../components/Transaction/TransactionsList";
 import DeleteCard from "../components/UI/DeleteCard";
 import StatusCard from "../components/UI/StatusCard";
 import FixedCard from "../components/UI/FixedCard";
+import ExpensesList from "../components/Expense/ExpensesList";
 
 const MainPage = () => {
-  const fixedExp = useSelector((state) => state.expense.fixedExp);
   const [modalCart, setModalCart] = useState([false, ""]);
-  console.log(fixedExp);
-  const expenses = useSelector((state) => state.expense.expenses);
   const displayName = useSelector((state) => state.user.displayName);
   const photoURL = useSelector((state) => state.user.photoURL);
+
   const toggleModalCartHandler = (element, id, type) => {
     let modalElement;
-
     switch (element) {
       case "Person":
         modalElement = <PersonCard onClose={toggleModalCartHandler} />;
@@ -39,7 +36,7 @@ const MainPage = () => {
         break;
       case "Fixed":
         modalElement = (
-          <FixedCard fixedExp={fixedExp} Toggle={toggleModalCartHandler} />
+          <FixedCard Toggle={toggleModalCartHandler} />
         );
         break;
       default:
@@ -61,11 +58,8 @@ const MainPage = () => {
         Toggle={toggleModalCartHandler}
       />
       <Balance />
-      <TransactionsList
-        section="main"
-        type="expense"
-        expenses={expenses}
-        fixedExp={fixedExp}
+      <ExpensesList 
+        section='main'
         Toggle={toggleModalCartHandler}
       />
       <NavBar />

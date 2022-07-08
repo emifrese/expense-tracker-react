@@ -17,6 +17,7 @@ import DeleteCard from "../components/UI/DeleteCard";
 import StatusCard from "../components/UI/StatusCard";
 
 const Stats = () => {
+  console.log('render stats page')
   const [type, setType] = useState(true);
   const [filterCart, setFilterCart] = useState([false, ""]);
   const dispatch = useDispatch();

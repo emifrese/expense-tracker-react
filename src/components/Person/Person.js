@@ -22,8 +22,6 @@ const Person = ({ onClose, type, editMate }) => {
   let jobsPending = [];
   let coloursList = [];
 
-  console.log(editMate)
-  console.log(enteredColour)
   colors.forEach((colour, i) => {
     coloursList.push(
       <option value={i} key={i}>

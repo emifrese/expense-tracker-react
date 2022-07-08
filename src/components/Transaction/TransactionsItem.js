@@ -19,10 +19,8 @@ const TransactionsItem = ({
 }) => {
   let listItem;
   if (type === "expense") {
-    console.log(payed)
     const status = payed ? 'payed' : 'pending';
     const titleStatus = !payed ? '(not payed)' : '';
-    console.log(status)
     listItem = (
       <>
         <li className='transactionItem'>
@@ -45,8 +43,8 @@ const TransactionsItem = ({
               />
             </figure>
           <div>
-            <p className="transactions__list_price">-${amount}</p>
-            <p className="transactions__list_day">
+            <p className="transactionsListPrice">-${amount}</p>
+            <p className="transactionsListDay">
               {day + " " + months[month].slice(0, 3)}
             </p>
           </div>

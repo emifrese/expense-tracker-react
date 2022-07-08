@@ -218,7 +218,6 @@ const ExpenseForm = () => {
             }
             onChange={amountChangeHandler}
             onBlur={() => {
-              console.log(isNaN(enteredAmount));
               if (enteredAmount !== "" && enteredAmount !== 0) {
                 setValidation((state) => state.filter((el) => el !== "amount"));
               }

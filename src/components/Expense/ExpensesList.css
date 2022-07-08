@@ -1,0 +1,111 @@
+.expensesContainer {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.expensesContainerTitle {
+    width: 80%;
+}
+
+.transactionsFixedContainer {
+    width: 20%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.transactionsFixedImg {
+    width: 25px;
+    height: 25px;
+}
+
+.transactionsFixedImg.empty {
+    opacity: 0.5
+}
+
+
+.transactionsList {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-height: calc(100vh - 410px);
+    overflow: scroll;
+    justify-content: center;
+}
+
+.transactionItem {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    max-height: 70px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    margin: 5px;
+    box-shadow: 5px 5px 10px 0px rgba(165,0,168,0.5);
+}
+
+.transactionsList .bottomBorder {
+    border-bottom: 2px solid #ccc;
+}
+
+.transactionsList .pending {
+    opacity: 0.5;
+}
+
+.transactionsList img {
+    width: 50px;
+    height: 50px;
+    border-radius: 40%;
+    border: 2px solid;
+    padding: 5px;
+    margin: 10px;
+}
+
+.transactionsList figure {
+    margin: 0;
+    width: 60%;
+    display: flex;
+    align-items: center;
+}
+
+.transactionsList figcaption em {
+    opacity: 0.5
+}
+
+.transactionsList div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    width: 30%
+}
+
+.transactionsList p {
+    margin: 0;
+    width: 100%;
+}
+
+.transactionsListDay {
+    color: #aaa
+}
+
+.fullList {
+    max-height: calc(100vh - 385px);
+}
+
+.transactionsList .deleteContainer {
+    justify-content: center;
+    width:10%;
+}
+
+.transactionsList .deleteButton {
+    width:25px;
+    height: 25px;
+    padding: 0;
+    border: none;
+}
