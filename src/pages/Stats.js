@@ -23,11 +23,8 @@ const Stats = () => {
   const dispatch = useDispatch();
   const incomes = useSelector((state) => state.incomes.incomes);
   const expenses = useSelector((state) => state.expense.expenses);
-
   const filterExp = useSelector((state) => state.expense.filterExp);
-
   const filterInc = useSelector((state) => state.incomes.filterInc);
-
   const monthDate = useSelector((state) => state.date.month);
   const yearDate = useSelector((state) => state.date.year);
 
