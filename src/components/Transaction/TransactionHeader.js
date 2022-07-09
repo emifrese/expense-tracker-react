@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import TransactionToggle from "../UI/TransactionToggle";
 
-import './TransactionHeader.css'
+import classes from './TransactionHeader.module.css'
 
 const TransactionHeader = ({ typeChangeHandler, transactionType }) => {
   return (
     <>
-      <div className="back-link-container">
+      <div className={classes.backLinkContainer}>
         <Link to="/">X</Link>
       </div>
 

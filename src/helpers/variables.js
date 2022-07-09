@@ -33,3 +33,5 @@ export const colorStyles = [
   { borderColor: "#F76E11", colorIcon: "#FFBC80" },
   { borderColor: "#810955", colorIcon: "#EE81B3" },
 ];
+
+export const actualDate = new Date();

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { addDoc, collection, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { auth, firestore } from "../../firebase";
 
 import userImg from "../../assets/usuario.svg";
 import jobImg from "../../assets/maletin.svg";
@@ -9,15 +11,14 @@ import SaveButton from "../UI/SaveButton";
 
 import { colors, colorStyles } from "../../helpers/variables";
 
-import "./Person.css";
-import { addDoc, collection, deleteDoc, doc, setDoc } from "firebase/firestore";
-import { auth, firestore } from "../../firebase";
+import classes from "./Person.module.css";
 
 const Person = ({ onClose, type, editMate }) => {
   const [enteredName, setEnteredName] = useState(editMate?.person || "");
   const [enteredJob, setEnteredJob] = useState("");
   const [addedJob, setAddedJob] = useState(editMate?.jobs || []);
-  const [enteredColour, setEnteredColour] = useState(editMate?.colorId || "");
+  const [enteredColour, setEnteredColour] = useState(editMate?.colorId || -1);
+  const [validation, setValidation] = useState([]);
 
   let jobsPending = [];
   let coloursList = [];
@@ -38,7 +39,7 @@ const Person = ({ onClose, type, editMate }) => {
           onClick={() => removeJob(job.id)}
           key={job.id}
           id={job.id}
-          className="person__control_job"
+          className={classes.personControlJob}
         >
           {job.value}
         </button>
@@ -53,6 +54,43 @@ const Person = ({ onClose, type, editMate }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    let error = false;
+
+    if(enteredName === ''){
+      setValidation(state => {
+        if(!state.includes('name')) {
+          return [...state, 'name']
+        }
+        return state;
+      })
+      error = true;
+    }
+
+    if(addedJob.length < 1){
+      setValidation(state => {
+        if(!state.includes('job')){
+          return [...state, 'job']
+        }
+        return state
+      })
+      error = true;
+    }
+
+    if(enteredColour === -1){
+      setValidation(state => {
+        if(!state.includes('color')){
+          return [...state, 'color']
+        }
+        return state
+      })
+      error = true
+    }
+
+    if(error === true) {
+      return;
+    }
+
 
     const personData = {
       person: enteredName,
@@ -82,25 +120,51 @@ const Person = ({ onClose, type, editMate }) => {
     setAddedJob([]);
     onClose();
   };
+
   return (
     <>
-      <h2>{type === "edit" ? "Edit" : "New"}{" "}Homemate</h2>
+      <h2>{type === "edit" ? "Edit" : "New"} Homemate</h2>
       <form onSubmit={submitHandler}>
-        <div className="person__controls">
-          <div className="person__control">
+        <div className={classes.personControls}>
+          <div className={classes.personControl}>
             <img src={colourImg} alt="color" />
-            <select value={enteredColour} onChange={(e) => setEnteredColour(+e.target.value)}>
-              <option value='select'>Select a colour</option>
+            <select
+              value={enteredColour}
+              onChange={(e) => setEnteredColour(+e.target.value)}
+              style={
+                validation.includes("color")
+                  ? { boxShadow: "0px 0px 5px 3px rgba(255,0,0,0.75)" }
+                  : { boxShadow: "none" }
+              }
+              onBlur={() => {
+                if (enteredColour !== -1) {
+                  setValidation((state) => state.filter((el) => el !== "color"));
+                }
+              }}
+            >
+              <option value="-1">Select a colour</option>
               {coloursList}
             </select>
           </div>
-          <div className="person__control">
+          <div className={classes.personControl}>
             <img src={userImg} alt="name" />
             <input
               type="text"
               placeholder="Name"
               value={enteredName}
               onChange={(e) => setEnteredName(e.target.value)}
+              style={
+                validation.includes("name")
+                  ? { boxShadow: "0px 0px 5px 3px rgba(255,0,0,0.75)" }
+                  : { boxShadow: "none" }
+              }
+              onBlur={() => {
+                if (enteredName !== "") {
+                  setValidation((state) =>
+                    state.filter((el) => el !== "name")
+                  );
+                }
+              }}
             />
             {type === "edit" && (
               <img
@@ -118,13 +182,25 @@ const Person = ({ onClose, type, editMate }) => {
               />
             )}
           </div>
-          <div className="person__control">
+          <div className={classes.personControl}>
             <img src={jobImg} alt="malet" />
             <input
               type="text"
               placeholder="Job"
               value={enteredJob}
               onChange={(e) => setEnteredJob(e.target.value)}
+              style={
+                validation.includes("job")
+                  ? { boxShadow: "0px 0px 5px 3px rgba(255,0,0,0.75)" }
+                  : { boxShadow: "none" }
+              }
+              onBlur={() => {
+                if (enteredJob !== "") {
+                  setValidation((state) =>
+                    state.filter((el) => el !== "job")
+                  );
+                }
+              }}
             />
             <img
               src={addImg}
@@ -141,7 +217,9 @@ const Person = ({ onClose, type, editMate }) => {
               }}
             />
           </div>
-          <div className="person__control jobs">{jobsPending}</div>
+          <div className={classes.personControl} style={{ flexWrap: "wrap" }}>
+            {jobsPending}
+          </div>
         </div>
         <SaveButton />
       </form>

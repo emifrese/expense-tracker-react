@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Stats.css";
 
 import backButton from "../assets/angulo-izquierdo.svg";
 import filterButton from "../assets/filtrar.svg";
@@ -13,6 +12,8 @@ import DeleteCard from "../components/UI/DeleteCard";
 import StatusCard from "../components/UI/StatusCard";
 import ExpensesList from "../components/Expense/ExpensesList";
 import IncomesList from "../components/Incomes/IncomesList";
+
+import classes from './Stats.module.css'
 
 const Stats = () => {
   const [type, setType] = useState(true);
@@ -50,7 +51,7 @@ const Stats = () => {
       {filterCart[0] && (
         <Modal Toggle={toggleModalCartHandler}>{filterCart[1]}</Modal>
       )}
-      <div className="stats-container">
+      <div className={classes.statsContainer}>
         <Header
           type="stats"
           leftImg={backButton}
@@ -61,7 +62,7 @@ const Stats = () => {
         <main>
           <TransactionToggle onChangeType={typeChangeHandler} type={type} />
           <>
-            <div className="chartContainer">
+            <div className={classes.chartContainer}>
               {type ? <ChartIncomes /> : <ChartExpenses type={type} />}
             </div>
             {type && <IncomesList Toggle={toggleModalCartHandler} />}

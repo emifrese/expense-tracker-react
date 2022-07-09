@@ -4,11 +4,12 @@ import { useSelector } from "react-redux";
 import jobImg from "../../assets/maletin.svg";
 import editImg from "../../assets/editar.svg";
 
-import "./PersonManager.css";
 import { useState } from "react";
 import Person from "./Person";
 import Modal from "../UI/Modal";
 import LoadingSpinner from "../UI/LoadingSpinner";
+
+import classes from './PersonManager.module.css'
 
 const PersonManager = () => {
   const [modalContent, setModalContent] = useState([false, ""]);
@@ -89,7 +90,7 @@ const PersonManager = () => {
       {modalContent[0] && (
         <Modal Toggle={toggleFixedCartHandler}>{modalContent[1]}</Modal>
       )}
-      <div className="personmanager__control">{homematesDisplay}</div>
+      <div className={classes.personManagerControl}>{homematesDisplay}</div>
     </>
   );
 };

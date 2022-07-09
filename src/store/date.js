@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const actualDate = new Date();
+import { actualDate } from "../helpers/variables";
 
 const initialDateState = {
     day: actualDate.getDay(),

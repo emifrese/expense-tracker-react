@@ -1,4 +1,4 @@
-.balance-card {
+.balanceCard {
     border-radius: 30px;
     background: rgb(95,205,222);
     background: linear-gradient(138deg, rgba(95,205,222,0.74) 0%, rgba(200,21,198,0.74) 54%, rgba(255,157,0,0.74) 100%);
@@ -11,29 +11,29 @@
     margin-bottom: 20px;
 }
 
-.balance-card__title {
+.balanceCardTitle {
     width: 100%;
     text-align: center;
     height: 55%;
 }
 
-.balance-card__title h2 {
+.balanceCardTitle h2 {
     font-size: 15px;
     margin: 0;
     margin-top: 10px;
 }
 
-.balance-card__title p {
+.balanceCardTitle p {
     font-size: 40px;
     margin: 10px;
     margin-bottom: 20px;
 }
 
-.balance-card__info {
+.balanceCardInfo {
     display: flex;
 }
 
-.balance-card__info figure {
+.balanceCardInfo figure {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,14 +43,14 @@
 }
 
 
-.balance-card__info_inc {
+.balanceCardInfoInc {
     margin-right: 20px;
 }
 
-.balance-card__info_exp {
+.balanceCardInfoExp {
     margin-left: 20px;
 }
-.balance-card__info img {
+.balanceCardInfo img {
     width: 35px;
     height: 35px;
     margin-right: 10px;
@@ -58,10 +58,10 @@
     border: 0;
 }
 
-.balance-card__info_down {
+.balanceCardInfoDown {
     filter: invert(40%) sepia(92%) saturate(2284%) hue-rotate(325deg) brightness(101%) contrast(95%);
 }
 
-.balance-card__info_up {
+.balanceCardInfoUp {
     filter: invert(83%) sepia(24%) saturate(950%) hue-rotate(60deg) brightness(92%) contrast(86%);
 }

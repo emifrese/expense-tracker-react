@@ -1,11 +1,11 @@
-.save-button {
+.saveButton {
     text-align: center;
     position: fixed;
     bottom: 10px;
     width:90%;
   }
 
-  .save-button button {
+  .saveButton button {
     font: inherit;
     cursor: pointer;
     padding: 1rem 2rem;

@@ -1,4 +1,4 @@
-.main-header {
+.mainHeader {
     border-radius: 10px;
     margin: 0;
     margin-bottom: 20px;
@@ -9,18 +9,18 @@
     align-items: center;
 }
 
-.main-header h1 {
+.mainHeader h1 {
     font-size: 20px;
     text-align:center;
 }
 
-.main-header .user-profile-img {
+.mainHeader .userProfileImg {
     width: 40px;
     height: 40px;
     border-radius: 50%;
 }
 
-.main-header img {
+.mainHeader img {
     border-radius: 0;
     width: 25px;
 }

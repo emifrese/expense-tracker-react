@@ -1,20 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import "./Header.css";
+import classes from "./Header.module.css";
 
 const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
-  
   let leftSide = (
-    <img src={leftImg} alt="user-profile" className="user-profile-img" />
+    <img src={leftImg} alt="user-profile" className={classes.userProfileImg} />
   );
   let rightSide = (
-    <img
-      className="card-tag"
-      src={rightImg}
-      alt="user-info"
-      onClick={() => Toggle('Person')}
-    />
+    <img src={rightImg} alt="user-info" onClick={() => Toggle("Person")} />
   );
 
   switch (type) {
@@ -23,15 +17,14 @@ const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
     case "stats":
       leftSide = (
         <Link to="/">
-          <img src={leftImg} alt="back-button" className="back-button" />
+          <img src={leftImg} alt="back-button" />
         </Link>
       );
       rightSide = (
         <img
-          className="filter-button"
           src={rightImg}
           alt="user-info"
-          onClick={() => Toggle('Filter')}
+          onClick={() => Toggle("Filter")}
         />
       );
       break;
@@ -47,7 +40,7 @@ const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
   }
 
   const content = (
-    <header className="main-header">
+    <header className={classes.mainHeader}>
       {leftSide}
       <h1>{titleText}</h1>
       {rightSide}

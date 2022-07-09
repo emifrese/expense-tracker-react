@@ -1,11 +1,11 @@
-.transaction-toggle {
+.transactionToggle {
     width: 100%;
     display: flex;
     justify-content: center;
     text-align: center;
   }
 
-  .transaction-toggle .switch {
+  .transactionToggle .switch {
     position: relative;
     font-weight: bold;
     display: inline-block;
@@ -13,13 +13,13 @@
     height: 50px;
   }
 
-  .transaction-toggle input {
+  .transactionToggle input {
     opacity: 0;
     width: 0;
     height: 0;
   }
 
-  .transaction-toggle .slider {
+  .transactionToggle .slider {
     position: absolute;
     cursor: pointer;
     border: 2px solid #ccc;
@@ -37,7 +37,7 @@
     transition: .4s;
   }
 
-  .transaction-toggle .slider:before {
+  .transactionToggle .slider:before {
     position: absolute;
     content: "Income";
     border-radius: inherit;
@@ -54,16 +54,16 @@
     transition: .4s;
   }
 
-  .transaction-toggle input:checked + .slider:before {
+  .transactionToggle input:checked + .slider:before {
     content: "Expense"
   }
   
 
-  .transaction-toggle input:focus + .slider {
+  .transactionToggle input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
   }
   
-  .transaction-toggle input:checked + .slider:before {
+  .transactionToggle input:checked + .slider:before {
     -webkit-transform: translateX(94%);
     -ms-transform: translateX(94%);
     transform: translateX(94%);

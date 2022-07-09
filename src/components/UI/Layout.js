@@ -1,10 +1,10 @@
 import React from 'react'
 
-import './Layout.css'
+import classes from './Layout.module.css';
 
 const Layout = ({children}) => {
   return (
-    <div className='layout'>{children}</div>
+    <div className={classes.layout}>{children}</div>
   )
 }
 

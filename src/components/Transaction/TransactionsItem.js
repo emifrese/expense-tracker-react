@@ -3,6 +3,8 @@ import React from "react";
 import { months } from "../../helpers/variables";
 import deleteImg from "../../assets/basura.svg";
 
+import classes from './TransactionsItem.module.css'
+
 const TransactionsItem = ({
   imgIcon,
   colorIcon,
@@ -14,16 +16,17 @@ const TransactionsItem = ({
   month,
   type,
   job,
+  category,
   Toggle,
   payed
 }) => {
   let listItem;
   if (type === "expense") {
-    const status = payed ? 'payed' : 'pending';
+    const status = payed ? classes.payed : classes.pending;
     const titleStatus = !payed ? '(not payed)' : '';
     listItem = (
       <>
-        <li className='transactionItem'>
+        <li className={classes.transactionItem}>
           <figure>
             <img
               src={imgIcon}
@@ -34,17 +37,17 @@ const TransactionsItem = ({
             />
             <figcaption>{title}{' '}<em>{titleStatus}</em></figcaption>
           </figure>
-            <figure className="deleteContainer">
+            <figure className={classes.deleteContainer}>
               <img
                 src={deleteImg}
                 alt="delte-expense"
-                className="deleteButton"
+                className={classes.deleteButton}
                 onClick={() => Toggle('Delete', id, type)}
               />
             </figure>
           <div>
-            <p className="transactionsListPrice">-${amount}</p>
-            <p className="transactionsListDay">
+            <p>-${amount}</p>
+            <p className={classes.transactionsListDay}>
               {day + " " + months[month].slice(0, 3)}
             </p>
           </div>
@@ -52,9 +55,10 @@ const TransactionsItem = ({
       </>
     );
   } else {
+    console.log(job)
     listItem = (
       <>
-        <li className='transactionItem'>
+        <li className={classes.transactionItem}>
           <figure>
             <img
               src={imgIcon}
@@ -63,17 +67,17 @@ const TransactionsItem = ({
             />
             <figcaption>{title}</figcaption>
           </figure>
-          <figure className="deleteContainer">
+          <figure className={classes.deleteContainer}>
               <img
                 src={deleteImg}
                 alt="delte-expense"
-                className="deleteButton"
+                className={classes.deleteButton}
                 onClick={() => Toggle('Delete', id, type)}
               />
             </figure>
           <div>
-            <p className="transactions__list_price">+${amount}</p>
-            <p className="transactionsListDay">{job}</p>
+            <p>+${amount}</p>
+            <p className={classes.transactionsListDay}>{job || category}</p>
           </div>
         </li>
       </>

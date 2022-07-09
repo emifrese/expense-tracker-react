@@ -1,12 +1,12 @@
 import React from "react";
 
-import "./LoadingSpinner.css";
+import classes from './LoadingSpinner.module.css'
 
 const LoadingSpinner = () => {
   return (
-    <div className="spinner">
-      <div className="double-bounce1"></div>
-      <div className="double-bounce2"></div>
+    <div className={classes.spinner}>
+      <div className={classes.doubleBounce1}></div>
+      <div className={classes.doubleBounce2}></div>
     </div>
   );
 };

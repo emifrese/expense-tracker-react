@@ -1,11 +1,11 @@
-.personmanager__control {
+.personManagerControl {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
 
-.personmanager__control ul {
+.personManagerControl ul {
     list-style: none;
     padding: 10px;
     margin: 0;
@@ -17,20 +17,20 @@
     box-shadow: 5px 5px 10px 0px rgba(165,0,168,0.5);
 }
 
-.personmanager__control figure {
+.personManagerControl figure {
     display: flex;
     margin: 0;
 }
 
-.personmanager__control figure img {
+.personManagerControl figure img {
     margin-left: 10px;
 }
 
-.personmanager__control li {
+.personManagerControl li {
     margin-top: 10px;
 }
 
-.personmanager__control img {
+.personManagerControl img {
     width: 20px;
     margin-right: 10px;
 }

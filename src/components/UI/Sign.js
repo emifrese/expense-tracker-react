@@ -1,7 +1,7 @@
 import { auth } from "../../firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-import './Sign.css'
+import classes from './Sign.module.css'
 
 const Sign = ({ type }) => {
   let buttonContainerClass;
@@ -10,12 +10,12 @@ const Sign = ({ type }) => {
 
   switch (type) {
     case "in":
-      buttonContainerClass = "signIn";
+      buttonContainerClass = classes.signIn;
       buttonFunction = () => signInWithPopup(auth, new GoogleAuthProvider());
       buttonText = "Sign In With Google";
       break;
     case "out":
-      buttonContainerClass = "signOut";
+      buttonContainerClass = classes.signOut;
       buttonFunction = () => auth.signOut();
       buttonText = "Sign Out";
       break;

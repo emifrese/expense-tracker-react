@@ -1,6 +1,5 @@
 import React from "react";
 
-import "./FixedCard.css";
 import pinImg from "../../assets/chinche.svg";
 import delImg from "../../assets/basura.svg";
 import skipImg from "../../assets/angulo-doble-derecha.svg";
@@ -10,12 +9,15 @@ import { addDoc, collection, deleteDoc, doc, setDoc } from "firebase/firestore";
 import { auth, firestore } from "../../firebase";
 import { useSelector } from "react-redux";
 
+import { actualDate } from "../../helpers/variables";
+
+import classes from './FixedCard.module.css'
+
 const FixedCard = ({ Toggle }) => {
   const fixedExp = useSelector((state) => state.expense.fixedExp);
   const [expToSub, setExpToSub] = useState(fixedExp);
   const [expToDel, setExpToDel] = useState([]);
   const fixedExpList = [];
-  const actualDate = new Date();
   expToSub.forEach((fixExp, i) => {
     const toSkip = fixExp.skip.some(
       (date) =>
@@ -27,14 +29,14 @@ const FixedCard = ({ Toggle }) => {
     fixedExpList.push(
       <div
         key={i}
-        className="fixedExpItem"
+        className={classes.fixedExpItem}
         style={
           toSkip
             ? { backgroundColor: "#ccc" }
             : { backgroundColor: "transparent" }
         }
       >
-        <figure className="fixedExpTitle">
+        <figure className={classes.fixedExpTitle}>
           <img src={pinImg} alt="pin-expense" />
           <figcaption
             style={
@@ -46,14 +48,13 @@ const FixedCard = ({ Toggle }) => {
             {fixExp.title}
           </figcaption>
         </figure>
-        <figure className="fixedExpDelInp">
+        <figure className={classes.fixedExpDelInp}>
           <img
             src={skipImg}
             alt="skip-expense"
             onClick={(e) => {
               if (toDelete === -1) {
                 setExpToSub((state) => {
-                  const actualDate = new Date();
                   let expEdit;
                   let newArray = [];
                   if (
@@ -194,8 +195,8 @@ const FixedCard = ({ Toggle }) => {
   return (
     <>
       <h2>Fixed Expenses</h2>
-      <form onSubmit={submitHandler} className="fixedExpForm">
-        <div className="fixedContainer">{fixedExpList}</div>
+      <form onSubmit={submitHandler} className={classes.fixedExpForm}>
+        <div className={classes.fixedContainer}>{fixedExpList}</div>
         <SaveButton />
       </form>
     </>

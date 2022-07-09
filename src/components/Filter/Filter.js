@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-
-
-import "./Filter.css";
 import { useDispatch, useSelector } from "react-redux";
+
+
 import { dateActions } from "../../store/date.js";
 import { incomesActions } from "../../store/incomes.js";
 import { expenseActions } from "../../store/expenses.js";
+
+import classes from './Filter.module.css'
 
 const Filter = () => {
   const monthDate = useSelector((state) => state.date.month);
@@ -20,8 +21,8 @@ const Filter = () => {
   return (
     <>
       <h2>Filter Stats</h2>
-      <div className="filter__controls">
-        <div className="filter__control">
+      <div className={classes.filterControls}>
+        <div className={classes.filterControl}>
           <input
             type="month"
             min="2015-01"

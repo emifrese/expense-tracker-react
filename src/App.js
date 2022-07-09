@@ -1,3 +1,4 @@
+import React, { Suspense } from "react";
 import { auth, firestore } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
@@ -10,13 +11,14 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { incomesActions } from "./store/incomes";
 import { userActions } from "./store/user";
 import Layout from "./components/UI/Layout";
-import Stats from "./pages/Stats";
-import MainPage from "./pages/MainPage";
-import AddTransaction from "./pages/AddTransaction";
-import UserManager from "./pages/UserManager";
 import Sign from "./components/UI/Sign";
+import { actualDate } from "./helpers/variables";
 
-const actualDate = new Date();
+const MainPage = React.lazy(() => import("./pages/MainPage"));
+const AddTransaction = React.lazy(() => import("./pages/AddTransaction"));
+const Stats = React.lazy(() => import("./pages/Stats"));
+const UserManager = React.lazy(() => import("./pages/UserManager"));
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -57,13 +59,18 @@ function App() {
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/income`),
         (snapshot) => {
-          dispatch(incomesActions.reset());
           let incomesArray = snapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,
           }));
           dispatch(incomesActions.addIncome(incomesArray));
-          dispatch(incomesActions.filterIncomes([incomesArray, actualDate.getMonth(), actualDate.getFullYear()]))
+          dispatch(
+            incomesActions.filterIncomes([
+              incomesArray,
+              actualDate.getMonth(),
+              actualDate.getFullYear(),
+            ])
+          );
         }
       );
 
@@ -87,7 +94,6 @@ function App() {
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/homemates`),
         (snapshot) => {
-          dispatch(userActions.resetHomemates());
           let homematesArray = snapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,
@@ -103,10 +109,39 @@ function App() {
       {user ? (
         <>
           <Routes>
-            <Route path="/" exact element={<MainPage />} />
-            <Route path="/add" element={<AddTransaction />} />
-            <Route path="/stats" element={<Stats />} />
-            <Route path="/user" element={<UserManager />} />
+            <Route
+              path="/"
+              exact
+              element={
+                <Suspense fallback={<>...</>}>
+                  <MainPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/add"
+              element={
+                <Suspense fallback={<>...</>}>
+                  <AddTransaction />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/stats"
+              element={
+                <Suspense fallback={<>...</>}>
+                  <Stats />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/user"
+              element={
+                <Suspense fallback={<>...</>}>
+                  <UserManager />
+                </Suspense>
+              }
+            />
           </Routes>
         </>
       ) : (

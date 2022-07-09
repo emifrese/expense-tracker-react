@@ -1,0 +1,40 @@
+.expensesContainer {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.expensesContainerTitle {
+    width: 80%;
+}
+
+.transactionsFixedContainer {
+    width: 20%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.transactionsFixedImg {
+    width: 25px;
+    height: 25px;
+}
+
+.transactionsFixedImg.empty {
+    opacity: 0.5
+}
+
+
+.transactionsList {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    overflow: scroll;
+    justify-content: center;
+}
+
+

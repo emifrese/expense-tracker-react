@@ -5,14 +5,14 @@ form {
   padding-bottom: 30px;
 }
 
-.new-expense__controls {
+.newExpenseControls {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     text-align: left;
   }
 
-  .new-expense__control_amount {
+  .newExpenseControlAmount {
     display: flex;
     justify-content: center;
     margin-top: 20px;
@@ -20,7 +20,7 @@ form {
 
   }
 
-  .new-expense__control_amount input {
+  .newExpenseControlAmount input {
     appearance: none;
     border: none;
     width: 100%;
@@ -31,24 +31,24 @@ form {
     border: 0;
   }
   
-  .new-expense__control {
+  .newExpenseControl {
     display: flex;
     margin-bottom: 20px;
   }
   
-  .new-expense__control label {
+  .newExpenseControl label {
     font-weight: bold;
     margin-bottom: 0.5rem;
     display: block;
   }
 
-  .new-expense__control img {
+  .newExpenseControl img {
     width: 10%;
     padding: 5px;
     filter: invert(74%) sepia(4%) saturate(33%) hue-rotate(66deg) brightness(91%) contrast(94%);
   }
   
-  .new-expense__control input {
+  .newExpenseControl input {
     font: inherit;
     padding: 0.5rem;
     border-radius: 6px;
@@ -58,13 +58,13 @@ form {
     color: #aaa;
   }
 
-  .new-expense__control input[type="date"]        ::-webkit-inner-spin-button,
+  .newExpenseControl input[type="date"]        ::-webkit-inner-spin-button,
     input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
 }
 
-  .new-expense__control select {
+  .newExpenseControl select {
     font: inherit;
     padding: 0.5rem;
     border-radius: 6px;
@@ -76,13 +76,13 @@ form {
   }
 
 
-  .new-expense__current {
+  .newExpenseCurrent {
     width:80%;
     margin-bottom: 1rem;
     
   }
 
-  .new-expense__current .switch {
+  .newExpenseCurrent .switch {
     position: relative;
     font-weight: bold;
     margin-bottom: 0.5rem;
@@ -91,14 +91,14 @@ form {
     height: 34px;
   }
   
-  .new-expense__current input {
+  .newExpenseCurrent input {
     opacity: 0;
     width: 0;
     height: 0;
   }
 
   
-  .new-expense__current .slider {
+  .newExpenseCurrent .slider {
     position: absolute;
     cursor: pointer;
     border-radius: 50px;
@@ -112,7 +112,7 @@ form {
     transition: .4s;
   }
   
-  .new-expense__current .slider:before {
+  .newExpenseCurrent .slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -125,15 +125,15 @@ form {
     transition: .4s;
   }
   
-  .new-expense__current input:checked + .slider:before {
+  .newExpenseCurrent input:checked + .slider:before {
     background: linear-gradient(138deg, rgba(95,205,222,0.74) 0%, rgba(200,21,198,0.74) 54%, rgba(255,157,0,0.74) 100%);
   }
 
-  .new-expense__current input:focus + .slider {
+  .newExpenseCurrent input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
   }
   
-  .new-expense__current input:checked + .slider:before {
+  .newExpenseCurrent input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);

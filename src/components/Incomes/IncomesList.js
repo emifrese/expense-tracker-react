@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import LoadingSpinner from "../UI/LoadingSpinner";
 
 import jobImg from "../../assets/maletin.svg";
 import giftImg from "../../assets/regalo.svg";
 import debtImg from "../../assets/recibo.svg";
-
-import "./IncomesList.css";
-import { useSelector } from "react-redux";
 import TransactionsItem from "../Transaction/TransactionsItem";
+
+import classes from './IncomesList.module.css'
 
 const IncomesList = ({ Toggle }) => {
   const filterInc = useSelector((state) => state.incomes.filterInc);
@@ -31,9 +32,6 @@ const IncomesList = ({ Toggle }) => {
 
   const list = [];
 
-  if (typeof filterInc === "undefined") {
-    return <p>No incomes to show</p>;
-  }
 
   for (const [i, element] of filterInc.entries()) {
     let imgIcon;
@@ -59,6 +57,8 @@ const IncomesList = ({ Toggle }) => {
         amount={element.amount}
         month={element.month}
         key={i}
+        job={element.job}
+        category={element.type}
         type={"income"}
         Toggle={Toggle}
         id={element.id}
@@ -67,14 +67,14 @@ const IncomesList = ({ Toggle }) => {
   }
 
   return (
-    <div className="incomesContainer">
+    <div className={classes.incomesContainer}>
       <p
-        className="incomesContainerTitle"
+        className={classes.incomesContainerTitle}
         style={list.length < 1 ? { textAlign: "center" } : {}}
       >
         Transactions
       </p>
-      <ul className="transactionsList">
+      <ul className={classes.transactionsList}>
         {list.length > 0 ? list : <li>No Incomes</li>}
       </ul>
     </div>

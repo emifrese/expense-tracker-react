@@ -1,18 +1,18 @@
 import React from "react";
 
-import './TransactionToggle.css'
+import classes from './TransactionToggle.module.css'
 
 const TransactionToggle = ({onChangeType, transactionType}) => {
 
   return (
-    <div className="transaction-toggle">
-      <label className="switch">
+    <div className={classes.transactionToggle}>
+      <label className={classes.switch}>
         <input
           type="checkbox"
           defaultChecked={transactionType}
           onChange={() => onChangeType(state => !state)}
         />
-        <span className="slider"></span>
+        <span className={classes.slider}></span>
       </label>
     </div>
   );

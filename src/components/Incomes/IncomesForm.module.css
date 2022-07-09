@@ -1,4 +1,4 @@
-.incomes__controls {
+.incomesControls {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -8,16 +8,16 @@
 
 
 
-  .incomes__actions {
+  .incomesActions {
       text-align: right;
   }
 
-  .incomes__controls select:hover, input:hover {
+  .incomesControls select:hover, input:hover {
     outline: 0;
     border-color: #888;
   }
 
-  .incomes__control_amount {
+  .incomesControlAmount {
     display: flex;
     justify-content: center;
     margin-top: 20px;
@@ -25,7 +25,7 @@
 
   }
 
-  .incomes__control_amount input {
+  .incomesControlAmount input {
     appearance: none;
     border: none;
     width: 100%;
@@ -36,29 +36,29 @@
     border-radius: 10px;
   }
   
-  .incomes__control {
+  .incomesControl {
     display: flex;
     margin-bottom: 20px;
   }
 
-  .incomes__control {
+  .incomesControl {
     display: flex;
     margin-bottom: 20px;
   }
   
-  .incomes__control label {
+  .incomesControl label {
     font-weight: bold;
     margin-bottom: 0.5rem;
     display: block;
   }
 
-  .incomes__control img {
+  .incomesControl img {
     width: 10%;
     padding: 5px;
     filter: invert(74%) sepia(4%) saturate(33%) hue-rotate(66deg) brightness(91%) contrast(94%);
   }
   
-  .incomes__control input {
+  .incomesControl input {
     font: inherit;
     padding: 0.5rem;
     border-radius: 6px;
@@ -69,7 +69,7 @@
   }
 
 
-  .incomes__control select {
+  .incomesControl select {
     font: inherit;
     padding: 0.5rem;
     border-radius: 6px;
@@ -77,5 +77,5 @@
     width: 80%;
     max-width: 100%;
     appearance: none;
-    color: #aaa
+    color: #666
   }

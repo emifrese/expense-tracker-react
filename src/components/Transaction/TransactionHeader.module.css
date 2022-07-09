@@ -1,9 +1,9 @@
-.back-link-container {
+.backLinkContainer {
     display: flex;
     justify-content: flex-end;
   }
 
-  .back-link-container a {
+  .backLinkContainer a {
     color: #aaa;
     text-decoration: none;
     font-size: 24px;

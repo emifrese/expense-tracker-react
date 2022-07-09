@@ -1,16 +1,20 @@
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 import { auth, firestore } from "../../firebase";
-import "./ExpenseForm.css";
+import { useNavigate } from "react-router-dom";
+import { actualDate } from "../../helpers/variables";
+
+import SaveButton from "../UI/SaveButton";
+
 import titleImg from "../../assets/informacion.svg";
 import dateImg from "../../assets/tiempo-trimestrepasado.svg";
 import categoryImg from "../../assets/marcador.svg";
 import cardImg from "../../assets/tarjeta-de-credito.svg";
-import { useNavigate } from "react-router-dom";
-import SaveButton from "../UI/SaveButton";
+
 import { categories } from "../../helpers/variables";
 
-const actualDate = new Date();
+import classes from './ExpenseForm.module.css'
+
 const defaultValue = actualDate.toLocaleDateString("en-CA");
 
 const ExpenseForm = () => {
@@ -204,7 +208,7 @@ const ExpenseForm = () => {
   return (
     <>
       <form onSubmit={submitHandler}>
-        <div className="new-expense__control_amount">
+        <div className={classes.newExpenseControlAmount}>
           <input
             type="number"
             min="0.01"
@@ -224,8 +228,8 @@ const ExpenseForm = () => {
             }}
           />
         </div>
-        <div className="new-expense__controls">
-          <div className="new-expense__control">
+        <div className={classes.newExpenseControls}>
+          <div className={classes.newExpenseControl}>
             <img src={titleImg} alt="title" />
             <input
               type="text"
@@ -246,7 +250,7 @@ const ExpenseForm = () => {
               }}
             />
           </div>
-          <div className="new-expense__control">
+          <div className={classes.newExpenseControl}>
             <img src={dateImg} alt="date" />
             <input
               type="date"
@@ -256,7 +260,7 @@ const ExpenseForm = () => {
               onChange={dateChangeHandler}
             />
           </div>
-          <div className="new-expense__control">
+          <div className={classes.newExpenseControl}>
             <img src={categoryImg} alt="category" />
             <select
               onChange={categoryChangeHandler}
@@ -278,7 +282,7 @@ const ExpenseForm = () => {
             </select>
           </div>
           {cuotas && (
-            <div className="new-expense__control">
+            <div className={classes.newExpenseControl}>
               <img src={cardImg} alt="credit-card" />
               <select onChange={cuotasChangeHandler}>
                 <option value="">Select amount of cuotas</option>
@@ -287,28 +291,28 @@ const ExpenseForm = () => {
             </div>
           )}
           {!cuotas && (
-            <div className="new-expense__current">
-              <label className="switch">
+            <div className={classes.newExpenseCurrent}>
+              <label className={classes.switch}>
                 Fixed Expenses
                 <input
                   type="checkbox"
                   defaultChecked={fixedExp}
                   onChange={(e) => setFixedExp(e.target.checked)}
                 />
-                <span className="slider"></span>
+                <span className={classes.slider}></span>
               </label>
             </div>
           )}
           {!fixedExp && (
-            <div className="new-expense__current">
-              <label className="switch">
+            <div className={classes.newExpenseCurrent}>
+              <label className={classes.switch}>
                 Pago en cuotas
                 <input
                   type="checkbox"
                   defaultChecked={cuotas}
                   onChange={(e) => setCuotas(e.target.checked)}
                 />
-                <span className="slider"></span>
+                <span className={classes.slider}></span>
               </label>
             </div>
           )}

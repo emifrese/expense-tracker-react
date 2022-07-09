@@ -20,9 +20,6 @@ const userSlice = createSlice({
         },
         setHomematesInfo(state, action){
             state.homemates.push(action.payload);
-        },
-        resetHomemates(state){
-            state.homemates = [];
         }
     }
 })

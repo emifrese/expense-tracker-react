@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { auth, firestore } from "../../firebase";
 import { collection, addDoc } from "firebase/firestore";
-import "./IncomesForm.css";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { actualDate } from "../../helpers/variables";
+
 import SaveButton from "../UI/SaveButton";
 
 import typeImge from "../../assets/informacion.svg";
@@ -10,10 +14,9 @@ import userImg from "../../assets/usuario.svg";
 import jobImg from "../../assets/maletin.svg";
 import Modal from "../UI/Modal";
 import Person from "../Person/Person";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
-const actualDate = new Date();
+import classes from './IncomesForm.module.css'
+
 
 const IncomesForm = (props) => {
   const [fixedCart, setFixedCart] = useState(false);
@@ -140,8 +143,8 @@ const IncomesForm = (props) => {
         </Modal>
       )}
       <form onSubmit={submitHandler}>
-        <div className="incomes__controls">
-          <div className="incomes__control_amount">
+        <div className={classes.incomesControls}>
+          <div className={classes.incomesControlAmount}>
             <input
               type="number"
               min="0.01"
@@ -169,7 +172,7 @@ const IncomesForm = (props) => {
               }}
             />
           </div>
-          <div className="incomes__control">
+          <div className={classes.incomesControl}>
             <img src={userImg} alt="user" />
             <select
               onChange={(e) => setEnteredPerson(e.target.value)}
@@ -196,7 +199,7 @@ const IncomesForm = (props) => {
               onClick={() => toggleFixedCartHandler()}
             />
           </div>
-          <div className="incomes__control">
+          <div className={classes.incomesControl}>
             <img src={typeImge} alt="type" />
             <select
               onChange={(e) => setEnteredType(e.target.value)}
@@ -215,7 +218,7 @@ const IncomesForm = (props) => {
               {typeOptions}
             </select>
           </div>
-          <div className="incomes__control">
+          <div className={classes.incomesControl}>
             <img src={jobImg} alt="job" />
             <select
               onChange={(e) => setEnteredJob(e.target.value)}

@@ -3,7 +3,6 @@ import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
-import "./ChartExpenses.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { expenseActions } from "../../store/expenses";
@@ -59,10 +58,8 @@ const ChartExpenses = () => {
 
   return (
     <>
-      {totalPerCat.length > 0 ? (
+      {totalPerCat.length > 0 && (
         <Doughnut options={options} data={data} />
-      ) : (
-        <p>No expenses</p>
       )}
     </>
   );

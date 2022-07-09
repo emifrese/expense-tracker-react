@@ -1,4 +1,4 @@
-.person__controls {
+.filterControls {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -6,35 +6,25 @@
     text-align: left;
 }
 
-.person__controls select {
-  font: inherit;
-    padding: 0.5rem;
-    border-radius: 6px;
-    border: 0;
-    width: 80%;
-    max-width: 100%;
-    appearance: none;
-    color: #aaa
-}
-
-.person__controls select:hover, input:hover {
+.filterControls select:hover, input:hover {
     outline: 0;
     border-color: #888;
 }
 
-.person__control {
+.filterControl {
     display: flex;
     margin-bottom: 20px;
-    max-width: 100%;
+    width: 100%;
+    justify-content: center;
   }
 
-.person__control img {
+  .filterControl img {
     width: 10%;
     padding: 5px;
     filter: invert(74%) sepia(4%) saturate(33%) hue-rotate(66deg) brightness(91%) contrast(94%);
   }
   
-  .person__control input {
+  .filterControl input {
     font: inherit;
     padding: 0.5rem;
     border-radius: 6px;
@@ -44,7 +34,7 @@
     color: #aaa;
   }
 
-  .person__control_job {
+  .filterControl_job {
       padding: 10px;
       margin: 5px;
       border-radius: 30px;

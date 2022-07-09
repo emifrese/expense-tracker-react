@@ -1,19 +1,20 @@
 import React from "react";
 
-import "./NavBar.css";
 import config from "../../assets/aplicaciones.svg";
 import stats from "../../assets/estadisticas.svg";
 import { Link } from "react-router-dom";
 
+import classes from './NavBar.module.css'
+
 const NavBar = () => {
   return (
-    <footer className="navbar">
-      <div className="navbar__add">
+    <footer className={classes.navbar}>
+      <div className={classes.navbarAdd}>
         <Link to="/add">
-          <button className="navBarAddButton">+</button>
+          <button className={classes.navBarAddButton}>+</button>
         </Link>
       </div>
-      <div className="navbar__buttons">
+      <div className={classes.navbarButtons}>
         <Link to="/user">
           <img src={config} alt="config" />
         </Link>
