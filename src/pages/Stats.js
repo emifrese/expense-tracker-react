@@ -3,17 +3,24 @@ import React, { useState } from "react";
 import backButton from "../assets/angulo-izquierdo.svg";
 import filterButton from "../assets/filtrar.svg";
 import TransactionToggle from "../components/UI/TransactionToggle";
-import ChartExpenses from "../components/Charts/ChartExpenses";
 import Modal from "../components/UI/Modal";
 import Filter from "../components/Filter/Filter";
 import Header from "../components/UI/Header";
-import ChartIncomes from "../components/Charts/ChartIncomes";
 import DeleteCard from "../components/UI/DeleteCard";
 import StatusCard from "../components/UI/StatusCard";
-import ExpensesList from "../components/Expense/ExpensesList";
-import IncomesList from "../components/Incomes/IncomesList";
 
-import classes from './Stats.module.css'
+import classes from "./Stats.module.css";
+import { Suspense } from "react";
+
+const ChartExpenses = React.lazy(() =>
+  import("../components/Charts/ChartExpenses")
+);
+const ChartIncomes = React.lazy(() =>
+  import("../components/Charts/ChartIncomes")
+);
+
+const ExpensesList = React.lazy(() => import('../components/Expense/ExpensesList'))
+const IncomesList = React.lazy(() => import('../components/Incomes/IncomesList'))
 
 const Stats = () => {
   const [type, setType] = useState(true);
@@ -63,12 +70,15 @@ const Stats = () => {
           <TransactionToggle onChangeType={typeChangeHandler} type={type} />
           <>
             <div className={classes.chartContainer}>
-              {type ? <ChartIncomes /> : <ChartExpenses type={type} />}
+              <Suspense fallback={<>...</>}>
+                {type ? <ChartIncomes /> : <ChartExpenses type={type} />}
+              </Suspense>
             </div>
-            {type && <IncomesList Toggle={toggleModalCartHandler} />}
-            {!type && (
-              <ExpensesList section="stats" Toggle={toggleModalCartHandler} />
-            )}
+            <Suspense fallback={<>...</>}>
+              {type ? <IncomesList Toggle={toggleModalCartHandler} /> : (
+                <ExpensesList section="stats" Toggle={toggleModalCartHandler} />
+              )}
+            </Suspense>
           </>
         </main>
       </div>

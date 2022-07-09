@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import IncomesForm from "../components/Incomes/IncomesForm";
-import ExpenseForm from "../components/Expense/ExpenseForm";
 import TransactionHeader from "../components/Transaction/TransactionHeader";
+import { Suspense } from "react";
+
+const ExpenseForm = React.lazy(() =>
+  import("../components/Expense/ExpenseForm")
+);
+const IncomesForm = React.lazy(() =>
+  import("../components/Incomes/IncomesForm")
+);
 
 const AddTransaction = () => {
-  console.log('render add transaction')
+  console.log("render add transaction");
   const [transactionType, setTransactionType] = useState(true);
 
   const typeChangeHandler = (e) => {
@@ -17,7 +23,9 @@ const AddTransaction = () => {
         typeChangeHandler={typeChangeHandler}
         transactionType={transactionType}
       />
-      {transactionType ? <ExpenseForm /> : <IncomesForm />}
+      <Suspense fallback={<>...</>}>
+        {transactionType ? <ExpenseForm /> : <IncomesForm />}
+      </Suspense>
     </>
   );
 };
