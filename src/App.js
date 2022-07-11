@@ -37,7 +37,6 @@ function App() {
       dispatch(
         userActions.setUserInfo([displayName, email, photoURL, creationTime])
       );
-
       onSnapshot(
         collection(firestore, `users/${auth.currentUser.uid}/expense`),
         (snapshot) => {
@@ -46,6 +45,7 @@ function App() {
             id: doc.id,
           }));
           dispatch(expenseActions.increment(expensesArray));
+          dispatch(expenseActions.firstEnteredData(expensesArray))
           dispatch(
             expenseActions.filterExpenses([
               expensesArray,

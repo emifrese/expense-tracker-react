@@ -2,20 +2,34 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialExpenseState = {
   expenses: [],
-  totalAmount: 0,
   fixedExp: [],
   filterExp: [],
   expensesTotalPerCategoryDate: [],
   category: "All",
+  expensePerMonth: [{ monthYear: "", expenses: [] }],
 };
 
 const expenseSlice = createSlice({
   name: "expense",
   initialState: initialExpenseState,
   reducers: {
+    firstEnteredData(state, action){
+      state.expensePerMonth = [{monthYear: '', expenses: []}];
+      if(action.payload.length !== undefined) {
+        action.payload.forEach((exp) =>{
+          const stringCompare = exp.month.toString() + exp.year.toString();
+          if(state.expensePerMonth.some((expGroup) => expGroup.monthYear === stringCompare)){
+            const index = state.expensePerMonth.map(exp => exp.monthYear).indexOf(stringCompare)
+            state.expensePerMonth[index].expenses.push(exp)
+          } else {
+            state.expensePerMonth.push({monthYear: exp.month.toString() + exp.year.toString(), expenses: [exp]})
+          }
+        })
+      }
+      state.expensePerMonth.shift()
+    },
     increment(state, action) {
       state.expenses = [];
-      state.totalAmount = 0;
       if (action.payload.length !== undefined) {
         action.payload.forEach((exp) => {
           state.expenses.push(exp);
@@ -34,14 +48,11 @@ const expenseSlice = createSlice({
       state.filterExp = [];
       const [expenses, monthDate, yearDate] = action.payload;
       let expArray = state.expenses;
-      if(expenses.length > 0){
+      if (expenses.length > 0) {
         expArray = expenses;
       }
       expArray.forEach((exp) => {
-        if (
-          exp.month === monthDate &&
-          exp.year === yearDate 
-        ) {
+        if (exp.month === monthDate && exp.year === yearDate) {
           state.filterExp.push(exp);
         }
       });
@@ -81,19 +92,23 @@ const expenseSlice = createSlice({
       state.category = action.payload;
     },
     fixedExp(state, action) {
-      state.fixedExp = []
+      state.fixedExp = [];
       const [fixedExp, year, month] = action.payload;
-      const monthlyExp = state.expenses.map((exp) => {
+      const monthlyExp = [];
+      state.expenses.forEach((exp) => {
         if (exp.month === month && exp.year === year) {
-          return exp;
+          monthlyExp.push(exp);
         }
-          return null
       });
       fixedExp.forEach((fixExp) => {
         if (
           monthlyExp.some(
             (mExp) => mExp.title === fixExp.title && mExp.fixedExp
-          ) || ("skip" in fixExp && fixExp.skip.some((date) => date.month === month && date.year === year))
+          ) ||
+          ("skip" in fixExp &&
+            fixExp.skip.some(
+              (date) => date.month === month && date.year === year
+            ))
         ) {
           return;
         }

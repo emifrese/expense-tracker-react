@@ -21,15 +21,13 @@ const Person = ({ onClose, type, editMate }) => {
   const [validation, setValidation] = useState([]);
 
   let jobsPending = [];
-  let coloursList = [];
+  
 
-  colors.forEach((colour, i) => {
-    coloursList.push(
-      <option value={i} key={i}>
-        {colour}
-      </option>
-    );
-  });
+  const coloursList = colors.map((colour, i) => 
+    <option value={i} key={i}>
+      {colour}
+    </option>
+  )
 
   if (addedJob.length >= 1) {
     for (const job of addedJob) {

@@ -13,7 +13,7 @@ import cardImg from "../../assets/tarjeta-de-credito.svg";
 
 import { categories } from "../../helpers/variables";
 
-import classes from './ExpenseForm.module.css'
+import classes from "./ExpenseForm.module.css";
 
 const defaultValue = actualDate.toLocaleDateString("en-CA");
 
@@ -29,7 +29,6 @@ const ExpenseForm = () => {
   const navigate = useNavigate();
 
   let categoriesList = [];
-  let cuotasList = [];
 
   categories.forEach((category, i) => {
     if (category === "All") {
@@ -42,15 +41,14 @@ const ExpenseForm = () => {
     );
   });
 
+
   const cuotasValues = [3, 6, 9, 12, 18];
 
-  cuotasValues.forEach((cuota, i) => {
-    cuotasList.push(
-      <option value={cuota} key={i}>
-        {cuota}
-      </option>
-    );
-  });
+  const cuotasList = cuotasValues.map((cuota, i) => (
+    <option value={cuota} key={i}>
+      {cuota}
+    </option>
+  ));
 
   const titleChangeHandler = (e) => {
     setEnteredTitle(e.target.value);

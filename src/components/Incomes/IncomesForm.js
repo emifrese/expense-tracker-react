@@ -15,8 +15,7 @@ import jobImg from "../../assets/maletin.svg";
 import Modal from "../UI/Modal";
 import Person from "../Person/Person";
 
-import classes from './IncomesForm.module.css'
-
+import classes from "./IncomesForm.module.css";
 
 const IncomesForm = (props) => {
   const [fixedCart, setFixedCart] = useState(false);
@@ -57,13 +56,11 @@ const IncomesForm = (props) => {
         enteredPerson !== "" &&
         homemates[enteredPerson].person === mate.person
       ) {
-        mate.jobs.forEach((job) =>
-          jobOptions.push(
-            <option value={job.value} id={job.id} key={job.id}>
-              {job.value}
-            </option>
-          )
-        );
+        jobOptions = mate.jobs.map((job, i) => (
+          <option value={job.value} id={job.id} key={job.id}>
+            {job.value}
+          </option>
+        ));
       }
     }
   }
