@@ -44,8 +44,12 @@ function App() {
             ...doc.data(),
             id: doc.id,
           }));
-          dispatch(expenseActions.increment(expensesArray));
           dispatch(expenseActions.firstEnteredData(expensesArray))
+          const month = actualDate.getMonth().toString();
+          const year = actualDate.getFullYear().toString();
+          dispatch(expenseActions.orderExpenses(month + year))
+
+          dispatch(expenseActions.increment(expensesArray));
           dispatch(
             expenseActions.filterExpenses([
               expensesArray,
@@ -88,6 +92,8 @@ function App() {
               actualDate.getMonth(),
             ])
           );
+          dispatch(expenseActions.newFixed([fixedExpensesArray, actualDate.getFullYear(),
+            actualDate.getMonth(),]))
         }
       );
 

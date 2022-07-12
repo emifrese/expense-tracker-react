@@ -28,7 +28,6 @@ const Filter = () => {
             min="2015-01"
             value={monthYear}
             onChange={(e) => {
-              console.log(e.target.value);
               setMonthYear(e.target.value);
               dispatch(
                 incomesActions.filterIncomes([
@@ -51,6 +50,12 @@ const Filter = () => {
               dispatch(
                 dateActions.setYear(parseInt(e.target.value.slice(0, 4)))
               );
+
+              // new logic 
+              const month = (parseInt(e.target.value.substring(5)) - 1).toString()
+              
+              const year = e.target.value.slice(0, 4);
+              dispatch(expenseActions.orderExpenses(month + year))
             }}
           />
         </div>

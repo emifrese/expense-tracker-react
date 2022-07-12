@@ -11,6 +11,7 @@ import StatusCard from "../components/UI/StatusCard";
 
 import classes from "./Stats.module.css";
 import { Suspense } from "react";
+import { useSelector } from "react-redux";
 
 const ChartExpenses = React.lazy(() =>
   import("../components/Charts/ChartExpenses")
@@ -19,8 +20,12 @@ const ChartIncomes = React.lazy(() =>
   import("../components/Charts/ChartIncomes")
 );
 
-const ExpensesList = React.lazy(() => import('../components/Expense/ExpensesList'))
-const IncomesList = React.lazy(() => import('../components/Incomes/IncomesList'))
+const ExpensesList = React.lazy(() =>
+  import("../components/Expense/ExpensesList")
+);
+const IncomesList = React.lazy(() =>
+  import("../components/Incomes/IncomesList")
+);
 
 const Stats = () => {
   const [type, setType] = useState(true);
@@ -75,7 +80,9 @@ const Stats = () => {
               </Suspense>
             </div>
             <Suspense fallback={<>...</>}>
-              {type ? <IncomesList Toggle={toggleModalCartHandler} /> : (
+              {type ? (
+                <IncomesList Toggle={toggleModalCartHandler} />
+              ) : (
                 <ExpensesList section="stats" Toggle={toggleModalCartHandler} />
               )}
             </Suspense>

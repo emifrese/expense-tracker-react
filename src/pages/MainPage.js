@@ -16,12 +16,13 @@ import ExpensesList from "../components/Expense/ExpensesList";
 const MainPage = () => {
   const [modalCart, setModalCart] = useState([false, ""]);
   const displayName = useSelector((state) => state.user.displayName);
-  const photoURL = useSelector((state) => state.user.photoURL);
-  const firstData = useSelector(state => state.expense.expensePerMonth)
-  const expenses = useSelector(state => state.expense.expenses)
-  console.log(expenses)
+  const photoURL = useSelector((state) => state.user.photoURL)
+  const expensesPerMonth = useSelector(state => state.expense.expensePerMonth)
+  const newFixed = useSelector(state => state.expense.newFixedExp)
+  console.log(newFixed)
 
-  const toggleModalCartHandler = (element, id, type) => {
+
+  const toggleModalCartHandler = (element, id, type, month, year) => {
     let modalElement;
     switch (element) {
       case "Person":
@@ -29,7 +30,7 @@ const MainPage = () => {
         break;
       case "Delete":
         modalElement = (
-          <DeleteCard id={id} type={type} Toggle={toggleModalCartHandler} />
+          <DeleteCard id={id} type={type} Toggle={toggleModalCartHandler} month={month} year={year} />
         );
         break;
       case "Status":

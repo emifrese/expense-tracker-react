@@ -41,7 +41,6 @@ const ExpenseForm = () => {
     );
   });
 
-
   const cuotasValues = [3, 6, 9, 12, 18];
 
   const cuotasList = cuotasValues.map((cuota, i) => (
@@ -102,11 +101,7 @@ const ExpenseForm = () => {
       default:
     }
 
-    const expenseRef = collection(
-      firestore,
-      `users/${auth.currentUser.uid}/expense`
-    );
-
+    
     let error = false;
 
     if (enteredAmount === "") {
@@ -141,12 +136,22 @@ const ExpenseForm = () => {
     if (error === true) {
       return;
     }
+    
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    
+    const expenseRef = collection(
+      firestore,
+      `users/${auth.currentUser.uid}/expense`
+    );
+
     const expenseData = {
       title: enteredTitle,
       amount: enteredAmount,
-      day: date.getDate(),
-      month: date.getMonth(),
-      year: date.getFullYear(),
+      day,
+      month,
+      year,
       category: enteredCategory,
       colors: { colorIcon, borderColor },
       fixedExp,

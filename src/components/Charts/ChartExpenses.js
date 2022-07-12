@@ -16,9 +16,13 @@ const ChartExpenses = () => {
   const totalPerCat = useSelector(
     (state) => state.expense.expensesTotalPerCategoryDate
   );
+  const amountTotalPerCategory = useSelector((state) => state.expense.expensesAmountPerCat);
+  console.log(amountTotalPerCategory)
+
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(expenseActions.separateAmounts(categories))
     dispatch(expenseActions.filterAmount([filterExp, categories]));
   }, [filterExp, dispatch]);
 
@@ -57,11 +61,7 @@ const ChartExpenses = () => {
   };
 
   return (
-    <>
-      {totalPerCat.length > 0 && (
-        <Doughnut options={options} data={data} />
-      )}
-    </>
+    <>{totalPerCat.length > 0 && <Doughnut options={options} data={data} />}</>
   );
 };
 
