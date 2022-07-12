@@ -17,9 +17,11 @@ import classes from "./ExpensesList.module.css";
 
 const ExpensesList = ({ section, Toggle }) => {
   const [loading, setLoading] = useState(true);
-  const expenses = useSelector((state) => state.expense.expenses);
-  const fixedExp = useSelector((state) => state.expense.fixedExp);
-  const filterExp = useSelector((state) => state.expense.filterExp);
+  const newExpArray = useSelector((state) => state.expense.expensePerMonth);
+  const fixedExp = useSelector((state) => state.expense.newFixedExp);
+  const filterExp = useSelector((state) => state.expense.orderedExpenses);
+
+  console.log(filterExp);
 
   let iteration = [];
   let fixedModal = false;
@@ -40,21 +42,26 @@ const ExpensesList = ({ section, Toggle }) => {
   }
 
   if (section === "main") {
-    for (const expense of expenses) {
-      fixedModal = true;
-      fixedClass = fixedExp.length === 0;
-      if (
-        expense.year === actualDate.getFullYear() &&
-        expense.month === actualDate.getMonth() &&
-        expense.day === actualDate.getDate()
-      ) {
-        iteration.push(expense);
+    const month = actualDate.getMonth();
+    const year = actualDate.getFullYear();
+    const stringCompare = month.toString() + year.toString();
+    const index = newExpArray
+      .map((exp) => exp.monthYear)
+      .indexOf(stringCompare);
+    console.log(index)
+    fixedModal = true;
+    fixedClass = fixedExp.length === 0;
+
+    if (index !== -1) {
+      for(const expense of newExpArray[index].expenses){
+        if(expense.day === actualDate.getDate()){
+          iteration.push(expense)
+        }
       }
     }
   } else {
     iteration = filterExp;
   }
-
 
   const list = [];
   if (typeof iteration === "undefined") {

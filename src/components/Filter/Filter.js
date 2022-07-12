@@ -36,14 +36,6 @@ const Filter = () => {
                   parseInt(e.target.value.slice(0, 4)),
                 ])
               );
-
-              dispatch(
-                expenseActions.filterExpenses([
-                  [],
-                  parseInt(e.target.value.substring(5)) - 1,
-                  parseInt(e.target.value.slice(0, 4)),
-                ])
-              );
               dispatch(
                 dateActions.setMonth(parseInt(e.target.value.substring(5)) - 1)
               );

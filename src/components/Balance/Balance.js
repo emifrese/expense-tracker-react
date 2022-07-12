@@ -6,9 +6,12 @@ import { actualDate } from "../../helpers/variables";
 
 const Balance = () => {
   const incomesArray = useSelector((state) => state.incomes.incomes);
-  const expensesArray = useSelector((state) => state.expense.expenses);
-  // const monthDate = useSelector((state) => state.date.month);
-  // const yearDate = useSelector((state) => state.date.year);
+  const newExpArray = useSelector(state => state.expense.expensePerMonth)
+
+  const stringCompare = actualDate.getMonth().toString() + actualDate.getFullYear().toString()
+
+  const index = newExpArray.map(exp => exp.monthYear).indexOf(stringCompare)
+
 
   let incomes = 0;
   let expenses = 0;
@@ -19,13 +22,15 @@ const Balance = () => {
     }
   }
 
-  for (const expense of expensesArray) {
-    if (
-      expense.year === actualDate.getFullYear() &&
-      expense.month === actualDate.getMonth() &&
-      expense.payed
-    ) {
-      expenses += expense.amount;
+  if(index !== -1){
+    for (const expense of newExpArray[index].expenses) {
+      if (
+        expense.year === actualDate.getFullYear() &&
+        expense.month === actualDate.getMonth() &&
+        expense.payed
+      ) {
+        expenses += expense.amount;
+      }
     }
   }
 

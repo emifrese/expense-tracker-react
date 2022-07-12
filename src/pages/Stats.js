@@ -11,7 +11,6 @@ import StatusCard from "../components/UI/StatusCard";
 
 import classes from "./Stats.module.css";
 import { Suspense } from "react";
-import { useSelector } from "react-redux";
 
 const ChartExpenses = React.lazy(() =>
   import("../components/Charts/ChartExpenses")

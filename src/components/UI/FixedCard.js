@@ -14,7 +14,7 @@ import { actualDate } from "../../helpers/variables";
 import classes from './FixedCard.module.css'
 
 const FixedCard = ({ Toggle }) => {
-  const fixedExp = useSelector((state) => state.expense.fixedExp);
+  const fixedExp = useSelector((state) => state.expense.newFixedExp);
   const [expToSub, setExpToSub] = useState(fixedExp);
   const [expToDel, setExpToDel] = useState([]);
   const fixedExpList = [];

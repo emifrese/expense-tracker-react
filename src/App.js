@@ -49,14 +49,6 @@ function App() {
           const year = actualDate.getFullYear().toString();
           dispatch(expenseActions.orderExpenses(month + year))
 
-          dispatch(expenseActions.increment(expensesArray));
-          dispatch(
-            expenseActions.filterExpenses([
-              expensesArray,
-              actualDate.getMonth(),
-              actualDate.getFullYear(),
-            ])
-          );
         }
       );
 
@@ -85,13 +77,6 @@ function App() {
             ...doc.data(),
             id: doc.id,
           }));
-          dispatch(
-            expenseActions.fixedExp([
-              fixedExpensesArray,
-              actualDate.getFullYear(),
-              actualDate.getMonth(),
-            ])
-          );
           dispatch(expenseActions.newFixed([fixedExpensesArray, actualDate.getFullYear(),
             actualDate.getMonth(),]))
         }

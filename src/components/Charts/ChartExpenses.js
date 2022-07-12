@@ -12,18 +12,15 @@ import { categories } from "../../helpers/variables";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ChartExpenses = () => {
-  const filterExp = useSelector((state) => state.expense.filterExp);
+  const filterExp = useSelector((state) => state.expense.orderedExpenses);
   const totalPerCat = useSelector(
-    (state) => state.expense.expensesTotalPerCategoryDate
+    (state) => state.expense.expensesAmountPerCat
   );
-  const amountTotalPerCategory = useSelector((state) => state.expense.expensesAmountPerCat);
-  console.log(amountTotalPerCategory)
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(expenseActions.separateAmounts(categories))
-    dispatch(expenseActions.filterAmount([filterExp, categories]));
+    dispatch(expenseActions.separateAmounts(categories));
   }, [filterExp, dispatch]);
 
   const labels = totalPerCat.map((element) => element.category);
