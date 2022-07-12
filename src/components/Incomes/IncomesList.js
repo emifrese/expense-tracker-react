@@ -11,7 +11,7 @@ import TransactionsItem from "../Transaction/TransactionsItem";
 import classes from './IncomesList.module.css'
 
 const IncomesList = ({ Toggle }) => {
-  const filterInc = useSelector((state) => state.incomes.filterInc);
+  const filterInc = useSelector((state) => state.incomes.newFilterInc);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

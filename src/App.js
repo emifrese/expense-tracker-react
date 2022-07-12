@@ -59,14 +59,10 @@ function App() {
             ...doc.data(),
             id: doc.id,
           }));
-          dispatch(incomesActions.addIncome(incomesArray));
-          dispatch(
-            incomesActions.filterIncomes([
-              incomesArray,
-              actualDate.getMonth(),
-              actualDate.getFullYear(),
-            ])
-          );
+          dispatch(incomesActions.incomesPerMonth(incomesArray))
+          const month = actualDate.getMonth().toString();
+          const year = actualDate.getFullYear().toString();
+          dispatch(incomesActions.newFilterIncomes(month + year))
         }
       );
 

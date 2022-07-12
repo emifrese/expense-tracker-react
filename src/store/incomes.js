@@ -1,58 +1,59 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialIncomesState = {
-  incomes: [],
-  incomesTotalPerMate: [],
-  filterInc: [],
+  incomesPerMonth: [],
+  newFilterInc: [],
+  incomesPerMate: [],
 };
 
 const incomesSlice = createSlice({
   name: "incomes",
   initialState: initialIncomesState,
   reducers: {
-    addIncome(state, action) {
-      if (action.payload.length !== undefined) {
-        action.payload.forEach((inc) => {
-          state.incomes.push(inc);
-        });
+    incomesPerMonth(state, action){
+      state.incomesPerMonth = [{monthYear: '', incomes: []}]
+      if(action.payload.length !== undefined){
+        action.payload.forEach(inc => {
+          const stringCompare = inc.month.toString() + inc.year.toString();
+          if(state.incomesPerMonth.some((incGroup) => incGroup.monthYear === stringCompare)){
+            const index = state.incomesPerMonth.map(inc => inc.monthYear).indexOf(stringCompare)
+            state.incomesPerMonth[index].incomes.push(inc)
+          } else {
+            state.incomesPerMonth.push({monthYear: stringCompare, incomes: [inc]})
+          }
+        })
       }
     },
-    reset(state) {
-      state.incomes = [];
-    },
-    incomePerMateDate(state, action) {
-      state.incomesTotalPerMate = [];
+    incomesPerMate(state, action){
+      state.incomesPerMate = [];
       const incomes = action.payload;
       incomes.forEach((inc) => {
         if (
-          !state.incomesTotalPerMate.some((mate) => mate.person === inc.person)
+          !state.incomesPerMate.some((mate) => mate.person === inc.person)
         ) {
-          state.incomesTotalPerMate.push({
+          state.incomesPerMate.push({
             person: inc.person,
             amount: inc.amount,
             colors: inc.colors,
           });
         } else {
-          const index = state.incomesTotalPerMate
+          const index = state.incomesPerMate
             .map((mate) => mate.person)
             .indexOf(inc.person);
-          state.incomesTotalPerMate[index].amount += inc.amount;
+          state.incomesPerMate[index].amount += inc.amount;
         }
       });
     },
-    filterIncomes(state, action) {
-      state.filterInc = [];
-      const [incomes, monthDate, yearDate] = action.payload;
-      let incArray = state.incomes;
-      if(incomes.length > 0){
-        incArray = incomes;
+    newFilterIncomes(state, action){
+      const index = state.incomesPerMonth.map(inc => inc.monthYear).indexOf(action.payload)
+      let newArray
+      if(index !== - 1){
+        newArray = state.incomesPerMonth[index].incomes
+      } else {
+        newArray = []
       }
-      incArray.forEach((inc) => {
-        if (inc.month === monthDate && inc.year === yearDate) {
-          state.filterInc.push(inc);
-        }
-      });
-    },
+      state.newFilterInc = newArray;
+    }
   },
 });
 

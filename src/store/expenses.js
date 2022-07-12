@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialExpenseState = {
-  expensePerMonth: [{ monthYear: "", expenses: [] }],
+  expensePerMonth: [],
   orderedExpenses: [],
   expensesAmountPerCat: [],
   newFixedExp: [],
@@ -21,7 +21,7 @@ const expenseSlice = createSlice({
             const index = state.expensePerMonth.map(exp => exp.monthYear).indexOf(stringCompare)
             state.expensePerMonth[index].expenses.push(exp)
           } else {
-            state.expensePerMonth.push({monthYear: exp.month.toString() + exp.year.toString(), expenses: [exp]})
+            state.expensePerMonth.push({monthYear: stringCompare, expenses: [exp]})
           }
         })
       }

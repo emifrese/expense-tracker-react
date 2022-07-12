@@ -30,23 +30,17 @@ const Filter = () => {
             onChange={(e) => {
               setMonthYear(e.target.value);
               dispatch(
-                incomesActions.filterIncomes([
-                  [],
-                  parseInt(e.target.value.substring(5)) - 1,
-                  parseInt(e.target.value.slice(0, 4)),
-                ])
-              );
-              dispatch(
                 dateActions.setMonth(parseInt(e.target.value.substring(5)) - 1)
               );
               dispatch(
                 dateActions.setYear(parseInt(e.target.value.slice(0, 4)))
-              );
-
-              // new logic 
-              const month = (parseInt(e.target.value.substring(5)) - 1).toString()
-              
-              const year = e.target.value.slice(0, 4);
+                );
+                
+                // new logic 
+                const month = (parseInt(e.target.value.substring(5)) - 1).toString()
+                
+                const year = e.target.value.slice(0, 4);
+                dispatch(incomesActions.newFilterIncomes(month + year))
               dispatch(expenseActions.orderExpenses(month + year))
             }}
           />

@@ -8,15 +8,14 @@ import { incomesActions } from "../../store/incomes";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ChartIncomes = () => {
-  const filterInc = useSelector(state => state.incomes.filterInc)
+  const filterInc = useSelector(state => state.incomes.newFilterInc)
   const incomesPerMate = useSelector(
-    (state) => state.incomes.incomesTotalPerMate
-  );
+    (state) => state.incomes.incomesPerMate);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(incomesActions.incomePerMateDate(filterInc))
+    dispatch(incomesActions.incomesPerMate(filterInc))
   }, [filterInc, dispatch])
 
   const labels = incomesPerMate.map((element) => element.person);
