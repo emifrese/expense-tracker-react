@@ -14,6 +14,7 @@ import classes from './PersonManager.module.css'
 const PersonManager = () => {
   const [modalContent, setModalContent] = useState([false, ""]);
   const [homemates] = useSelector((state) => state.user.homemates);
+  console.log(homemates)
   const [loading, setLoading] = useState(true)
 
   const homematesDisplay = [];

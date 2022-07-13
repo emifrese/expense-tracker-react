@@ -8,16 +8,13 @@ form {
 .newExpenseControls {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
     text-align: left;
   }
 
   .newExpenseControlAmount {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-
+    margin-top: 10px;
   }
 
   .newExpenseControlAmount input {
@@ -33,7 +30,8 @@ form {
   
   .newExpenseControl {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
+    max-height: 42px;
   }
   
   .newExpenseControl label {
@@ -78,7 +76,7 @@ form {
 
   .newExpenseCurrent {
     width:80%;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     
   }
 

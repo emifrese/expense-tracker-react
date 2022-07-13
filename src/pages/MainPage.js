@@ -17,12 +17,7 @@ const MainPage = () => {
   const [modalCart, setModalCart] = useState([false, ""]);
   const displayName = useSelector((state) => state.user.displayName);
   const photoURL = useSelector((state) => state.user.photoURL)
-  const expensesPerMonth = useSelector(state => state.expense.expensePerMonth)
-  console.log(expensesPerMonth)
-    const newFixed = useSelector(state => state.expense.newFixedExp)
-  console.log(newFixed)
-
-
+  
   const toggleModalCartHandler = (element, id, type, month, year) => {
     let modalElement;
     switch (element) {

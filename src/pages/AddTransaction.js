@@ -10,7 +10,6 @@ const IncomesForm = React.lazy(() =>
 );
 
 const AddTransaction = () => {
-  console.log("render add transaction");
   const [transactionType, setTransactionType] = useState(true);
 
   const typeChangeHandler = (e) => {

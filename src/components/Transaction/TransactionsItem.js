@@ -55,7 +55,6 @@ const TransactionsItem = ({
       </>
     );
   } else {
-    console.log(job)
     listItem = (
       <>
         <li className={classes.transactionItem}>

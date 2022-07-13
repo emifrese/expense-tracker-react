@@ -25,6 +25,7 @@ const IncomesForm = (props) => {
   const [enteredJob, setEnteredJob] = useState("");
   const [validation, setValidation] = useState([]);
   const [homemates] = useSelector((state) => state.user.homemates);
+  console.log(homemates)
   const navigate = useNavigate();
 
   const toggleFixedCartHandler = () => {

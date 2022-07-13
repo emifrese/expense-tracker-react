@@ -169,6 +169,7 @@ const Person = ({ onClose, type, editMate }) => {
                 src={deleteImg}
                 alt="delete-person"
                 onClick={async () => {
+                  console.log(editMate.id)
                   await deleteDoc(
                     doc(
                       firestore,

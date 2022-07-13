@@ -85,6 +85,7 @@ function App() {
             ...doc.data(),
             id: doc.id,
           }));
+          console.log('changes', homematesArray)
           dispatch(userActions.setHomematesInfo(homematesArray));
         }
       );

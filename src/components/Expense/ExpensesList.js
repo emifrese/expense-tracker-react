@@ -21,7 +21,7 @@ const ExpensesList = ({ section, Toggle }) => {
   const fixedExp = useSelector((state) => state.expense.newFixedExp);
   const filterExp = useSelector((state) => state.expense.orderedExpenses);
 
-  console.log(filterExp);
+
 
   let iteration = [];
   let fixedModal = false;
@@ -48,7 +48,6 @@ const ExpensesList = ({ section, Toggle }) => {
     const index = newExpArray
       .map((exp) => exp.monthYear)
       .indexOf(stringCompare);
-    console.log(index)
     fixedModal = true;
     fixedClass = fixedExp.length === 0;
 

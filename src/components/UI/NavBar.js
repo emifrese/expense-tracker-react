@@ -10,8 +10,8 @@ const NavBar = () => {
   return (
     <footer className={classes.navbar}>
       <div className={classes.navbarAdd}>
-        <Link to="/add">
-          <button className={classes.navBarAddButton}>+</button>
+        <Link to="/add" className={classes.navBarAddButton}>
+          +
         </Link>
       </div>
       <div className={classes.navbarButtons}>

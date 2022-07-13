@@ -71,7 +71,6 @@ const expenseSlice = createSlice({
       state.newFixedExp = [];
       const [fixedExp, year, month] = action.payload;
 
-      console.log(fixedExp)
 
       if(state.orderedExpenses.length < 1) {
         state.newFixedExp = fixedExp;

@@ -19,7 +19,8 @@ const userSlice = createSlice({
             state.creationTime = action.payload[3]
         },
         setHomematesInfo(state, action){
-            state.homemates.push(action.payload);
+            state.homemates = []
+            state.homemates = [action.payload];
         }
     }
 })
