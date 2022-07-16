@@ -2,7 +2,7 @@
 
 ### Try it!
 
-https://mystifying-archimedes-4e9fe3.netlify.app/
+https://expense-tracker-react-6e5a7.web.app/
 
 ## Style
 
@@ -10,16 +10,19 @@ I used the style based on a UDEMY Course.
 
 ## Functionality 
 
-With Firebase Authentication (Google) each user can upload and keep track of their expenses which are stored in Firestore Database. 
-And with the help of a filter, the user can change between different years. 
-Finally a bar chart compares in real time the expenses made in different months of the year.
+With Firebase Authentication (Google) each user can upload and keep track of their expenses and incomes which are stored in Firestore Database.
+Also it is possible to load different persons for each income, with different jobs to keep track of each worker.
+And with the help of a filter, the user can change between different years and months.
+.
 
 ## Accessibility 
 
-It can be used in all sizes. 
+Momentarily only mobile
 
 ## Resources
 
 React
+React-Redux
 Firebase
+Chart.js
 
