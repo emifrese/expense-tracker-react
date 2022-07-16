@@ -173,9 +173,6 @@ const ExpenseForm = () => {
     if (!cuotas) {
       await addDoc(expenseRef, expenseData);
     } else {
-      if (typeof enteredCuotas !== "number") {
-        return alert("selecciona las cuotas");
-      }
       const temp = Object.assign({}, expenseData);
       temp.amountCuotas = enteredCuotas;
       temp.amount = parseFloat((temp.amount / temp.amountCuotas).toFixed(2));
