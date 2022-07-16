@@ -133,6 +133,16 @@ const ExpenseForm = () => {
       error = true;
     }
 
+    if(cuotas && enteredCuotas === ""){
+      setValidation((state) => {
+        if (!state.includes("cuotas")) {
+          return [...state, "cuotas"];
+        }
+        return state;
+      });
+      error = true;
+    }
+
     if (error === true) {
       return;
     }
@@ -287,7 +297,19 @@ const ExpenseForm = () => {
           {cuotas && (
             <div className={classes.newExpenseControl}>
               <img src={cardImg} alt="credit-card" />
-              <select onChange={cuotasChangeHandler}>
+              <select onChange={cuotasChangeHandler}
+              style={
+                validation.includes("cuotas")
+                  ? { boxShadow: "0px 0px 5px 3px rgba(255,0,0,0.75)" }
+                  : { boxShadow: "none" }
+              }
+              onBlur={() => {
+                if (enteredCuotas !== "") {
+                  setValidation((state) =>
+                    state.filter((el) => el !== "cuotas")
+                  );
+                }
+              }}>
                 <option value="">Select amount of cuotas</option>
                 {cuotasList}
               </select>

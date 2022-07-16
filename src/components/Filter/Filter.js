@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-
 import { dateActions } from "../../store/date.js";
 import { incomesActions } from "../../store/incomes.js";
 import { expenseActions } from "../../store/expenses.js";
 
-import classes from './Filter.module.css'
+import classes from "./Filter.module.css";
 
 const Filter = () => {
   const monthDate = useSelector((state) => state.date.month);
@@ -17,7 +16,6 @@ const Filter = () => {
   const dispatch = useDispatch();
   const [monthYear, setMonthYear] = useState(stateDate);
 
-
   return (
     <>
       <h2>Filter Stats</h2>
@@ -26,6 +24,7 @@ const Filter = () => {
           <input
             type="month"
             min="2015-01"
+            name='date'
             value={monthYear}
             onChange={(e) => {
               setMonthYear(e.target.value);
@@ -34,14 +33,15 @@ const Filter = () => {
               );
               dispatch(
                 dateActions.setYear(parseInt(e.target.value.slice(0, 4)))
-                );
-                
-                // new logic 
-                const month = (parseInt(e.target.value.substring(5)) - 1).toString()
-                
-                const year = e.target.value.slice(0, 4);
-                dispatch(incomesActions.newFilterIncomes(month + year))
-              dispatch(expenseActions.orderExpenses(month + year))
+              );
+
+              const month = (
+                parseInt(e.target.value.substring(5)) - 1
+              ).toString();
+
+              const year = e.target.value.slice(0, 4);
+              dispatch(incomesActions.newFilterIncomes(month + year));
+              dispatch(expenseActions.orderExpenses(month + year));
             }}
           />
         </div>

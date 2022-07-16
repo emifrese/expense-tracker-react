@@ -86,8 +86,8 @@ const IncomesForm = (props) => {
     }
     if (enteredPerson.trim() === "") {
       setValidation((state) => {
-        if (!state.includes("amount")) {
-          return [...state, "amount"];
+        if (!state.includes("person")) {
+          return [...state, "person"];
         }
         return state;
       });

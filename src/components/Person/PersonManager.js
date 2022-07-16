@@ -16,6 +16,7 @@ const PersonManager = () => {
   const [homemates] = useSelector((state) => state.user.homemates);
   console.log(homemates)
   const [loading, setLoading] = useState(true)
+  console.log(homemates)
 
   const homematesDisplay = [];
 

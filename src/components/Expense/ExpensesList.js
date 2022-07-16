@@ -30,7 +30,7 @@ const ExpensesList = ({ section, Toggle }) => {
   useEffect(() => {
     const timer1 = setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 500);
 
     return () => {
       clearTimeout(timer1);

@@ -13,7 +13,6 @@
 
 .filterControl {
     display: flex;
-    margin-bottom: 20px;
     width: 100%;
     justify-content: center;
   }
@@ -32,8 +31,10 @@
     width: 80%;
     max-width: 100%;
     color: #aaa;
+    -webkit-appearance: none;
   }
 
+  
   .filterControl_job {
       padding: 10px;
       margin: 5px;
