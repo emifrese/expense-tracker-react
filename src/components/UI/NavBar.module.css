@@ -31,6 +31,7 @@ footer {
     border-radius: 50%;
     background: rgb(95,205,222);
     background: linear-gradient(138deg, rgba(95,205,222,1) 0%, rgba(200,21,198,1) 54%, rgba(255,157,0,1) 100%);
+    box-shadow: 5px 5px 0px 0px rgba(95,205,222,0.6);
     color: #fff;
     -webkit-appearance: none;
     text-decoration: none;
