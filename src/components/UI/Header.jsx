@@ -8,7 +8,9 @@ const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
     <img src={leftImg} alt="user-profile" className={classes.userProfileImg} />
   );
   let rightSide = (
-    <img src={rightImg} alt="user-info" onClick={() => Toggle("Person")} />
+    <div className={classes.profileImgContainer}>
+      <img src={rightImg} alt="user-info" onClick={() => Toggle("Person")} />
+    </div>
   );
 
   switch (type) {
@@ -21,11 +23,7 @@ const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
         </Link>
       );
       rightSide = (
-        <img
-          src={rightImg}
-          alt="user-info"
-          onClick={() => Toggle("Filter")}
-        />
+        <img src={rightImg} alt="user-info" onClick={() => Toggle("Filter")} />
       );
       break;
     case "manager":

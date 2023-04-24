@@ -1,17 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap");
+
+/* variables */
+
+:root {
+  --main-button-color: #21295c;
+  --card-color: #087ca7;
+  --header-button: #74d3ae;
+}
 
 * {
   box-sizing: border-box;
 }
 
 html {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 body {
   margin: 0;
-  padding: 20px;
+  /* padding: 20px;
   padding-bottom: 0;
-  padding-top: 0;
+  padding-top: 0; */
 }
-

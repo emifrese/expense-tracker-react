@@ -1,5 +1,5 @@
-import { doc, setDoc } from "firebase/firestore";
 import React from "react";
+import { doc, setDoc } from "firebase/firestore";
 import { auth, firestore } from "../../firebase";
 
 import classes from './StatusCard.module.css'
