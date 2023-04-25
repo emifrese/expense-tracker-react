@@ -3,9 +3,15 @@
 /* variables */
 
 :root {
-  --main-button-color: #21295c;
-  --card-color: #087ca7;
-  --header-button: #74d3ae;
+  --dark-blue: #21295c;
+  --mid-blue: #087ca7;
+  --light-blue: #48beff;
+  --sea-green: #74d3ae;
+  --light-grey: #c2c2c2;
+  --dark-grey: #858585;
+  --white: #fcf7f8;
+  --light-sea-green: #a2dbfc;
+  --rose: #c55969;
 }
 
 * {

@@ -1,7 +1,5 @@
 .mainHeader {
     border-radius: 10px;
-    margin: 0;
-    margin-bottom: 20px;
     padding: 10px;
     width: 100%;
     display: flex;
@@ -21,7 +19,7 @@
 }
 
 .profileImgContainer {
-    background: var(--header-button);
+    background: var(--sea-green);
     padding: 4px 8px;
     border-radius: 0.5rem
 }
