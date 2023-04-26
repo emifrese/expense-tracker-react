@@ -1,38 +1,43 @@
-footer {
-  width: 100%;
-}
-
 .navbar {
   width: 100%;
   max-width: 100vw;
+  min-height: ;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   text-align: center;
 }
-
-/* .navbarAdd {
-  width: 20%;
-  display: flex;
-  justify-content: center;
-} */
 
 .navbarAdd {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 50px;
-  background: var(--sea-green);
   color: #fff;
   appearance: none;
   -webkit-appearance: none;
   text-decoration: none;
 }
 
+.navbarAdd a {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 0.5rem;
+  line-height: 1px;
+  background: var(--mid-blue);
+  color: var(--white)
+}
+
 .navbarButtons {
   display: flex;
   align-items: center;
   width: 100%;
+  height: 60px;
   justify-content: space-around;
   background: #fff;
 }
