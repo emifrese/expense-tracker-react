@@ -135,8 +135,8 @@ const ExpensesList = ({ section, Toggle }) => {
         className={classes.transactionsList}
         style={
           section !== "main"
-            ? { maxHeight: "calc(100vh - 385px)" }
-            : { maxHeight: "calc(100vh - 410px)" }
+            ? { height: "calc(100vh - 385px)" }
+            : { height: "calc(100vh - 410px)" }
         }
       >
         {list.length > 0 ? list : <li>No expenses</li>}

@@ -19,7 +19,7 @@
 }
 
 .profileImgContainer {
-    background: var(--sea-green);
+    /* background: var(--sea-green); */
     padding: 4px 8px;
     border-radius: 0.5rem
 }
@@ -27,5 +27,5 @@
 .profileImgContainer img {
     border-radius: 0;
     width: 30px;
-    filter: invert(100%) sepia(1%) saturate(3371%) hue-rotate(196deg) brightness(114%) contrast(100%);
+    /* filter: invert(100%) sepia(1%) saturate(3371%) hue-rotate(196deg) brightness(114%) contrast(100%); */
 }

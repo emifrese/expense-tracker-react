@@ -3,7 +3,7 @@ import React from "react";
 import { months } from "../../helpers/variables";
 import deleteImg from "../../assets/basura.svg";
 
-import classes from './TransactionsItem.module.css'
+import classes from "./TransactionsItem.module.css";
 
 const TransactionsItem = ({
   imgIcon,
@@ -18,12 +18,12 @@ const TransactionsItem = ({
   job,
   category,
   Toggle,
-  payed
+  payed,
 }) => {
   let listItem;
   if (type === "expense") {
     const status = payed ? classes.payed : classes.pending;
-    const titleStatus = !payed ? '(not payed)' : '';
+    const titleStatus = !payed ? "(not payed)" : "";
     listItem = (
       <>
         <li className={classes.transactionItem}>
@@ -33,18 +33,20 @@ const TransactionsItem = ({
               alt="category-icon"
               style={{ borderColor: borderColor, backgroundColor: colorIcon }}
               className={status}
-              onClick={() => Toggle('Status', id, payed)}
+              onClick={() => Toggle("Status", id, payed)}
             />
-            <figcaption>{title}{' '}<em>{titleStatus}</em></figcaption>
+            <figcaption>
+              {title} {titleStatus !== "" && <em>{titleStatus}</em>}
+            </figcaption>
           </figure>
-            <figure className={classes.deleteContainer}>
-              <img
-                src={deleteImg}
-                alt="delte-expense"
-                className={classes.deleteButton}
-                onClick={() => Toggle('Delete', id, type)}
-              />
-            </figure>
+          <figure className={classes.deleteContainer}>
+            <img
+              src={deleteImg}
+              alt="delte-expense"
+              className={classes.deleteButton}
+              onClick={() => Toggle("Delete", id, type)}
+            />
+          </figure>
           <div>
             <p>-${amount}</p>
             <p className={classes.transactionsListDay}>
@@ -67,13 +69,13 @@ const TransactionsItem = ({
             <figcaption>{title}</figcaption>
           </figure>
           <figure className={classes.deleteContainer}>
-              <img
-                src={deleteImg}
-                alt="delte-expense"
-                className={classes.deleteButton}
-                onClick={() => Toggle('Delete', id, type)}
-              />
-            </figure>
+            <img
+              src={deleteImg}
+              alt="delte-expense"
+              className={classes.deleteButton}
+              onClick={() => Toggle("Delete", id, type)}
+            />
+          </figure>
           <div>
             <p>+${amount}</p>
             <p className={classes.transactionsListDay}>{job || category}</p>
