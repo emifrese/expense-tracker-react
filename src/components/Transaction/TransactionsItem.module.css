@@ -44,10 +44,11 @@
 }
 
 .transactionsListDay {
-    color: #666
+    color: #666;
+    opacity: 0.6;
 }
 
-.transactionItem div {
+.amountContainer {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;

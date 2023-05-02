@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import classes from "./Header.module.css";
 
 const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
+  const firstName = titleText.split(' ')[0]
+  console.log(firstName)
   let leftSide = (
-    <img src={leftImg} alt="user-profile" className={classes.userProfileImg} />
+    // <img src={leftImg} alt="user-profile" className={classes.userProfileImg} />
+    <h1>Hola {firstName}</h1>
   );
   let rightSide = (
     <div className={classes.profileImgContainer}>
@@ -40,7 +43,6 @@ const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
   const content = (
     <header className={classes.mainHeader}>
       {leftSide}
-      <h1>{titleText}</h1>
       {rightSide}
     </header>
   );

@@ -1,6 +1,6 @@
 .mainHeader {
     border-radius: 10px;
-    padding: 10px;
+    padding: 0 10px;
     width: 100%;
     display: flex;
     justify-content: space-between;
