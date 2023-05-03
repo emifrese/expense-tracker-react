@@ -5,15 +5,16 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  min-height: 150px;
   max-height: 200px;
   margin: 0 10px;
+  padding: 10px 0;
   border-radius: 1rem;
 }
 
 .balanceCardTitle {
   width: 100%;
   text-align: center;
-  height: 55%;
 }
 
 .balanceCardTitle h2 {
@@ -30,31 +31,31 @@
 
 .balanceCardInfo {
   display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
 }
 
 .balanceCardInfo figure {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px;
-  margin-top: 0;
-  margin-bottom: 10px;
+  margin: 0;
+  font-size: 15px;
   border-radius: 1rem;
-  padding: 0 12px;
+  padding: 0 10px;
   background-color: rgba(var(--light-blue), 0.5);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  transition: all ease 0.3s;
 }
 
-.balanceCardInfoInc {
-  margin-right: 20px;
+.balanceCardInfo figure:hover {
+  box-shadow: none;
 }
 
-.balanceCardInfoExp {
-  margin-left: 20px;
-}
 .balanceCardInfo img {
   width: 35px;
   height: 35px;
-  border-radius: 50%;
   filter: invert(100%) sepia(3%) saturate(502%) hue-rotate(259deg)
     brightness(114%) contrast(100%);
 }

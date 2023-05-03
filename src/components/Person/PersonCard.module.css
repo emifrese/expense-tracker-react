@@ -1,8 +1,6 @@
 .personCardControl {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
 .personCardImage {
@@ -34,7 +32,7 @@
 .personcardProfile {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 1rem;
 }
 
 .personCardControlHomemates {

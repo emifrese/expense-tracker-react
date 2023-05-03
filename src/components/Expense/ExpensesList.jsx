@@ -87,7 +87,7 @@ const ExpensesList = ({ section, Toggle }) => {
         break;
       default:
     }
-
+    console.log(element)
     list.push(
       <TransactionsItem
         imgIcon={imgIcon}
@@ -102,6 +102,7 @@ const ExpensesList = ({ section, Toggle }) => {
         Toggle={Toggle}
         id={element.id}
         payed={element.payed}
+        category={element.category}
       />
     );
   }
@@ -136,7 +137,7 @@ const ExpensesList = ({ section, Toggle }) => {
         style={
           section !== "main"
             ? { height: "calc(100vh - 385px)" }
-            : { height: "calc(100vh - 410px)" }
+            : { height: "calc(100vh - 350px)" }
         }
       >
         {list.length > 0 ? list : <li>No expenses</li>}

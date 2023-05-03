@@ -20,6 +20,7 @@ const TransactionsItem = ({
   Toggle,
   payed,
 }) => {
+  console.log(category)
   let listItem;
   if (type === "expense") {
     const status = payed ? classes.payed : classes.pending;
@@ -41,7 +42,7 @@ const TransactionsItem = ({
             <figcaption>
               {title} {titleStatus !== "" && <em>{titleStatus}</em>}
               <p className={classes.transactionsListDay}>
-              {day + " " + months[month].slice(0, 3)}
+              {category}
             </p>
             </figcaption>
           </figure>
@@ -55,6 +56,9 @@ const TransactionsItem = ({
           </figure> */}
           <div className={classes.amountContainer}>
             <p>-${amount}</p>
+            <p className={classes.transactionsListDay}>
+              {day + " " + months[month].slice(0, 3)}
+            </p>
           </div>
         </li>
       </>

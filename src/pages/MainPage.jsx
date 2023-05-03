@@ -5,7 +5,7 @@ import NavBar from "../components/UI/NavBar";
 import { useSelector } from "react-redux";
 import Balance from "../components/Balance/Balance";
 
-import cardImg from "../assets/info.svg";
+import cardImg from "../assets/profile.svg";
 import Modal from "../components/UI/Modal";
 import PersonCard from "../components/Person/PersonCard";
 import DeleteCard from "../components/UI/DeleteCard";

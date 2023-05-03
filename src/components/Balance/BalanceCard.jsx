@@ -14,11 +14,11 @@ const BalanceCard = ({ remaining, incomes, expenses }) => {
         <p>$ {remaining}</p>
       </div>
       <div className={classes.balanceCardInfo}>
-        <figure className={classes.balanceCardInfoInc}>
+        <figure>
           <img src={arrowUp} alt="arrow-up" />
           <figcaption>Income {incomes}</figcaption>
         </figure>
-        <figure className={classes.balanceCardInfoExp}>
+        <figure>
           <img src={arrowDown} alt="arrow-down" />
           <figcaption>Expenses {expenses}</figcaption>
         </figure>
