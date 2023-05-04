@@ -5,7 +5,6 @@ import classes from "./Header.module.css";
 
 const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
   const firstName = titleText.split(' ')[0]
-  console.log(firstName)
   let leftSide = (
     // <img src={leftImg} alt="user-profile" className={classes.userProfileImg} />
     <h1>Hola {firstName}</h1>
@@ -21,7 +20,7 @@ const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
       break;
     case "stats":
       leftSide = (
-        <Link to="/">
+        <Link to="/" className={classes.profileImgContainer}>
           <img src={leftImg} alt="back-button" />
         </Link>
       );
@@ -32,7 +31,7 @@ const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
     case "manager":
       leftSide = null;
       rightSide = (
-        <Link to="/">
+        <Link to="/" className={classes.profileImgContainer}>
           <img src={rightImg} alt="back-button" />
         </Link>
       );

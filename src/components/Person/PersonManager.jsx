@@ -9,27 +9,27 @@ import Person from "./Person";
 import Modal from "../UI/Modal";
 import LoadingSpinner from "../UI/LoadingSpinner";
 
-import classes from './PersonManager.module.css'
+import classes from "./PersonManager.module.css";
 
 const PersonManager = () => {
   const [modalContent, setModalContent] = useState([false, ""]);
   const [homemates] = useSelector((state) => state.user.homemates);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const homematesDisplay = [];
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
-      setLoading(false)
-    }, 1500)
+      setLoading(false);
+    }, 1500);
 
     return () => {
-      clearTimeout(timer1)
-    }
-  }, [])
+      clearTimeout(timer1);
+    };
+  }, []);
 
-  if(loading) {
-    return <LoadingSpinner />
+  if (loading) {
+    return <LoadingSpinner />;
   }
 
   const toggleFixedCartHandler = (element, editMate) => {
@@ -66,22 +66,25 @@ const PersonManager = () => {
       }
     });
     homematesDisplay.push(
-      <ul key={i}>
-        <figure>
-          <figcaption>{mate.person}</figcaption>
-          <img
-            src={editImg}
-            alt="edit-person"
+      <li key={i}>
+        <div className={classes.nameContainer}>
+          <p className={classes.nameLogo}>{mate.person.slice(0,1)}</p>
+          <p>{mate.person}</p>
+        </div>
+        <div className={classes.jobsContainer}>
+          Jobs: {jobsList}
+        </div>
+        <div className={classes.buttonsContainer}>
+          <button
             onClick={() => {
               toggleFixedCartHandler("Edit", mate);
             }}
-          />
-        </figure>
-        <li>
-          <img src={jobImg} alt="jobs" />
-          Jobs: {jobsList}
-        </li>
-      </ul>
+          >
+            Editar
+          </button>
+          <button>Deshabilitar</button>
+        </div>
+      </li>
     );
   }
 
@@ -90,7 +93,9 @@ const PersonManager = () => {
       {modalContent[0] && (
         <Modal Toggle={toggleFixedCartHandler}>{modalContent[1]}</Modal>
       )}
-      <div className={classes.personManagerControl}>{homematesDisplay}</div>
+      <div className={classes.personManagerControl}>
+        <ul>{homematesDisplay}</ul>
+      </div>
     </>
   );
 };

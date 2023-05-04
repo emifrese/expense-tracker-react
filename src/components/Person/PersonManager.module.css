@@ -1,37 +1,65 @@
 .personManagerControl {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .personManagerControl ul {
-    list-style: none;
-    padding: 10px;
-    margin: 0;
-    text-align: left;
-    margin-top: 10px;
-    width: 100%;
-    border: 2px solid #ccc;
-    border-radius: 20px;
-    box-shadow: 5px 5px 10px 0px rgba(165,0,168,0.5);
-}
-
-.personManagerControl figure {
-    display: flex;
-    margin: 0;
-    max-height: 28px;
-}
-
-.personManagerControl figure img {
-    margin-left: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .personManagerControl li {
-    margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 250px;
+  min-height: 100px;
+}
+
+.nameContainer {
+  display: flex;
+  margin: 0;
+  width: 100%;
+  gap: 20px;
+  align-items: center;
+}
+
+.nameLogo {
+  background-color: var(--rose);
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  line-height: 46px;
+  border-radius: 50%;
+  font-size: 32px;
+  margin: 0;
+  text-align: center;
+}
+
+.jobsContainer {
+  width: 100%;
+  text-align: center;
+}
+
+.buttonsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.buttonsContainer button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: var(--mid-blue);
+  border: none;
+  color: #fff;
 }
 
 .personManagerControl img {
-    width: 20px;
-    margin-right: 10px;
+  width: 20px;
 }

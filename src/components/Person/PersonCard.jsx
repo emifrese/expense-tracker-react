@@ -17,7 +17,6 @@ const PersonCard = (props) => {
 
   return (
     <div className={classes.personCardControl}>
-      {/* <h2>PersonCard</h2> */}
       <figure>
         <img
           src={photoURL}
