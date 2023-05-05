@@ -1,5 +1,5 @@
 .balanceCard {
-  background: var(--mid-blue);
+  background: rgb(var(--mid-blue));
   color: #fff;
   display: flex;
   flex-wrap: wrap;

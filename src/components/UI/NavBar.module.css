@@ -26,7 +26,7 @@
   width: 100%;
   height: 100%;
   border-radius: 0.5rem;
-  background: var(--mid-blue);
+  background: rgb(var(--mid-blue));
   /* position: fixed;
   display: flex;
   justify-content: center;

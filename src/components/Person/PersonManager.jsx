@@ -15,7 +15,7 @@ const PersonManager = () => {
   const [modalContent, setModalContent] = useState([false, ""]);
   const [homemates] = useSelector((state) => state.user.homemates);
   const [loading, setLoading] = useState(true);
-
+  console.log(homemates)
   const homematesDisplay = [];
 
   useEffect(() => {
@@ -65,24 +65,37 @@ const PersonManager = () => {
         jobsList.push(job.value);
       }
     });
+    jobsList.push("BIGG");
+    console.log(jobsList);
     homematesDisplay.push(
-      <li key={i}>
-        <div className={classes.nameContainer}>
-          <p className={classes.nameLogo}>{mate.person.slice(0,1)}</p>
-          <p>{mate.person}</p>
+      <li key={i} className={classes.cardContainer}>
+        <div className={classes.logoContainer}>
+          <p className={classes.nameLogo}>{mate.person.slice(0, 1)}</p>
         </div>
-        <div className={classes.jobsContainer}>
-          Jobs: {jobsList}
-        </div>
-        <div className={classes.buttonsContainer}>
-          <button
-            onClick={() => {
-              toggleFixedCartHandler("Edit", mate);
-            }}
-          >
-            Editar
-          </button>
-          <button>Deshabilitar</button>
+        <div className={classes.cardInfoContainer}>
+          <h2>{mate.person}</h2>
+          <div className={classes.jobsContainer}>
+            {jobsList.map((job, i) =>
+              i + 1 < jobsList.length ? (
+                <>
+                  <p>{job}</p>
+                  <div className={classes.vl}></div>
+                </>
+              ) : (
+                <p>{job}</p>
+              )
+            )}
+          </div>
+          <div className={classes.buttonsContainer}>
+            <button
+              onClick={() => {
+                toggleFixedCartHandler("Edit", mate);
+              }}
+            >
+              Editar
+            </button>
+            <button>Deshabilitar</button>
+          </div>
         </div>
       </li>
     );
@@ -93,6 +106,10 @@ const PersonManager = () => {
       {modalContent[0] && (
         <Modal Toggle={toggleFixedCartHandler}>{modalContent[1]}</Modal>
       )}
+      <div>
+        <p>Selecciona la persona</p>
+        <div>{homemates.map(mate => <button id={mate.id} onCLick={() => }>{mate.person}</button>)}</div>
+      </div>
       <div className={classes.personManagerControl}>
         <ul>{homematesDisplay}</ul>
       </div>

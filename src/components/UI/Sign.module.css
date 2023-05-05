@@ -13,7 +13,7 @@
     border: none;
     border-radius: 30px;
     width: 100%;
-    background: var(--dark-blue);
+    background: rgb(var(--dark-blue));
     color: #fff;
     border-radius: 12px;
     margin-right: 1rem;
@@ -27,7 +27,7 @@
     border: none;
     border-radius: 30px;
     width: 100%;
-    background: var(--mid-blue);
+    background: rgb(var(--mid-blue));
     color: #fff;
     border-radius: 12px;
     margin-top: 30px;
