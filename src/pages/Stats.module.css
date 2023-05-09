@@ -1,6 +1,7 @@
-.stats-container {
+.statsContainer {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 main {

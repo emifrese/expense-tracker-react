@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import jobImg from "../../assets/maletin.svg";
@@ -14,8 +14,8 @@ import classes from "./PersonManager.module.css";
 const PersonManager = () => {
   const [modalContent, setModalContent] = useState([false, ""]);
   const [homemates] = useSelector((state) => state.user.homemates);
+  const [currentMate, setCurrentMate] = useState(null);
   const [loading, setLoading] = useState(true);
-  console.log(homemates)
   const homematesDisplay = [];
 
   useEffect(() => {
@@ -65,10 +65,8 @@ const PersonManager = () => {
         jobsList.push(job.value);
       }
     });
-    jobsList.push("BIGG");
-    console.log(jobsList);
     homematesDisplay.push(
-      <li key={i} className={classes.cardContainer}>
+      <li key={crypto.randomUUID()} id={mate.id} className={classes.cardContainer}>
         <div className={classes.logoContainer}>
           <p className={classes.nameLogo}>{mate.person.slice(0, 1)}</p>
         </div>
@@ -77,12 +75,12 @@ const PersonManager = () => {
           <div className={classes.jobsContainer}>
             {jobsList.map((job, i) =>
               i + 1 < jobsList.length ? (
-                <>
+                <Fragment key={crypto.randomUUID()}>
                   <p>{job}</p>
                   <div className={classes.vl}></div>
-                </>
+                </Fragment>
               ) : (
-                <p>{job}</p>
+                <p key={crypto.randomUUID()}>{job}</p>
               )
             )}
           </div>
@@ -108,10 +106,16 @@ const PersonManager = () => {
       )}
       <div>
         <p>Selecciona la persona</p>
-        <div>{homemates.map(mate => <button id={mate.id} onCLick={() => }>{mate.person}</button>)}</div>
+        <div>
+          {homemates.map((mate) => (
+            <button key={crypto.randomUUID()} id={mate.id} onClick={() => setCurrentMate(mate.id)}>
+              {mate.person}
+            </button>
+          ))}
+        </div>
       </div>
       <div className={classes.personManagerControl}>
-        <ul>{homematesDisplay}</ul>
+        {currentMate !== null && <ul>{homematesDisplay.filter(mate => mate.props.id === currentMate)}</ul>}
       </div>
     </>
   );

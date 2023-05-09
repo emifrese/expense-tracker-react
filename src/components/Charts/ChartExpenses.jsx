@@ -16,7 +16,7 @@ const ChartExpenses = () => {
   const totalPerCat = useSelector(
     (state) => state.expense.expensesAmountPerCat
   );
-
+      console.log(totalPerCat)
   const dispatch = useDispatch();
 
   useEffect(() => {
