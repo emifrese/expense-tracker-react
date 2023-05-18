@@ -82,6 +82,7 @@
 }
 
 .vl {
+  display: block;
   border-left: 1px solid rgba(var(--dark-grey), 0.5);
   height: 30px;
 }

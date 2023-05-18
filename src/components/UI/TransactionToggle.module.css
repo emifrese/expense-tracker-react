@@ -23,7 +23,7 @@
     position: absolute;
     cursor: pointer;
     border: 2px solid #ccc;
-    border-radius: 30px;
+    border-radius: 1rem;
     top: 0;
     left: 0;
     right: 0;
@@ -48,7 +48,7 @@
     width: 50%;
     left: 4px;
     bottom: 2px;
-    background: linear-gradient(138deg, rgba(95,205,222,0.74) 0%, rgba(200,21,198,0.74) 54%, rgba(255,157,0,0.74) 100%);
+    background: rgb(var(--mid-blue));
     color: #fff;
     -webkit-transition: .4s;
     transition: .4s;

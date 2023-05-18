@@ -20,7 +20,7 @@
 }
 
 
-.profileImgContainer img {
+.profileImgContainer img, img {
     border-radius: 0;
     width: 30px;
 }
