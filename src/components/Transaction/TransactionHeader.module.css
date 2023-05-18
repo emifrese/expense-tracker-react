@@ -1,10 +1,18 @@
 .backLinkContainer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 10px
   }
 
-  .backLinkContainer a {
-    color: #aaa;
-    text-decoration: none;
-    font-size: 24px;
+  .crossContainer {
+    border: 1px solid #000;
+    display: flex;
+    padding: 0.5rem;
+    border-radius: 50%
   }
+
+  .crossContainer img {
+    border-radius: 0;
+    width: 20px;
+}

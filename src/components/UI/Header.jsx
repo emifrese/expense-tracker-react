@@ -29,12 +29,12 @@ const Header = ({ leftImg, titleText, rightImg, Toggle, type }) => {
       );
       break;
     case "manager":
-      leftSide = null;
-      rightSide = (
-        <Link to="/" className={classes.profileImgContainer}>
+      leftSide = (
+        <Link to="/" className={classes.crossContainer}>
           <img src={rightImg} alt="back-button" />
         </Link>
-      );
+      );;
+      rightSide = null
       break;
     default:
   }

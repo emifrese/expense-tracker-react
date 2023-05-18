@@ -14,9 +14,7 @@ import classes from "./PersonManager.module.css";
 const PersonManager = () => {
   const [modalContent, setModalContent] = useState([false, ""]);
   const [homemates] = useSelector((state) => state.user.homemates);
-  const [loading, setLoading] = useState(true);
-  console.log(homemates)
-  const homematesDisplay = [];
+  const [loading, setLoading] = useState(true);  const homematesDisplay = [];
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
@@ -51,7 +49,7 @@ const PersonManager = () => {
     setModalContent((state) => [!state[0], modalElement]);
   };
 
-  if (typeof homemates === "undefined") {
+  if (homemates.length === 0) {
     return <div>No homemates</div>;
   }
 
@@ -101,6 +99,8 @@ const PersonManager = () => {
     );
   }
 
+  console.log(homemates)
+
   return (
     <>
       {modalContent[0] && (
@@ -108,7 +108,13 @@ const PersonManager = () => {
       )}
       <div>
         <p>Selecciona la persona</p>
-        <div>{homemates.map(mate => <button id={mate.id} onCLick={() => }>{mate.person}</button>)}</div>
+        <div>
+          {homemates.map((mate) => (
+            <button id={mate.id} onCLick={() => {}}>
+              {mate.person}
+            </button>
+          ))}
+        </div>
       </div>
       <div className={classes.personManagerControl}>
         <ul>{homematesDisplay}</ul>
