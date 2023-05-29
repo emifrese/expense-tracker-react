@@ -14,13 +14,9 @@ import classes from "./PersonManager.module.css";
 const PersonManager = () => {
   const [modalContent, setModalContent] = useState([false, ""]);
   const [homemates] = useSelector((state) => state.user.homemates);
-<<<<<<< HEAD
-  const [loading, setLoading] = useState(true);  const homematesDisplay = [];
-=======
   const [currentMate, setCurrentMate] = useState(null);
   const [loading, setLoading] = useState(true);
   const homematesDisplay = [];
->>>>>>> 4284581a16a057c25b016405566567a9a0de77cb
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
@@ -70,10 +66,13 @@ const PersonManager = () => {
       }
     });
     homematesDisplay.push(
-      <li key={crypto.randomUUID()} id={mate.id} className={classes.cardContainer}>
-        <div className={classes.logoContainer}>
-          <p className={classes.nameLogo}>{mate.person.slice(0, 1)}</p>
-        </div>
+      <li
+        key={crypto.randomUUID()}
+        id={mate.id}
+        className={classes.cardContainer}
+      >
+        <p className={classes.nameLogo}>{mate.person.slice(0, 1)}</p>
+
         <div className={classes.cardInfoContainer}>
           <h2>{mate.person}</h2>
           <div className={classes.jobsContainer}>
@@ -103,29 +102,38 @@ const PersonManager = () => {
     );
   }
 
-  console.log(homemates)
+  console.log(homemates);
 
   return (
     <>
       {modalContent[0] && (
         <Modal Toggle={toggleFixedCartHandler}>{modalContent[1]}</Modal>
       )}
-      <div>
+      <div className={classes.toggleContainer}>
         <p>Selecciona la persona</p>
-        <div>
+        <div className={classes.personToggleContainer}>
           {homemates.map((mate) => (
-<<<<<<< HEAD
-            <button id={mate.id} onCLick={() => {}}>
-=======
-            <button key={crypto.randomUUID()} id={mate.id} onClick={() => setCurrentMate(mate.id)}>
->>>>>>> 4284581a16a057c25b016405566567a9a0de77cb
+            <button
+              className={
+                currentMate === mate.id
+                  ? classes.selectedMate
+                  : classes.mateButton
+              }
+              key={crypto.randomUUID()}
+              id={mate.id}
+              onClick={() => setCurrentMate(mate.id)}
+            >
               {mate.person}
             </button>
           ))}
         </div>
       </div>
       <div className={classes.personManagerControl}>
-        {currentMate !== null && <ul>{homematesDisplay.filter(mate => mate.props.id === currentMate)}</ul>}
+        {currentMate !== null && (
+          <ul>
+            {homematesDisplay.filter((mate) => mate.props.id === currentMate)}
+          </ul>
+        )}
       </div>
     </>
   );
